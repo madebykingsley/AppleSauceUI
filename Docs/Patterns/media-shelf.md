@@ -49,7 +49,7 @@ Avoid it when people must compare many attributes across items, when editing is 
 
 ## Anatomy
 
-A shelf contains an optional section header and one horizontal collection. Each identifiable item is rendered by a caller-supplied Element or Recipe, such as a square lockup. The pattern owns margins, inter-item spacing, alignment, and scroll targeting.
+A shelf uses native `Section` structure with an optional custom visual header and one horizontal collection. Each identifiable item is rendered by a caller-supplied Element or Recipe, such as a square lockup. The pattern owns margins, inter-item spacing, alignment, and scroll targeting.
 
 ## Behavior
 
@@ -61,7 +61,7 @@ Artwork, poster, landscape, ranked, and editorial variants describe the supplied
 
 ## Content requirements
 
-Items must have stable, unique identity. Callers provide the item width because it describes genuine content geometry. Titles should be concise, and artwork must carry an accessible semantic label through its containing lockup.
+Items must have stable, unique identity. Callers provide the item width because it describes genuine content geometry and preserves reference comparison. A future demonstrated use may add adaptive `containerRelativeFrame` sizing, but fixed and adaptive sizing should remain distinct API choices. Titles should be concise, and artwork must carry an accessible semantic label through its containing lockup.
 
 ## Accessibility considerations
 

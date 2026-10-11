@@ -4,40 +4,58 @@ struct PodcastsLibraryExample: View {
     var onExit: () -> Void = {}
 
     var body: some View {
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 24) {
-                ScreenTitle(title: "Library") {
-                    HStack(spacing: 12) {
-                        Button("More library options", systemImage: "ellipsis", action: {}).labelStyle(.iconOnly)
-                        AccountButton(action: onExit) {
-                            Image(systemName: "person.crop.circle.fill")
-                                .resizable()
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(.brown, .orange.opacity(0.35))
+        NavigationStack {
+            List {
+                Section {
+                    ForEach(PodcastsFixtures.categories) { category in
+                        NavigationLink {
+                            ContentUnavailableView(category.title, systemImage: category.symbol)
+                                .navigationTitle(Text(category.title))
+                        } label: {
+                            Label {
+                                Text(category.title)
+                                    .foregroundStyle(.primary)
+                            } icon: {
+                                Image(systemName: category.symbol)
+                                    .foregroundStyle(.tint)
+                            }
+                            .imageScale(.large)
                         }
                     }
                 }
-                CategoryList(items: PodcastsFixtures.categories, action: { _ in }) { category in
-                    CategoryRowLabel(icon: {
-                        Image(systemName: category.symbol).font(.title3).foregroundStyle(.tint)
-                    }, title: category.title)
-                }
-                .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-                MediaGrid(title: "Recently Updated", items: PodcastsFixtures.libraryShows) { show in
-                    Button(action: {}) {
-                        SquareLockup(title: show.title, subtitle: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .library) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+
+                Section {
+                    MediaGrid(title: "Recently Updated", items: PodcastsFixtures.libraryShows) { show in
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .library) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
                         }
+                        .buttonStyle(.plain)
                     }
-                    .buttonStyle(.plain)
+                    .listRowInsets(EdgeInsets())
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
                 }
             }
-            .padding(.top, 2)
-            .padding(.bottom, 24)
+            .listStyle(.plain)
+            .visualComparisonScrollTracking()
+            .scrollIndicators(.hidden)
+            .background(Color(uiColor: .systemBackground))
+            .navigationTitle("Library")
+            .toolbarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("More library options", systemImage: "ellipsis", action: {})
+                    AccountButton(action: onExit) {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.brown, .orange.opacity(0.35))
+                    }
+                }
+            }
         }
-        .visualComparisonScrollTracking()
-        .scrollIndicators(.hidden)
-        .background(Color(uiColor: .systemBackground))
     }
 }
 

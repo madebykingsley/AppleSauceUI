@@ -32,7 +32,7 @@ Use `SquareLockup` for albums, shows, square events, rankings, and library items
 
 Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplies its reference-specific height; the component does not provide a landscape mode or arbitrary overlay slots.
 
-Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional independent accessory. It moves the accessory below the main content at accessibility Dynamic Type sizes.
+Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional independent accessory. It intentionally moves the accessory below the main content at accessibility Dynamic Type sizes. `ViewThatFits` was considered, but geometry-only selection could retain the compact arrangement at an accessibility size; the explicit Dynamic Type policy better preserves the component's demonstrated behavior.
 
 `CircleLockup` is planned only after a concrete reference establishes its API. A separate `TrackLockup` is not currently needed.
 
@@ -47,8 +47,8 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 - `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
 - `RankedShelf` supplies stable, one-based ranks while delegating presentation to its item closure.
 - `MediaGrid` owns optional heading, columns, gaps, and horizontal margins. Its default gaps and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
-- Column shelves retain column-major grouping and stable identity for demonstrated multi-row episode and track collections.
-- `ShelfSection`, `CategoryList`, and `LinkSection` remain semantic compositions for their demonstrated uses.
+- `ColumnMediaShelf` uses native `LazyHGrid` column-major placement for demonstrated multi-row episode and track collections.
+- Native `Section`, `NavigationLink`, `Label`, and navigation toolbars own standard structure and interaction; the Library does not wrap them.
 
 Brand tint is applied at the recipe root and inherited by Library controls. Actions are caller-provided, accessory controls remain independent, and recipe-specific measurements do not become global component defaults.
 

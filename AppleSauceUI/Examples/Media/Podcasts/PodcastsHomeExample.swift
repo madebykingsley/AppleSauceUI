@@ -1,19 +1,14 @@
 import SwiftUI
 
 struct PodcastsHomeExample: View {
+    @Environment(\.interfaceDensity) private var density
+
     var onExit: () -> Void = {}
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
+            ScrollView {
             LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                ScreenTitle(title: "Home") {
-                    AccountButton(action: onExit) {
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.brown, .orange.opacity(0.35))
-                    }
-                }
                 episodeCardShelf(title: "Up Next", items: PodcastsFixtures.upNextCards)
                 showShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows)
                 showShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows)
@@ -31,10 +26,23 @@ struct PodcastsHomeExample: View {
             }
             .padding(.top, 2)
             .padding(.bottom, 24)
+            }
+            .visualComparisonScrollTracking()
+            .scrollIndicators(.hidden)
+            .background(Color(uiColor: .systemBackground))
+            .navigationTitle("Home")
+            .toolbarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    AccountButton(action: onExit) {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.brown, .orange.opacity(0.35))
+                    }
+                }
+            }
         }
-        .visualComparisonScrollTracking()
-        .scrollIndicators(.hidden)
-        .background(Color(uiColor: .systemBackground))
     }
 
     private func showShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastShowFixture]) -> some View {
@@ -65,7 +73,7 @@ struct PodcastsHomeExample: View {
     }
 
     private var subscriberShelf: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
             SectionHeader(title: "Apple TV+", eyebrow: "Subscriber Edition", leading: {
                 Image(systemName: "appletv.fill").foregroundStyle(.white).frame(width: 40, height: 40).background(.black, in: Circle())
             })
@@ -79,11 +87,19 @@ struct PodcastsHomeExample: View {
     }
 
     private var referenceShelf: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            SectionHeaderButton(title: LocalizedStringKey(PodcastsFixtures.referenceSeed.title), eyebrow: "If You Like", contentMargins: 0, action: {}) {
-                ArtworkPlaceholder(symbol: PodcastsFixtures.referenceSeed.symbol, background: AnyShapeStyle(PodcastsFixtures.referenceSeed.color.gradient), symbolPadding: 10)
-                    .frame(width: 40, height: 40)
+        VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
+            Button(action: {}) {
+                SectionHeader(title: LocalizedStringKey(PodcastsFixtures.referenceSeed.title), eyebrow: "If You Like", leading: {
+                    ArtworkPlaceholder(symbol: PodcastsFixtures.referenceSeed.symbol, background: AnyShapeStyle(PodcastsFixtures.referenceSeed.color.gradient), symbolPadding: 10)
+                        .frame(width: 40, height: 40)
+                }, accessory: {
+                    Image(systemName: "chevron.right")
+                        .font(.body.weight(.semibold))
+                        .foregroundStyle(.secondary)
+                })
             }
+            .buttonStyle(.plain)
+            .accessibilityHint("Opens the section")
             .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
             MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
                 SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
