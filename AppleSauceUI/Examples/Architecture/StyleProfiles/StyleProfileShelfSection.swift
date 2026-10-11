@@ -9,6 +9,7 @@ struct StyleProfileShelfSection: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(profile.name)
                 .font(.caption.weight(.semibold))
+                .foregroundStyle(profile.colors.secondaryText)
                 .textCase(.uppercase)
                 .padding(.horizontal, 20)
 
@@ -49,6 +50,26 @@ struct StyleProfileShelfSection: View {
         StyleProfileShelfSection(
             profile: .entertainment,
             density: .standard,
+            items: StyleProfileMediaItem.samples
+        )
+    }
+}
+
+#Preview("StyleProfileShelfSection — Editorial Spacious") {
+    ScrollView {
+        StyleProfileShelfSection(
+            profile: .editorial,
+            density: .spacious,
+            items: StyleProfileMediaItem.samples
+        )
+    }
+}
+
+#Preview("StyleProfileShelfSection — Neutral Compact") {
+    ScrollView {
+        StyleProfileShelfSection(
+            profile: .neutral,
+            density: .compact,
             items: StyleProfileMediaItem.samples
         )
     }

@@ -22,6 +22,8 @@ Apply `.interfaceDensity(.compact)`, `.standard`, or `.spacious` separately. Den
 
 The initial proof intentionally styles only the `MediaShelf` path: `MediaShelf` consumes density, while `SectionHeader`, `SectionHeaderButton`, `SquareLockup`, and `ArtworkPlaceholder` consume Style Profile semantics. Other components remain unchanged until a demonstrated use justifies adopting the same foundation.
 
+Profile values currently remain native SwiftUI values because the proof has no external token exchange requirement. If customizable tokens cross tool or platform boundaries later, expose only meaningful decisions in Design Tokens Community Group format and map them into these semantic Swift types; do not serialize system colors, text styles, or materials merely to replace native APIs.
+
 ## Lockups
 
 Use `SquareLockup` for albums, shows, square events, rankings, and library items. Its direct inputs cover title, optional subtitle and metadata, optional badge accessibility, and the demonstrated standard, ranked, and library styles.
