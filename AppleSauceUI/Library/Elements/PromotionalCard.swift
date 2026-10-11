@@ -16,6 +16,10 @@ struct PromotionalCard<Background: ShapeStyle>: View {
 
 #if DEBUG
 #Preview("PromotionalCard — Variants") {
-    VStack { PromotionalCard(title: "Listen Together", description: "Stories selected for a shared afternoon.", symbol: "person.2.fill", background: .orange.gradient, action: {}); PromotionalCard(title: "Try Something New", description: "Discover a different perspective.", symbol: "sparkles", background: .pink.gradient, action: {}) }.padding().frame(width: 480)
+    VStack {
+        PromotionalCard(title: "Listen Together", description: "Stories selected for a shared afternoon.", symbol: "person.2.fill", background: .orange.gradient, action: {})
+        PromotionalCard(title: "Try Something New", description: "Discover a different perspective.", symbol: "sparkles", background: .pink.gradient, action: {})
+    }
+    .padding()
 }
 #endif

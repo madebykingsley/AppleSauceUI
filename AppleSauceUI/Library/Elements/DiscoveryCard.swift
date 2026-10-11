@@ -14,6 +14,6 @@ struct DiscoveryCard<Background: ShapeStyle>: View {
 
 #if DEBUG
 #Preview("DiscoveryCard — Variants") {
-    HStack { DiscoveryCard(title: "Science", symbol: "atom", background: .blue.gradient, action: {}); DiscoveryCard(title: "Culture", symbol: "theatermasks.fill", background: .purple.gradient, action: {}) }.padding().frame(width: 480)
+    VStack { DiscoveryCard(title: "Science", symbol: "atom", background: .blue.gradient, action: {}); DiscoveryCard(title: "Culture", symbol: "theatermasks.fill", background: .purple.gradient, action: {}) }.padding().frame(width: 320)
 }
 #endif

@@ -52,6 +52,7 @@ struct EpisodeRow<Artwork: View>: View {
     private var episodeArtwork: some View {
         artwork
             .frame(width: presentation.artworkSize, height: presentation.artworkSize)
+            .clipped()
             .accessibilityHidden(true)
     }
 
@@ -91,7 +92,7 @@ struct EpisodeRow<Artwork: View>: View {
         switch presentation {
         case .compact:
             HStack(spacing: 12) {
-                PlaybackButton(label: "Play \(duration)", accessibilityLabel: "Play \(title), \(duration)", action: playAction)
+                PlaybackButton(label: duration, accessibilityLabel: "Play \(title), \(duration)", action: playAction)
                 moreButton
             }
         case .featured:
@@ -112,15 +113,34 @@ struct EpisodeRow<Artwork: View>: View {
 }
 
 #if DEBUG
-#Preview("EpisodeRow — Variants") {
-    VStack(spacing: 16) {
-        EpisodeRow(title: "An Everyday Story", show: "Daily Stories", date: "Today", duration: "24 min", badge: "E", presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) { ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(.indigo.gradient), symbolPadding: 16) }
-        EpisodeRow(title: "A Longer Episode Title That Demonstrates Wrapping", show: "Field Notes", date: "Yesterday", duration: "38 min", badge: nil, presentation: .featured, playAction: {}, overflowAction: {}, skipForwardAction: {}) { ArtworkPlaceholder(symbol: "waveform", background: AnyShapeStyle(.orange.gradient), symbolPadding: 12) }
-        EpisodeRow(title: "Recently Played", show: "Ideas Weekly", date: "Friday", duration: "52 min", badge: nil, progress: 0.4, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}, skipForwardAction: {}) { ArtworkPlaceholder(symbol: "headphones", background: AnyShapeStyle(.teal.gradient), symbolPadding: 10) }
-    }.padding().frame(width: 480)
+#Preview("EpisodeRow — Compact") {
+    EpisodeRow(title: "An Everyday Story", show: "Daily Stories", date: "Today", duration: "24 min", badge: "E", presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+        ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(.indigo.gradient), symbolPadding: 16)
+    }
+    .padding()
+}
+
+#Preview("EpisodeRow — Featured") {
+    EpisodeRow(title: "A Longer Episode Title That Demonstrates Wrapping", show: "Field Notes", date: "Yesterday", duration: "38 min", badge: nil, presentation: .featured, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+        ArtworkPlaceholder(symbol: "waveform", background: AnyShapeStyle(.orange.gradient), symbolPadding: 12)
+    }
+    .padding()
+}
+
+#Preview("EpisodeRow — Recently Played") {
+    EpisodeRow(title: "Recently Played", show: "Ideas Weekly", date: "Friday", duration: "52 min", badge: nil, progress: 0.4, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+        ArtworkPlaceholder(symbol: "headphones", background: AnyShapeStyle(.teal.gradient), symbolPadding: 10)
+    }
+    .padding()
 }
 
 #Preview("EpisodeRow — Accessibility") {
-    ScrollView { EpisodeRow(title: "A Long Episode Title at an Accessibility Text Size", show: "Daily Stories", date: "Today", duration: "24 min", badge: "E", presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) { ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(.indigo.gradient), symbolPadding: 16) }.padding() }.dynamicTypeSize(.accessibility3).frame(width: 402)
+    ScrollView {
+        EpisodeRow(title: "A Long Episode Title at an Accessibility Text Size", show: "Daily Stories", date: "Today", duration: "24 min", badge: "E", presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+            ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(.indigo.gradient), symbolPadding: 16)
+        }
+        .padding()
+    }
+    .dynamicTypeSize(.accessibility3)
 }
 #endif

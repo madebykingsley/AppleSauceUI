@@ -23,6 +23,8 @@ Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional i
 
 Episode rows/cards, trailers, editorial cards/heroes, promotions, and discovery cards remain distinct because their content hierarchy or independent controls are not interchangeable with general Lockups.
 
+`EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
+
 ## Collection patterns
 
 - `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins.
