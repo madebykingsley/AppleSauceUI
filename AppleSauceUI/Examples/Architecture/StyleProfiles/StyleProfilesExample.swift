@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct StyleProfilesExample: View {
-    @State private var pattern = StyleProfilePattern.shelf
+    @State private var comparison = StyleProfileComparison.shelf
+    @State private var cardLayout = MediaCardLayout.standard
     @State private var density = InterfaceDensity.standard
 
     let onExit: () -> Void
@@ -10,13 +11,23 @@ struct StyleProfilesExample: View {
         NavigationStack {
             ScrollView {
                 LazyVStack(spacing: 24) {
-                    Picker("Pattern", selection: $pattern) {
-                        ForEach(StyleProfilePattern.allCases) { pattern in
-                            Text(pattern.name).tag(pattern)
+                    Picker("Comparison", selection: $comparison) {
+                        ForEach(StyleProfileComparison.allCases) { comparison in
+                            Text(comparison.name).tag(comparison)
                         }
                     }
                     .pickerStyle(.segmented)
                     .padding(.horizontal)
+
+                    if comparison == .card {
+                        Picker("Card layout", selection: $cardLayout) {
+                            ForEach(MediaCardLayout.allCases) { layout in
+                                Text(layout.name).tag(layout)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .padding(.horizontal)
+                    }
 
                     Picker("Density", selection: $density) {
                         ForEach(InterfaceDensity.allCases) { density in
@@ -27,7 +38,7 @@ struct StyleProfilesExample: View {
                     .padding(.horizontal)
 
                     ForEach(StyleProfile.allCases) { profile in
-                        switch pattern {
+                        switch comparison {
                         case .shelf:
                             StyleProfileShelfSection(
                                 profile: profile,
@@ -40,12 +51,18 @@ struct StyleProfilesExample: View {
                                 density: density,
                                 items: StyleProfileMediaItem.samples
                             )
+                        case .card:
+                            StyleProfileMediaCardSection(
+                                profile: profile,
+                                density: density,
+                                layout: cardLayout
+                            )
                         }
                     }
                 }
                 .padding(.vertical)
             }
-            .navigationTitle(pattern.name)
+            .navigationTitle(comparison.name)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Close", systemImage: "xmark", action: onExit)
@@ -55,9 +72,10 @@ struct StyleProfilesExample: View {
     }
 }
 
-enum StyleProfilePattern: String, CaseIterable, Identifiable {
+enum StyleProfileComparison: String, CaseIterable, Identifiable {
     case shelf
     case grid
+    case card
 
     var id: Self { self }
 
@@ -65,6 +83,7 @@ enum StyleProfilePattern: String, CaseIterable, Identifiable {
         switch self {
         case .shelf: "MediaShelf"
         case .grid: "MediaGrid"
+        case .card: "MediaCard"
         }
     }
 }
