@@ -13,8 +13,26 @@ struct MediaShelf<Items: RandomAccessCollection, ItemView: View>: View where Ite
         let resolvedMargins = contentMargins ?? density.metrics.contentMargin
 
         if let title {
-            ShelfSection(title: title, subtitle: subtitle, isActionable: isHeaderActionable, spacing: resolvedSpacing, contentMargins: resolvedMargins, action: headerAction) {
-                HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: resolvedSpacing, contentMargins: resolvedMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+            Section {
+                VStack(alignment: .leading, spacing: resolvedSpacing) {
+                    if isHeaderActionable {
+                        Button(action: headerAction) {
+                            SectionHeader(title: title, subtitle: subtitle, accessory: {
+                                Image(systemName: "chevron.right")
+                                    .font(.body.weight(.semibold))
+                                    .foregroundStyle(.secondary)
+                            })
+                        }
+                        .buttonStyle(.plain)
+                        .padding(.horizontal, resolvedMargins)
+                        .accessibilityHint("Opens the section")
+                    } else {
+                        SectionHeader(title: title, subtitle: subtitle)
+                            .padding(.horizontal, resolvedMargins)
+                    }
+
+                    HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: resolvedSpacing, contentMargins: resolvedMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+                }
             }
         } else {
             HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: resolvedSpacing, contentMargins: resolvedMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)

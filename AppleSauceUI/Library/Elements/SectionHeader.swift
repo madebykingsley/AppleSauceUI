@@ -5,7 +5,7 @@ enum SectionHeaderProminence {
     case prominent
 }
 
-/// Shared static section-heading presentation. Interaction belongs to a wrapper such as `SectionHeaderButton`.
+/// Shared section-heading presentation. Compose it inside a native control when the heading is actionable.
 struct SectionHeader<Leading: View, Accessory: View>: View {
     @Environment(\.styleProfile) private var styleProfile
 
@@ -94,7 +94,13 @@ extension SectionHeader where Leading == EmptyView, Accessory == EmptyView {
         SectionHeader(title: "With Accessory", accessory: {
             Image(systemName: "chevron.right").foregroundStyle(.secondary)
         })
-        SectionHeaderButton(title: "Actionable", action: {})
+        Button(action: {}) {
+            SectionHeader(title: "Actionable", accessory: {
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.secondary)
+            })
+        }
+        .buttonStyle(.plain)
     }
     .padding()
     .frame(width: 402)

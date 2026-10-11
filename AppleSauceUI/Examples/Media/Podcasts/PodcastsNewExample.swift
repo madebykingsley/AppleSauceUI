@@ -4,16 +4,9 @@ struct PodcastsNewExample: View {
     var onExit: () -> Void = {}
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
+            ScrollView {
             LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                ScreenTitle(title: "New") {
-                    AccountButton(action: onExit) {
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.brown, .orange.opacity(0.35))
-                    }
-                }
                 MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
                     EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
                         ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
@@ -34,14 +27,45 @@ struct PodcastsNewExample: View {
                 showShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, ranked: true)
                 trailerShelf
                 discoveryShelf
-                LinkSection(title: "Podcasts Quick Links", items: PodcastsFixtures.quickLinks, style: .plain, label: { $0.title }, action: { _ in })
+                Section {
+                    VStack(spacing: 0) {
+                        ForEach(PodcastsFixtures.quickLinks) { link in
+                            NavigationLink {
+                                ContentUnavailableView(link.title, systemImage: "mic")
+                                    .navigationTitle(Text(link.title))
+                            } label: {
+                                Text(link.title)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                    .padding(.vertical, 12)
+                            }
+                            Divider()
+                        }
+                    }
+                    .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                } header: {
+                    SectionHeader(title: "Podcasts Quick Links")
+                        .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                }
             }
             .padding(.top, 2)
             .padding(.bottom, 24)
+            }
+            .visualComparisonScrollTracking()
+            .scrollIndicators(.hidden)
+            .background(Color(uiColor: .systemBackground))
+            .navigationTitle("New")
+            .toolbarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    AccountButton(action: onExit) {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(.brown, .orange.opacity(0.35))
+                    }
+                }
+            }
         }
-        .visualComparisonScrollTracking()
-        .scrollIndicators(.hidden)
-        .background(Color(uiColor: .systemBackground))
     }
 
     @ViewBuilder

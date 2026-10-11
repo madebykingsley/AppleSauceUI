@@ -1,12 +1,26 @@
 import SwiftUI
 
 struct MusicNewExample: View {
+    @Environment(\.interfaceDensity) private var density
+
     var onExit: () -> Void = {}
 
     var body: some View {
-        ScrollView {
+        NavigationStack {
+            ScrollView {
             LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.newHeaderSpacing) {
-                ScreenTitle(title: "New") {
+                sections
+            }
+            .padding(.top, 2)
+            .padding(.bottom, 24)
+            }
+            .visualComparisonScrollTracking()
+            .scrollIndicators(.hidden)
+            .background(Color(uiColor: .systemBackground))
+            .navigationTitle("New")
+            .toolbarTitleDisplayMode(.large)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
                     AccountButton(action: onExit) {
                         Image(systemName: "person.crop.circle.fill")
                             .resizable()
@@ -14,14 +28,8 @@ struct MusicNewExample: View {
                             .background(.black, in: Circle())
                     }
                 }
-                sections
             }
-            .padding(.top, 2)
-            .padding(.bottom, 24)
         }
-        .visualComparisonScrollTracking()
-        .scrollIndicators(.hidden)
-        .background(Color(uiColor: .systemBackground))
     }
 
     private let exploreLinks = [
@@ -58,7 +66,31 @@ struct MusicNewExample: View {
             videoShelf(title: "Watch Interviews", items: MusicFixtures.interviews)
             videoShelf(title: "New Music Videos", items: MusicFixtures.musicVideos)
             artworkShelf(title: "Coming Soon", items: MusicFixtures.comingSoon)
-            LinkSection(title: "More to Explore", items: exploreLinks, label: { $0.title }, action: { _ in })
+            Section {
+                VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
+                    SectionHeader(title: "More to Explore")
+
+                    VStack(spacing: density.metrics.itemSpacing) {
+                        ForEach(exploreLinks) { link in
+                            NavigationLink {
+                                ContentUnavailableView(link.title, systemImage: "music.note")
+                                    .navigationTitle(Text(link.title))
+                            } label: {
+                                HStack {
+                                    Text(link.title)
+                                    Spacer()
+                                    Image(systemName: "chevron.right")
+                                        .accessibilityHidden(true)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+                        }
+                    }
+                }
+                .padding(.horizontal, MusicLayoutMetrics.contentMargin)
+            }
         }
     }
 

@@ -1,20 +1,5 @@
 import SwiftUI
 
-struct ShelfColumn<Element: Identifiable>: Identifiable {
-    let elements: [Element]
-
-    var id: Element.ID { elements[0].id }
-}
-
-enum ColumnShelfGrouping {
-    static func columns<Element: Identifiable>(from elements: [Element], rows: Int) -> [ShelfColumn<Element>] {
-        precondition(rows > 0, "Column shelves require at least one row")
-        return stride(from: 0, to: elements.count, by: rows).map { start in
-            ShelfColumn(elements: Array(elements[start..<min(start + rows, elements.count)]))
-        }
-    }
-}
-
 struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
     let title: LocalizedStringKey; var subtitle: LocalizedStringKey?; let items: [Item]; let rows: Int; let columnWidth: CGFloat
     var interItemSpacing: CGFloat = 0; var contentMargins: CGFloat = 20; var headerAction: () -> Void = {}
@@ -22,23 +7,45 @@ struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
     @ViewBuilder let separator: () -> Separator
 
     var body: some View {
-        ShelfSection(title: title, subtitle: subtitle, isActionable: true, contentMargins: contentMargins, action: headerAction) {
-            HorizontalShelfLayout(items: columns, itemWidth: columnWidth, spacing: 12, contentMargins: contentMargins) { column in
-                VStack(spacing: interItemSpacing) {
-                    ForEach(Array(column.elements.enumerated()), id: \.element.id) { index, item in
-                        row(item)
-                        if index < column.elements.count - 1 {
-                            separator()
+        Section {
+            VStack(alignment: .leading, spacing: 12) {
+                Button(action: headerAction) {
+                    SectionHeader(title: title, subtitle: subtitle, accessory: {
+                        Image(systemName: "chevron.right")
+                            .font(.body.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                    })
+                }
+                .buttonStyle(.plain)
+                .padding(.horizontal, contentMargins)
+                .accessibilityHint("Opens the section")
+
+                ScrollView(.horizontal) {
+                    LazyHGrid(rows: gridRows, spacing: 12) {
+                        ForEach(items.enumerated(), id: \.element.id) { index, item in
+                            row(item)
+                                .frame(width: columnWidth)
+                                .overlay(alignment: .bottom) {
+                                    if index % resolvedRowCount < resolvedRowCount - 1, index < items.count - 1 {
+                                        separator()
+                                    }
+                                }
                         }
                     }
+                    .scrollTargetLayout()
                 }
+                .contentMargins(.horizontal, contentMargins, for: .scrollContent)
+                .scrollIndicators(.hidden)
+                .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             }
         }
     }
 
-    private var columns: [ShelfColumn<Item>] {
-        ColumnShelfGrouping.columns(from: items, rows: rows)
+    private var gridRows: [GridItem] {
+        Array(repeating: GridItem(.flexible(), spacing: interItemSpacing), count: resolvedRowCount)
     }
+
+    private var resolvedRowCount: Int { max(rows, 1) }
 }
 
 extension ColumnMediaShelf where Separator == EmptyView {
