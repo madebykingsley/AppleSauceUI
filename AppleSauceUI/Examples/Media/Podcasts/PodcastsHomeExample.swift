@@ -60,21 +60,7 @@ struct PodcastsHomeExample: View {
 
     private func episodeCardShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastEpisodeCardFixture]) -> some View {
         MediaShelf(title: title, subtitle: subtitle, items: items, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
-            EpisodeCard(show: episode.show, title: episode.title, date: episode.episodeDate, description: episode.description, duration: episode.duration, background: episode.color.gradient, playAction: {}, overflowAction: {}) {
-                ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
-                    .overlay(alignment: .topTrailing) {
-                        if let badge = episode.badge {
-                            Label(badge.label, systemImage: "video.fill")
-                                .font(.caption2.weight(.semibold))
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 5)
-                                .background(.ultraThinMaterial, in: Capsule())
-                                .padding(8)
-                                .accessibilityLabel(badge.label)
-                        }
-                    }
-                    .aspectRatio(PodcastsLayoutMetrics.episodeCardAspectRatio, contentMode: .fit)
-            }
+            PodcastMediaCardRecipes.episode(episode, playAction: {}, overflowAction: {})
         }
     }
 
@@ -109,7 +95,23 @@ struct PodcastsHomeExample: View {
 
     private var channelShelf: some View {
         MediaShelf(title: "Channels to Try", items: PodcastsFixtures.channels, itemWidth: PodcastsLayoutMetrics.channelWidth, isHeaderActionable: false) { channel in
-            PromotionalCard(title: channel.title, description: channel.description, symbol: channel.symbol, background: channel.color.gradient, action: {})
+            Button(action: {}) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Image(systemName: channel.symbol)
+                        .font(.largeTitle)
+                    Spacer()
+                    Text(channel.title)
+                        .font(.headline)
+                    Text(channel.description)
+                        .font(.caption)
+                        .lineLimit(3)
+                }
+                .foregroundStyle(.white)
+                .padding(16)
+                .frame(maxWidth: .infinity, minHeight: 190, alignment: .leading)
+                .background(channel.color.gradient, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            }
+            .buttonStyle(.plain)
         }
     }
 }

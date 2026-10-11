@@ -79,7 +79,26 @@ struct MusicHomeExample: View {
 
     private var songsThatMatter: some View {
         ShelfSection(title: "The Songs That Matter") {
-            EditorialCard(mark: "ALT\nCTRL", description: "CHVRCHES gives a nursery rhyme a powerful update with “Roses.”", background: LinearGradient(colors: [.gray.opacity(0.4), .brown.opacity(0.35), .black], startPoint: .top, endPoint: .bottom), height: 443)
+            VStack(alignment: .leading) {
+                Text("ALT\nCTRL")
+                    .font(.largeTitle.weight(.light))
+                    .foregroundStyle(.tint)
+                Spacer()
+                Text("CHVRCHES gives a nursery rhyme a powerful update with “Roses.”")
+                    .font(.footnote)
+                    .foregroundStyle(.white)
+            }
+            .padding(18)
+            .frame(maxWidth: .infinity, minHeight: 443, maxHeight: 443, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [.gray.opacity(0.4), .brown.opacity(0.35), .black],
+                    startPoint: .top,
+                    endPoint: .bottom
+                ),
+                in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+            )
+            .accessibilityElement(children: .combine)
                 .padding(.horizontal, MusicLayoutMetrics.contentMargin)
         }
     }

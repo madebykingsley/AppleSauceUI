@@ -15,13 +15,15 @@ The Library owns reusable presentation and behavior. `Examples` owns product mod
 
 Use `SquareLockup` for albums, shows, square events, rankings, and library items. Its direct inputs cover title, optional subtitle and metadata, optional badge accessibility, and the demonstrated standard, ranked, and library styles.
 
-Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplies its reference-specific height; the component does not provide a landscape mode.
+Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplies its reference-specific height; the component does not provide a landscape mode or arbitrary overlay slots.
 
 Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional independent accessory. It moves the accessory below the main content at accessibility Dynamic Type sizes.
 
 `CircleLockup` is planned only after a concrete reference establishes its API. A separate `TrackLockup` is not currently needed.
 
-Episode rows/cards, trailers, editorial cards/heroes, promotions, and discovery cards remain distinct because their content hierarchy or independent controls are not interchangeable with general Lockups.
+Use `MediaCard` for landscape artwork followed by caller-composed metadata and optional independent actions. Recipes own content-specific hierarchy and map their domain fixtures directly into these slots.
+
+Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain recipe-owned compositions rather than separate Library card types.
 
 `EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
 
