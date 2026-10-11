@@ -2,6 +2,8 @@ import SwiftUI
 
 /// Adds explicit button semantics to the shared section-header presentation.
 struct SectionHeaderButton<Leading: View>: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let title: LocalizedStringKey
     var subtitle: LocalizedStringKey?
     var eyebrow: LocalizedStringKey?
@@ -16,10 +18,11 @@ struct SectionHeaderButton<Leading: View>: View {
                 if showsChevron {
                     Image(systemName: "chevron.right")
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(styleProfile.colors.secondaryText)
+                        .symbolRenderingMode(styleProfile.imagery.symbolRenderingMode)
                 }
             })
-            .foregroundStyle(.primary)
+            .foregroundStyle(styleProfile.colors.primaryText)
         }
         .buttonStyle(.plain)
         .padding(.horizontal, contentMargins)

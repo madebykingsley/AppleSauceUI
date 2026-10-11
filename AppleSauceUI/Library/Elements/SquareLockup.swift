@@ -9,6 +9,8 @@ enum SquareLockupStyle: Equatable {
 /// A square artwork presentation with a semantic metadata hierarchy.
 struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.interfaceDensity) private var density
+    @Environment(\.styleProfile) private var styleProfile
 
     let title: String
     var subtitle: String?
@@ -21,10 +23,13 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
     @ViewBuilder let artworkAccessory: ArtworkAccessory
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: density.metrics.metadataSpacing) {
             artwork
                 .aspectRatio(1, contentMode: .fit)
                 .frame(maxWidth: .infinity)
+                .overlay(styleProfile.imagery.overlay)
+                .clipShape(RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous))
+                .shadow(color: styleProfile.effects.shadowColor, radius: styleProfile.effects.shadowRadius, y: styleProfile.effects.shadowRadius / 2)
                 .overlay(alignment: .topLeading) { artworkAccessory.padding(8) }
             lockupMetadata
                 .accessibilityHidden(true)
@@ -37,13 +42,13 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
         VStack(alignment: .leading, spacing: 1) {
             if case .ranked(let rank) = style {
                 Text(rank, format: .number)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
             }
             HStack(spacing: 4) {
                 Text(title)
-                    .font(.footnote.weight(.medium))
-                    .foregroundStyle(.primary)
+                    .font(styleProfile.typography.itemTitle)
+                    .foregroundStyle(styleProfile.colors.primaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
                 if style == .library, let badge {
                     MetadataBadge(label: badge)
@@ -56,13 +61,13 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
                         MetadataBadge(label: badge)
                     }
                 }
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+                .font(styleProfile.typography.metadata)
+                .foregroundStyle(styleProfile.colors.secondaryText)
             }
             if let metadata {
                 Text(metadata)
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
             }
         }

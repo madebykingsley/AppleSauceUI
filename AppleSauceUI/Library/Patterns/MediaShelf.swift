@@ -1,18 +1,23 @@
 import SwiftUI
 
 struct MediaShelf<Items: RandomAccessCollection, ItemView: View>: View where Items.Element: Identifiable {
+    @Environment(\.interfaceDensity) private var density
+
     var title: LocalizedStringKey?; var subtitle: LocalizedStringKey?; let items: Items; let itemWidth: CGFloat
-    var isHeaderActionable = true; var alignment = VerticalAlignment.top; var spacing: CGFloat = 12; var contentMargins: CGFloat = 20
+    var isHeaderActionable = true; var alignment = VerticalAlignment.top; var spacing: CGFloat?; var contentMargins: CGFloat?
     var scrollingPolicy = HorizontalShelfScrollingPolicy.viewAligned; var headerAction: () -> Void = {}
     @ViewBuilder let itemView: (Items.Element) -> ItemView
 
     var body: some View {
+        let resolvedSpacing = spacing ?? density.metrics.itemSpacing
+        let resolvedMargins = contentMargins ?? density.metrics.contentMargin
+
         if let title {
-            ShelfSection(title: title, subtitle: subtitle, isActionable: isHeaderActionable, spacing: spacing, contentMargins: contentMargins, action: headerAction) {
-                HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: spacing, contentMargins: contentMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+            ShelfSection(title: title, subtitle: subtitle, isActionable: isHeaderActionable, spacing: resolvedSpacing, contentMargins: resolvedMargins, action: headerAction) {
+                HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: resolvedSpacing, contentMargins: resolvedMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
             }
         } else {
-            HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: spacing, contentMargins: contentMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+            HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: resolvedSpacing, contentMargins: resolvedMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
         }
     }
 }

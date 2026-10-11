@@ -2,13 +2,17 @@ import SwiftUI
 
 /// Neutral generated artwork for examples that do not ship image assets.
 struct ArtworkPlaceholder: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let symbol: String
     let background: AnyShapeStyle
-    var cornerRadius: CGFloat = 8
+    var cornerRadius: CGFloat?
     var symbolPadding: CGFloat = 38
 
     var body: some View {
-        RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+        let resolvedCornerRadius = cornerRadius ?? styleProfile.shapes.artworkCornerRadius
+
+        RoundedRectangle(cornerRadius: resolvedCornerRadius, style: .continuous)
             .fill(background)
             .overlay {
                 Image(systemName: symbol)
@@ -16,9 +20,10 @@ struct ArtworkPlaceholder: View {
                     .scaledToFit()
                     .padding(symbolPadding)
                     .foregroundStyle(.white.opacity(0.9))
+                    .symbolRenderingMode(styleProfile.imagery.symbolRenderingMode)
                     .accessibilityHidden(true)
             }
-            .clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: resolvedCornerRadius, style: .continuous))
     }
 }
 

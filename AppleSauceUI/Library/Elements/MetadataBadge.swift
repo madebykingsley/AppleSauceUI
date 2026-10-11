@@ -1,8 +1,29 @@
 import SwiftUI
 
 struct MetadataBadge: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let label: String
-    var body: some View { Text(label).font(.caption2.weight(.semibold)).foregroundStyle(.secondary).padding(.horizontal, 3).background(.secondary.opacity(0.16), in: RoundedRectangle(cornerRadius: 2)) }
+    var accessibilityLabel: String?
+    var context = MetadataBadgeContext.standard
+
+    var body: some View {
+        Text(label)
+            .font(styleProfile.typography.eyebrow)
+            .foregroundStyle(foreground)
+            .padding(.horizontal, 3)
+            .background(foreground.opacity(0.14), in: RoundedRectangle(cornerRadius: 2))
+            .accessibilityLabel(accessibilityLabel ?? label)
+    }
+
+    private var foreground: Color {
+        context == .onMedia ? styleProfile.colors.onMedia : styleProfile.colors.secondaryText
+    }
+}
+
+enum MetadataBadgeContext {
+    case standard
+    case onMedia
 }
 
 #if DEBUG

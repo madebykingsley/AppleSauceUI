@@ -29,6 +29,7 @@ struct ContentView: View {
 private enum ExampleApp: String, CaseIterable, Identifiable {
     case music
     case podcasts
+    case styleProfiles
 
     var id: Self { self }
 
@@ -36,6 +37,7 @@ private enum ExampleApp: String, CaseIterable, Identifiable {
         switch self {
         case .music: "Music"
         case .podcasts: "Podcasts"
+        case .styleProfiles: "Style Profiles"
         }
     }
 
@@ -43,6 +45,7 @@ private enum ExampleApp: String, CaseIterable, Identifiable {
         switch self {
         case .music: "Browse music discovery, radio, and library patterns"
         case .podcasts: "Explore listening, discovery, and library patterns"
+        case .styleProfiles: "Compare one pattern across three visual languages"
         }
     }
 
@@ -50,6 +53,7 @@ private enum ExampleApp: String, CaseIterable, Identifiable {
         switch self {
         case .music: "music.note"
         case .podcasts: "antenna.radiowaves.left.and.right"
+        case .styleProfiles: "paintpalette"
         }
     }
 
@@ -57,6 +61,7 @@ private enum ExampleApp: String, CaseIterable, Identifiable {
         switch self {
         case .music: .pink
         case .podcasts: .purple
+        case .styleProfiles: .indigo
         }
     }
 }
@@ -100,6 +105,8 @@ private struct ExampleAppDestination: View {
             MusicAppExample(onExit: exitAction)
         case .podcasts:
             PodcastsAppExample(onExit: exitAction)
+        case .styleProfiles:
+            StyleProfilesExample(onExit: exitAction)
         }
     }
 }
