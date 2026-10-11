@@ -1,6 +1,9 @@
 {
-  "schemaVersion": 1,
-  "generatedFrom": "Docs/Patterns/*.md",
+  "schemaVersion": 2,
+  "generatedFrom": [
+    "Docs/Patterns/*.md",
+    "Docs/Elements/*.md"
+  ],
   "patterns": [
     {
       "id": "media-grid",
@@ -83,6 +86,52 @@
         "primary interaction is editing"
       ],
       "documentation": "Docs/Patterns/media-shelf.md"
+    }
+  ],
+  "elements": [
+    {
+      "id": "media-card",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "feature",
+        "inform",
+        "recommend"
+      ],
+      "content": [
+        "artwork",
+        "audio",
+        "book",
+        "episode",
+        "game",
+        "video"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "artwork",
+        "eyebrow",
+        "title",
+        "subtitle",
+        "metadata",
+        "badge"
+      ],
+      "variants": [
+        "landscape-standard",
+        "landscape-overlay"
+      ],
+      "avoidWhen": [
+        "content is recognized primarily through compact square artwork",
+        "many items must be scanned at once",
+        "content requires tabular comparison"
+      ],
+      "documentation": "Docs/Elements/media-card.md"
     }
   ]
 }

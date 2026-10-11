@@ -11,8 +11,7 @@ struct MetadataBadge: View {
         Text(label)
             .font(styleProfile.typography.eyebrow)
             .foregroundStyle(foreground)
-            .padding(.horizontal, 4)
-            .padding(.vertical, 1)
+            .padding(.horizontal, 3)
             .background(foreground.opacity(0.14), in: RoundedRectangle(cornerRadius: 2))
             .accessibilityLabel(accessibilityLabel ?? label)
     }
