@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "generatedFrom": "Docs/Patterns/*.md",
+  "patterns": [
+    {
+      "id": "media-shelf",
+      "kind": "pattern",
+      "category": "content",
+      "intent": [
+        "browse",
+        "discover",
+        "recommend"
+      ],
+      "content": [
+        "album",
+        "playlist",
+        "book",
+        "video",
+        "game"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "elements": [
+        "media-lockup",
+        "section-header"
+      ],
+      "variants": [
+        "artwork",
+        "poster",
+        "landscape",
+        "ranked",
+        "editorial"
+      ],
+      "avoidWhen": [
+        "content must be compared across many attributes",
+        "primary interaction is editing"
+      ],
+      "documentation": "Docs/Patterns/media-shelf.md"
+    }
+  ]
+}
