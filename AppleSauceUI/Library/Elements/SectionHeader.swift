@@ -7,6 +7,8 @@ enum SectionHeaderProminence {
 
 /// Shared static section-heading presentation. Interaction belongs to a wrapper such as `SectionHeaderButton`.
 struct SectionHeader<Leading: View, Accessory: View>: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let title: LocalizedStringKey
     var subtitle: LocalizedStringKey?
     var eyebrow: LocalizedStringKey?
@@ -23,18 +25,19 @@ struct SectionHeader<Leading: View, Accessory: View>: View {
                 if let eyebrow {
                     Text(eyebrow)
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(styleProfile.colors.secondaryText)
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(title)
-                        .font(prominence == .prominent ? .title2.bold() : .title3.weight(.semibold))
+                        .font(prominence == .prominent ? .title2.bold() : styleProfile.typography.sectionTitle)
+                        .foregroundStyle(styleProfile.colors.primaryText)
                         .fixedSize(horizontal: false, vertical: true)
                     accessory
                 }
                 if let subtitle {
                     Text(subtitle)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(styleProfile.typography.metadata)
+                        .foregroundStyle(styleProfile.colors.secondaryText)
                         .fixedSize(horizontal: false, vertical: true)
                 }
             }

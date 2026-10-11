@@ -10,6 +10,17 @@ The Library owns reusable presentation and behavior. `Examples` owns product mod
 | Elements | Independent content presentations and controls |
 | Patterns | Collection layout, scrolling, margins, and interaction |
 | Recipes | Complete screenshot-driven example screens |
+| Style Profiles | Coherent typography, color, shape, imagery, effects, motion, and chrome decisions |
+| Density | Independent compact, standard, or spacious layout rhythm |
+| Platform adaptation | Native conventions applied after pattern, profile, and density selection |
+
+## Style Profiles and density
+
+Apply `.styleProfile(.editorial)`, `.styleProfile(.entertainment)`, or `.styleProfile(.neutral)` to establish a coherent visual language for a subtree. Elements ask the environment for semantic concepts such as section-title typography, primary text, artwork shape, imagery treatment, and effects. A Style Profile never selects content, information architecture, pattern variants, or platform behavior. Hosts may set `honorsPreferredColorScheme: false` when multiple profiles must be compared in one presentation.
+
+Apply `.interfaceDensity(.compact)`, `.standard`, or `.spacious` separately. Density changes broad collection rhythm—section spacing, item spacing, content margins, and metadata spacing—without encoding brand or visual personality. Existing screens inherit Neutral + Standard, whose values preserve the previous defaults.
+
+The initial proof intentionally styles only the `MediaShelf` path: `MediaShelf` consumes density, while `SectionHeader`, `SectionHeaderButton`, `SquareLockup`, and `ArtworkPlaceholder` consume Style Profile semantics. Other components remain unchanged until a demonstrated use justifies adopting the same foundation.
 
 ## Lockups
 
@@ -29,7 +40,7 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 
 ## Collection patterns
 
-- `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins.
+- `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
 - `RankedShelf` supplies stable, one-based ranks while delegating presentation to its item closure.
 - `MediaGrid` owns optional heading, columns, gaps, and horizontal margins.
 - Column shelves retain column-major grouping and stable identity for demonstrated multi-row episode and track collections.
