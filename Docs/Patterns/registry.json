@@ -3,6 +3,47 @@
   "generatedFrom": "Docs/Patterns/*.md",
   "patterns": [
     {
+      "id": "media-grid",
+      "kind": "pattern",
+      "category": "content",
+      "intent": [
+        "browse",
+        "scan",
+        "revisit"
+      ],
+      "content": [
+        "album",
+        "playlist",
+        "book",
+        "video",
+        "game"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "preferred",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "elements": [
+        "media-lockup",
+        "section-header"
+      ],
+      "variants": [
+        "artwork",
+        "poster",
+        "landscape",
+        "ranked"
+      ],
+      "avoidWhen": [
+        "the first few recommendations matter more than collection breadth",
+        "content must be compared across many attributes",
+        "primary interaction is editing"
+      ],
+      "documentation": "Docs/Patterns/media-grid.md"
+    },
+    {
       "id": "media-shelf",
       "kind": "pattern",
       "category": "content",

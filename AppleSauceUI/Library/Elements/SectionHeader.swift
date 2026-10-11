@@ -29,7 +29,7 @@ struct SectionHeader<Leading: View, Accessory: View>: View {
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
                     Text(title)
-                        .font(prominence == .prominent ? .title2.bold() : styleProfile.typography.sectionTitle)
+                        .font(prominence == .prominent ? styleProfile.typography.prominentSectionTitle : styleProfile.typography.sectionTitle)
                         .foregroundStyle(styleProfile.colors.primaryText)
                         .fixedSize(horizontal: false, vertical: true)
                     accessory

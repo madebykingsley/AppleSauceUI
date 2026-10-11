@@ -28,18 +28,21 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
         case .editorial:
             StyleProfileTypography(
                 sectionTitle: .system(.title2, design: .serif, weight: .semibold),
+                prominentSectionTitle: .system(.title2, design: .serif, weight: .bold),
                 itemTitle: .system(.footnote, design: .serif, weight: .semibold),
                 metadata: .system(.caption2, design: .serif)
             )
         case .entertainment:
             StyleProfileTypography(
                 sectionTitle: .title2.weight(.bold),
+                prominentSectionTitle: .title2.weight(.heavy),
                 itemTitle: .footnote.weight(.bold),
                 metadata: .caption2.weight(.medium)
             )
         case .neutral:
             StyleProfileTypography(
                 sectionTitle: .title3.weight(.semibold),
+                prominentSectionTitle: .title2.bold(),
                 itemTitle: .footnote.weight(.medium),
                 metadata: .caption2
             )
@@ -109,6 +112,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
 
 struct StyleProfileTypography {
     let sectionTitle: Font
+    let prominentSectionTitle: Font
     let itemTitle: Font
     let metadata: Font
 }

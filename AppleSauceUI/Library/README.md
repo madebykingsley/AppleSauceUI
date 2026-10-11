@@ -20,7 +20,7 @@ Apply `.styleProfile(.editorial)`, `.styleProfile(.entertainment)`, or `.stylePr
 
 Apply `.interfaceDensity(.compact)`, `.standard`, or `.spacious` separately. Density changes broad collection rhythm—section spacing, item spacing, content margins, and metadata spacing—without encoding brand or visual personality. Existing screens inherit Neutral + Standard, whose values preserve the previous defaults.
 
-The initial proof intentionally styles only the `MediaShelf` path: `MediaShelf` consumes density, while `SectionHeader`, `SectionHeaderButton`, `SquareLockup`, and `ArtworkPlaceholder` consume Style Profile semantics. Other components remain unchanged until a demonstrated use justifies adopting the same foundation.
+The proof covers the `MediaShelf` and `MediaGrid` paths. Both collection patterns consume density, while `SectionHeader`, `SectionHeaderButton`, `SquareLockup`, and `ArtworkPlaceholder` consume Style Profile semantics. Other components remain unchanged until a demonstrated use justifies adopting the same foundation.
 
 Profile values currently remain native SwiftUI values because the proof has no external token exchange requirement. If customizable tokens cross tool or platform boundaries later, expose only meaningful decisions in Design Tokens Community Group format and map them into these semantic Swift types; do not serialize system colors, text styles, or materials merely to replace native APIs.
 
@@ -44,7 +44,7 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 
 - `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
 - `RankedShelf` supplies stable, one-based ranks while delegating presentation to its item closure.
-- `MediaGrid` owns optional heading, columns, gaps, and horizontal margins.
+- `MediaGrid` owns optional heading, columns, gaps, and horizontal margins. Its default gaps and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
 - Column shelves retain column-major grouping and stable identity for demonstrated multi-row episode and track collections.
 - `ShelfSection`, `CategoryList`, and `LinkSection` remain semantic compositions for their demonstrated uses.
 

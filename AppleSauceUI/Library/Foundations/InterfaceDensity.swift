@@ -19,11 +19,11 @@ enum InterfaceDensity: String, CaseIterable, Identifiable, Sendable {
     var metrics: InterfaceDensityMetrics {
         switch self {
         case .compact:
-            InterfaceDensityMetrics(sectionSpacing: 8, itemSpacing: 8, contentMargin: 16, metadataSpacing: 4)
+            InterfaceDensityMetrics(sectionSpacing: 8, itemSpacing: 8, collectionRowSpacing: 14, contentMargin: 16, metadataSpacing: 4)
         case .standard:
-            InterfaceDensityMetrics(sectionSpacing: 12, itemSpacing: 12, contentMargin: 20, metadataSpacing: 6)
+            InterfaceDensityMetrics(sectionSpacing: 12, itemSpacing: 12, collectionRowSpacing: 20, contentMargin: 20, metadataSpacing: 6)
         case .spacious:
-            InterfaceDensityMetrics(sectionSpacing: 18, itemSpacing: 18, contentMargin: 24, metadataSpacing: 10)
+            InterfaceDensityMetrics(sectionSpacing: 18, itemSpacing: 18, collectionRowSpacing: 28, contentMargin: 24, metadataSpacing: 10)
         }
     }
 }
@@ -31,6 +31,7 @@ enum InterfaceDensity: String, CaseIterable, Identifiable, Sendable {
 struct InterfaceDensityMetrics: Equatable {
     let sectionSpacing: CGFloat
     let itemSpacing: CGFloat
+    let collectionRowSpacing: CGFloat
     let contentMargin: CGFloat
     let metadataSpacing: CGFloat
 }
