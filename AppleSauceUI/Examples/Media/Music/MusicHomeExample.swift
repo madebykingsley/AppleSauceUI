@@ -39,7 +39,7 @@ struct MusicHomeExample: View {
 
     private func artworkShelf(title: LocalizedStringKey, items: [MusicItem], actionable: Bool = false, symbolPadding: CGFloat = 38) -> some View {
         MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.albumWidth, isHeaderActionable: actionable) { item in
-            MediaTile(presentation: item.tilePresentation) {
+            SquareLockup(title: item.title, subtitle: item.subtitle) {
                 ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: symbolPadding)
             }
         }
@@ -47,7 +47,9 @@ struct MusicHomeExample: View {
 
     private func featuredShelf(title: LocalizedStringKey, items: [MusicItem]) -> some View {
         MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.featureWidth, isHeaderActionable: false) { item in
-            FeatureCard(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, background: item.artwork.gradient, height: MusicLayoutMetrics.featureHeight)
+            PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight) {
+                Rectangle().fill(item.artwork.gradient)
+            }
         }
     }
 
@@ -57,8 +59,8 @@ struct MusicHomeExample: View {
                 ArtworkThumbnail(symbol: MusicFixtures.prisoner.symbol, background: AnyShapeStyle(MusicFixtures.prisoner.artwork.gradient))
             }
             .padding(.horizontal, MusicLayoutMetrics.contentMargin)
-            HorizontalShelf(items: MusicFixtures.moreLikePrisoner, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                MediaTile(presentation: item.tilePresentation) {
+            MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.moreLikePrisoner, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                SquareLockup(title: item.title, subtitle: item.subtitle) {
                     ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
                 }
             }
@@ -67,30 +69,45 @@ struct MusicHomeExample: View {
 
     private var concertShelf: some View {
         MediaShelf(title: "Concerts", items: MusicFixtures.concerts, itemWidth: MusicLayoutMetrics.albumWidth, scrollingPolicy: .continuous) { item in
-            EventTile(title: item.title, venue: item.venue, schedule: item.schedule, month: item.month, day: item.day) {
+            SquareLockup(title: item.title, subtitle: item.venue, metadata: item.schedule, artworkAccessoryAccessibilityLabel: "\(item.month) \(item.day)") {
                 ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 36)
+            } artworkAccessory: {
+                CalendarDateBadge(month: item.month, day: item.day)
             }
         }
     }
 
     private var songsThatMatter: some View {
         ShelfSection(title: "The Songs That Matter") {
-            EditorialCard(mark: "ALT\nCTRL", description: "CHVRCHES gives a nursery rhyme a powerful update with “Roses.”", background: LinearGradient(colors: [.gray.opacity(0.4), .brown.opacity(0.35), .black], startPoint: .top, endPoint: .bottom), height: 443)
+            VStack(alignment: .leading) {
+                Text("ALT\nCTRL")
+                    .font(.largeTitle.weight(.light))
+                    .foregroundStyle(.tint)
+                Spacer()
+                Text("CHVRCHES gives a nursery rhyme a powerful update with “Roses.”")
+                    .font(.footnote)
+                    .foregroundStyle(.white)
+            }
+            .padding(18)
+            .frame(maxWidth: .infinity, minHeight: 443, maxHeight: 443, alignment: .leading)
+            .background(
+                LinearGradient(
+                    colors: [.gray.opacity(0.4), .brown.opacity(0.35), .black],
+                    startPoint: .top,
+                    endPoint: .bottom
+                ),
+                in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+            )
+            .accessibilityElement(children: .combine)
                 .padding(.horizontal, MusicLayoutMetrics.contentMargin)
         }
     }
 
     private var sharedWithYou: some View {
         ShelfSection(title: "Shared with You") {
-            MediaRow {
+            HorizontalLockup(title: "Existence Is Everything", subtitle: "Album · Hawk Thief", metadata: "From Patrick") {
                 ArtworkPlaceholder(symbol: "mountain.2.fill", background: AnyShapeStyle(ArtworkPalette.ocean.gradient), cornerRadius: 5)
                     .frame(width: 88, height: 88)
-            } content: {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Existence Is Everything").font(.body.weight(.medium)).foregroundStyle(.primary)
-                    Text("Album · Hawk Thief").font(.footnote).foregroundStyle(.secondary)
-                    Label("From Patrick", systemImage: "message.fill").font(.caption).foregroundStyle(.secondary)
-                }
             }
             .padding(.horizontal, MusicLayoutMetrics.contentMargin)
         }

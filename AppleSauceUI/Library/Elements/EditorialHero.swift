@@ -23,4 +23,18 @@ struct EditorialHero<Artwork: View>: View {
 #Preview("EditorialHero — Variants") {
     EditorialHero(eyebrow: "Editors’ Choice", title: "A closer look at new voices") { RoundedRectangle(cornerRadius: 12).fill(.orange.gradient).overlay { Image(systemName: "sparkles").font(.largeTitle) } }.padding().frame(width: 402)
 }
+
+#Preview("EditorialHero — Accessibility") {
+    EditorialHero(
+        eyebrow: "Editors’ Choice",
+        title: "A closer look at the new voices shaping music and culture"
+    ) {
+        RoundedRectangle(cornerRadius: 12)
+            .fill(.orange.gradient)
+            .overlay { Image(systemName: "sparkles").font(.largeTitle) }
+    }
+    .padding()
+    .frame(width: 402)
+    .dynamicTypeSize(.accessibility3)
+}
 #endif

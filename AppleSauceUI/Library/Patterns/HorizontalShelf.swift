@@ -6,12 +6,12 @@ enum HorizontalShelfScrollingPolicy {
 }
 
 #if DEBUG
-#Preview("HorizontalShelf — Variants") {
-    VStack(spacing: 24) { HorizontalShelf(items: LibraryPreviewItem.samples, itemWidth: 130) { item in RoundedRectangle(cornerRadius: 8).fill(.quaternary).aspectRatio(1, contentMode: .fit).overlay { Text(item.title) } }; HorizontalShelf(items: LibraryPreviewItem.samples.prefix(3), itemWidth: 180, scrollingPolicy: .continuous) { item in RoundedRectangle(cornerRadius: 8).fill(.quaternary).frame(height: 90).overlay { Text(item.title) } } }.frame(width: 402)
+#Preview("Horizontal Shelf Layout — Variants") {
+    VStack(spacing: 24) { HorizontalShelfLayout(items: LibraryPreviewItem.samples, itemWidth: 130) { item in RoundedRectangle(cornerRadius: 8).fill(.quaternary).aspectRatio(1, contentMode: .fit).overlay { Text(item.title) } }; HorizontalShelfLayout(items: LibraryPreviewItem.samples.prefix(3), itemWidth: 180, scrollingPolicy: .continuous) { item in RoundedRectangle(cornerRadius: 8).fill(.quaternary).frame(height: 90).overlay { Text(item.title) } } }.frame(width: 402)
 }
 #endif
 
-struct HorizontalShelf<Items: RandomAccessCollection, ItemView: View>: View where Items.Element: Identifiable {
+struct HorizontalShelfLayout<Items: RandomAccessCollection, ItemView: View>: View where Items.Element: Identifiable {
     let items: Items
     let itemWidth: CGFloat
     var alignment = VerticalAlignment.top

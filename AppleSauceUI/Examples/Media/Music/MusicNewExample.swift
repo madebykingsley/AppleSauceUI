@@ -36,19 +36,14 @@ struct MusicNewExample: View {
 
     private var sections: some View {
         LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.sectionSpacing) {
-            HorizontalShelf(items: MusicFixtures.newHeroItems, itemWidth: MusicLayoutMetrics.newFeatureWidth, alignment: .bottom) { item in
+            MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.newHeroItems, itemWidth: MusicLayoutMetrics.newFeatureWidth, alignment: .bottom) { item in
                 EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.subtitle)) {
                     ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
                 }
             }
             ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: MusicLayoutMetrics.newFeatureWidth) { song in
-                MediaRow {
+                HorizontalLockup(title: song.title, subtitle: song.subtitle) {
                     ArtworkThumbnail(symbol: song.symbol, background: AnyShapeStyle(song.artwork.gradient), size: 48)
-                } content: {
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text(song.title).font(.body).foregroundStyle(.primary).lineLimit(1)
-                        Text(song.subtitle).font(.caption).foregroundStyle(.secondary).lineLimit(1)
-                    }
                 } accessory: {
                     Button("More actions for \(song.title)", systemImage: "ellipsis", action: {})
                         .labelStyle(.iconOnly)
@@ -60,18 +55,32 @@ struct MusicNewExample: View {
             }
             artworkShelf(title: "New This Week", items: MusicFixtures.newThisWeek)
             artworkShelf(title: "Recent Releases", items: MusicFixtures.recentReleases)
-            artworkShelf(title: "Watch Interviews", items: MusicFixtures.interviews, layout: .landscape(aspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio))
-            artworkShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, layout: .landscape(aspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio))
+            videoShelf(title: "Watch Interviews", items: MusicFixtures.interviews)
+            videoShelf(title: "New Music Videos", items: MusicFixtures.musicVideos)
             artworkShelf(title: "Coming Soon", items: MusicFixtures.comingSoon)
             LinkSection(title: "More to Explore", items: exploreLinks, label: { $0.title }, action: { _ in })
         }
     }
 
-    private func artworkShelf(title: LocalizedStringKey, items: [MusicItem], layout: ArtworkLayout = .square) -> some View {
+    private func artworkShelf(title: LocalizedStringKey, items: [MusicItem]) -> some View {
         MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-            MediaTile(presentation: item.tilePresentation, artworkLayout: layout) {
+            SquareLockup(title: item.title, subtitle: item.subtitle) {
                 ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
             }
+        }
+    }
+
+    private func videoShelf(title: LocalizedStringKey, items: [MusicItem]) -> some View {
+        MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+            VStack(alignment: .leading, spacing: 6) {
+                ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                    .aspectRatio(MusicLayoutMetrics.videoArtworkAspectRatio, contentMode: .fit)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(item.title).font(.footnote.weight(.medium)).foregroundStyle(.primary).lineLimit(1)
+                    Text(item.subtitle).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
+                }
+            }
+            .accessibilityElement(children: .combine)
         }
     }
 }

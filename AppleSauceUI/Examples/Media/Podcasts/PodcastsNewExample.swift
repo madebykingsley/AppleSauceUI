@@ -14,14 +14,14 @@ struct PodcastsNewExample: View {
                             .foregroundStyle(.brown, .orange.opacity(0.35))
                     }
                 }
-                HorizontalShelf(items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
+                MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
                     EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
                         ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
                     }
                 }
                 showShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, ranked: true)
                 ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
-                    MediaTile(presentation: show.tilePresentation()) {
+                    SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                         ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                     }
                 }
@@ -44,11 +44,19 @@ struct PodcastsNewExample: View {
         .background(Color(uiColor: .systemBackground))
     }
 
+    @ViewBuilder
     private func showShelf(title: LocalizedStringKey, items: [PodcastShowFixture], ranked: Bool = false) -> some View {
-        MediaShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-            let rank = items.firstIndex(where: { $0.id == show.id }).map { $0 + 1 }
-            MediaTile(presentation: show.tilePresentation(hierarchy: ranked ? .ranked(rank ?? 1) : .standard)) {
-                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+        if ranked {
+            RankedShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
+                SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
+                    ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                }
+            }
+        } else {
+            MediaShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                    ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                }
             }
         }
     }
@@ -65,36 +73,54 @@ struct PodcastsNewExample: View {
 
     private func episodeCardShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastEpisodeCardFixture]) -> some View {
         MediaShelf(title: title, subtitle: subtitle, items: items, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
-            EpisodeCard(show: episode.show, title: episode.title, date: episode.episodeDate, description: episode.description, duration: episode.duration, background: episode.color.gradient, playAction: {}, overflowAction: {}) {
-                ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
-                    .overlay(alignment: .topTrailing) {
-                        if let badge = episode.badge {
-                            Label(badge.label, systemImage: "video.fill")
-                                .font(.caption2.weight(.semibold))
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 5)
-                                .background(.ultraThinMaterial, in: Capsule())
-                                .padding(8)
-                                .accessibilityLabel(badge.label)
-                        }
-                    }
-                    .aspectRatio(PodcastsLayoutMetrics.episodeCardAspectRatio, contentMode: .fit)
-            }
+            PodcastMediaCardRecipes.episode(episode, playAction: {}, overflowAction: {})
         }
     }
 
     private var trailerShelf: some View {
         MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: PodcastsLayoutMetrics.trailerWidth) { trailer in
-            TrailerCard(title: trailer.title, description: trailer.description, duration: trailer.duration, background: trailer.color.gradient, playAction: {}, followAction: {}) {
+            MediaCard(background: trailer.color.gradient) {
                 ArtworkPlaceholder(symbol: trailer.symbol, background: AnyShapeStyle(trailer.color.gradient))
                     .aspectRatio(PodcastsLayoutMetrics.trailerAspectRatio, contentMode: .fit)
+            } metadata: {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(trailer.title)
+                        .font(.headline)
+                        .lineLimit(2)
+                    Text(trailer.description)
+                        .font(.caption)
+                        .foregroundStyle(.white.opacity(0.78))
+                        .lineLimit(3)
+                }
+            } actions: {
+                HStack {
+                    PlaybackButton(label: trailer.duration, accessibilityLabel: "Play trailer for \(trailer.title)", action: {})
+                        .tint(.white)
+                    Spacer()
+                    Button("Follow", systemImage: "plus", action: {})
+                        .labelStyle(.iconOnly)
+                        .accessibilityLabel("Follow \(trailer.title)")
+                }
+                .padding(.top, 3)
             }
         }
     }
 
     private var discoveryShelf: some View {
         MediaShelf(title: "More to Discover", items: PodcastsFixtures.discovery, itemWidth: PodcastsLayoutMetrics.discoveryWidth, isHeaderActionable: false) { item in
-            DiscoveryCard(title: "(\(item.title))", symbol: item.symbol, background: item.color.gradient, action: {})
+            Button(action: {}) {
+                ZStack {
+                    Image(systemName: item.symbol)
+                        .font(.title)
+                        .opacity(0.28)
+                    Text("(\(item.title))")
+                        .font(.headline)
+                }
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, minHeight: 112)
+                .background(item.color.gradient, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+            }
+            .buttonStyle(.plain)
         }
     }
 }

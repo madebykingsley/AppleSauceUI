@@ -40,7 +40,7 @@ struct PodcastsHomeExample: View {
     private func showShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastShowFixture]) -> some View {
         MediaShelf(title: title, subtitle: subtitle, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
             Button(action: {}) {
-                MediaTile(presentation: show.tilePresentation()) {
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }
@@ -60,21 +60,7 @@ struct PodcastsHomeExample: View {
 
     private func episodeCardShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastEpisodeCardFixture]) -> some View {
         MediaShelf(title: title, subtitle: subtitle, items: items, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
-            EpisodeCard(show: episode.show, title: episode.title, date: episode.episodeDate, description: episode.description, duration: episode.duration, background: episode.color.gradient, playAction: {}, overflowAction: {}) {
-                ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
-                    .overlay(alignment: .topTrailing) {
-                        if let badge = episode.badge {
-                            Label(badge.label, systemImage: "video.fill")
-                                .font(.caption2.weight(.semibold))
-                                .padding(.horizontal, 7)
-                                .padding(.vertical, 5)
-                                .background(.ultraThinMaterial, in: Capsule())
-                                .padding(8)
-                                .accessibilityLabel(badge.label)
-                        }
-                    }
-                    .aspectRatio(PodcastsLayoutMetrics.episodeCardAspectRatio, contentMode: .fit)
-            }
+            PodcastMediaCardRecipes.episode(episode, playAction: {}, overflowAction: {})
         }
     }
 
@@ -84,8 +70,8 @@ struct PodcastsHomeExample: View {
                 Image(systemName: "appletv.fill").foregroundStyle(.white).frame(width: 40, height: 40).background(.black, in: Circle())
             })
             .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-            HorizontalShelf(items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                MediaTile(presentation: show.tilePresentation()) {
+            MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }
@@ -99,8 +85,8 @@ struct PodcastsHomeExample: View {
                     .frame(width: 40, height: 40)
             }
             .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-            HorizontalShelf(items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                MediaTile(presentation: show.tilePresentation()) {
+            MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }
@@ -109,7 +95,23 @@ struct PodcastsHomeExample: View {
 
     private var channelShelf: some View {
         MediaShelf(title: "Channels to Try", items: PodcastsFixtures.channels, itemWidth: PodcastsLayoutMetrics.channelWidth, isHeaderActionable: false) { channel in
-            PromotionalCard(title: channel.title, description: channel.description, symbol: channel.symbol, background: channel.color.gradient, action: {})
+            Button(action: {}) {
+                VStack(alignment: .leading, spacing: 12) {
+                    Image(systemName: channel.symbol)
+                        .font(.largeTitle)
+                    Spacer()
+                    Text(channel.title)
+                        .font(.headline)
+                    Text(channel.description)
+                        .font(.caption)
+                        .lineLimit(3)
+                }
+                .foregroundStyle(.white)
+                .padding(16)
+                .frame(maxWidth: .infinity, minHeight: 190, alignment: .leading)
+                .background(channel.color.gradient, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+            }
+            .buttonStyle(.plain)
         }
     }
 }

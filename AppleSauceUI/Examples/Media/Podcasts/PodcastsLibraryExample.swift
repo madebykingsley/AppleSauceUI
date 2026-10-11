@@ -23,9 +23,9 @@ struct PodcastsLibraryExample: View {
                     }, title: category.title)
                 }
                 .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-                MediaGridSection(title: "Recently Updated", items: PodcastsFixtures.libraryShows) { show in
+                MediaGrid(title: "Recently Updated", items: PodcastsFixtures.libraryShows) { show in
                     Button(action: {}) {
-                        MediaTile(presentation: show.tilePresentation(hierarchy: .library)) {
+                        SquareLockup(title: show.title, subtitle: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .library) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
