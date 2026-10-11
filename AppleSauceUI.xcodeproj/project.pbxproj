@@ -6,14 +6,54 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		777FFF543075B9D100E264C4 /* AGENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = 777FFF533075B9CA00E264C4 /* AGENTS.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		000000000000000000000120 /* AppleSauceUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleSauceUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		777FFF0B30759FE600E264C4 /* MusicHomeExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHomeExample.swift; sourceTree = "<group>"; };
+		777FFF0C30759FE600E264C4 /* MusicModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicModels.swift; sourceTree = "<group>"; };
+		777FFF0D30759FE600E264C4 /* MusicFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicFixtures.swift; sourceTree = "<group>"; };
+		777FFF1030759FEB00E264C4 /* MyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApp.swift; sourceTree = "<group>"; };
+		777FFF1130759FEC00E264C4 /* ComparisonControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonControls.swift; sourceTree = "<group>"; };
+		777FFF1230759FEC00E264C4 /* ComparisonMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonMode.swift; sourceTree = "<group>"; };
+		777FFF1330759FEC00E264C4 /* DebugGridOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugGridOverlay.swift; sourceTree = "<group>"; };
+		777FFF1430759FEC00E264C4 /* DifferenceRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifferenceRenderer.swift; sourceTree = "<group>"; };
+		777FFF1530759FF800E264C4 /* ReferenceSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceSpec.swift; sourceTree = "<group>"; };
+		777FFF1630759FF800E264C4 /* ReferenceComparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferenceComparison.swift; sourceTree = "<group>"; };
+		777FFF173075A8A900E264C4 /* reference.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reference.png; sourceTree = "<group>"; };
+		777FFF533075B9CA00E264C4 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
+		778B21483078406600C3863B /* AppleSauceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppleSauceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		777FFF193075A8F600E264C4 /* Exceptions for "AppleSauceUI" folder in "AppleSauceUI" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/SharedAssets.xcassets,
+			);
+			target = 000000000000000100000000 /* AppleSauceUI */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		000000000000000000000010 /* AppleSauceUI */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				777FFF193075A8F600E264C4 /* Exceptions for "AppleSauceUI" folder in "AppleSauceUI" target */,
+			);
 			path = AppleSauceUI;
+			sourceTree = "<group>";
+		};
+		778B21493078406600C3863B /* AppleSauceUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AppleSauceUITests;
+			sourceTree = "<group>";
+		};
+		778B21CE307B373A00C3863B /* Docs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Docs;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -24,14 +64,23 @@
 			files = (
 			);
 		};
+		778B21453078406600C3863B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		000000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
+				778B21CE307B373A00C3863B /* Docs */,
+				777FFF533075B9CA00E264C4 /* AGENTS.md */,
 				000000000000000000000010 /* AppleSauceUI */,
+				778B21493078406600C3863B /* AppleSauceUITests */,
 				000000000000000000000020 /* Products */,
+				777FFEF830759FD300E264C4 /* AppleSauce */,
 			);
 			sourceTree = "<group>";
 		};
@@ -39,8 +88,163 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000120 /* AppleSauceUI.app */,
+				778B21483078406600C3863B /* AppleSauceUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		777FFEF830759FD300E264C4 /* AppleSauce */ = {
+			isa = PBXGroup;
+			children = (
+				777FFEF930759FD300E264C4 /* App */,
+				777FFEFA30759FD300E264C4 /* Sources */,
+				777FFF0030759FD400E264C4 /* Examples */,
+				777FFF0330759FD400E264C4 /* Lab */,
+				777FFF0930759FD500E264C4 /* Resources */,
+			);
+			path = AppleSauce;
+			sourceTree = "<group>";
+		};
+		777FFEF930759FD300E264C4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF1030759FEB00E264C4 /* MyApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		777FFEFA30759FD300E264C4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				777FFEFB30759FD300E264C4 /* AppleSauce */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		777FFEFB30759FD300E264C4 /* AppleSauce */ = {
+			isa = PBXGroup;
+			children = (
+				777FFEFC30759FD300E264C4 /* Foundations */,
+				777FFEFD30759FD300E264C4 /* Elements */,
+				777FFEFE30759FD300E264C4 /* Patterns */,
+				777FFEFF30759FD400E264C4 /* Recipes */,
+			);
+			path = AppleSauce;
+			sourceTree = "<group>";
+		};
+		777FFEFC30759FD300E264C4 /* Foundations */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundations;
+			sourceTree = "<group>";
+		};
+		777FFEFD30759FD300E264C4 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Elements;
+			sourceTree = "<group>";
+		};
+		777FFEFE30759FD300E264C4 /* Patterns */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Patterns;
+			sourceTree = "<group>";
+		};
+		777FFEFF30759FD400E264C4 /* Recipes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Recipes;
+			sourceTree = "<group>";
+		};
+		777FFF0030759FD400E264C4 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0130759FD400E264C4 /* Media */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		777FFF0130759FD400E264C4 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0230759FD400E264C4 /* Music */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		777FFF0230759FD400E264C4 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0B30759FE600E264C4 /* MusicHomeExample.swift */,
+				777FFF0C30759FE600E264C4 /* MusicModels.swift */,
+				777FFF0D30759FE600E264C4 /* MusicFixtures.swift */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		777FFF0330759FD400E264C4 /* Lab */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0430759FD400E264C4 /* VisualComparison */,
+				777FFF0530759FD400E264C4 /* References */,
+			);
+			path = Lab;
+			sourceTree = "<group>";
+		};
+		777FFF0430759FD400E264C4 /* VisualComparison */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF1130759FEC00E264C4 /* ComparisonControls.swift */,
+				777FFF1230759FEC00E264C4 /* ComparisonMode.swift */,
+				777FFF1330759FEC00E264C4 /* DebugGridOverlay.swift */,
+				777FFF1430759FEC00E264C4 /* DifferenceRenderer.swift */,
+				777FFF1530759FF800E264C4 /* ReferenceSpec.swift */,
+				777FFF1630759FF800E264C4 /* ReferenceComparison.swift */,
+			);
+			path = VisualComparison;
+			sourceTree = "<group>";
+		};
+		777FFF0530759FD400E264C4 /* References */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0630759FD400E264C4 /* Media */,
+			);
+			path = References;
+			sourceTree = "<group>";
+		};
+		777FFF0630759FD400E264C4 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0730759FD400E264C4 /* AppleMusic */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+		777FFF0730759FD400E264C4 /* AppleMusic */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF0830759FD400E264C4 /* Home */,
+			);
+			path = AppleMusic;
+			sourceTree = "<group>";
+		};
+		777FFF0830759FD400E264C4 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				777FFF173075A8A900E264C4 /* reference.png */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		777FFF0930759FD500E264C4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -58,11 +262,30 @@
 			);
 			fileSystemSynchronizedGroups = (
 				000000000000000000000010 /* AppleSauceUI */,
+				778B21CE307B373A00C3863B /* Docs */,
 			);
 			name = AppleSauceUI;
 			productName = MyApp;
 			productReference = 000000000000000000000120 /* AppleSauceUI.app */;
 			productType = "com.apple.product-type.application";
+		};
+		778B21473078406600C3863B /* AppleSauceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 778B214C3078406600C3863B /* Build configuration list for PBXNativeTarget "AppleSauceUITests" */;
+			buildPhases = (
+				778B21443078406600C3863B /* Sources */,
+				778B21453078406600C3863B /* Frameworks */,
+				778B21463078406600C3863B /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				778B21493078406600C3863B /* AppleSauceUITests */,
+			);
+			name = AppleSauceUITests;
+			productName = AppleSauceUITests;
+			productReference = 778B21483078406600C3863B /* AppleSauceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -71,11 +294,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2630;
+				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					778B21473078406600C3863B = {
+						CreatedOnToolsVersion = 27.0;
 					};
 				};
 			};
@@ -94,6 +320,7 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* AppleSauceUI */,
+				778B21473078406600C3863B /* AppleSauceUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -102,12 +329,23 @@
 		000000000000000140000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
+				777FFF543075B9D100E264C4 /* AGENTS.md in Resources */,
+			);
+		};
+		778B21463078406600C3863B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
 			);
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		000000000000000120000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
+		778B21443078406600C3863B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
 			);
@@ -323,6 +561,56 @@
 			};
 			name = Release;
 		};
+		778B214D3078406600C3863B /* Debug configuration for PBXNativeTarget "AppleSauceUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AppleSauceUI.app/AppleSauceUI.debug.dylib";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.AppleSauceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppleSauceUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AppleSauceUI";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Debug;
+		};
+		778B214E3078406600C3863B /* Release configuration for PBXNativeTarget "AppleSauceUITests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/AppleSauceUI.app/AppleSauceUI.debug.dylib";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.AppleSauceUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AppleSauceUI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AppleSauceUI";
+				XROS_DEPLOYMENT_TARGET = 27.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -339,6 +627,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "AppleSauceUI" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "AppleSauceUI" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		778B214C3078406600C3863B /* Build configuration list for PBXNativeTarget "AppleSauceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				778B214D3078406600C3863B /* Debug configuration for PBXNativeTarget "AppleSauceUITests" */,
+				778B214E3078406600C3863B /* Release configuration for PBXNativeTarget "AppleSauceUITests" */,
 			);
 			defaultConfigurationName = Release;
 		};

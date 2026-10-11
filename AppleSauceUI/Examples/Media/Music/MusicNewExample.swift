@@ -1,0 +1,98 @@
+import SwiftUI
+
+struct MusicNewExample: View {
+    var onExit: () -> Void = {}
+
+    var body: some View {
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.newHeaderSpacing) {
+                ScreenTitle(title: "New") {
+                    AccountButton(action: onExit) {
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .foregroundStyle(.gray, .black)
+                            .background(.black, in: Circle())
+                    }
+                }
+                sections
+            }
+            .padding(.top, 2)
+            .padding(.bottom, 24)
+        }
+        .visualComparisonScrollTracking()
+        .scrollIndicators(.hidden)
+        .background(Color(uiColor: .systemBackground))
+    }
+
+    private let exploreLinks = [
+        MusicLink(id: "concerts", title: "Concerts"),
+        MusicLink(id: "spatial-audio", title: "Spatial Audio"),
+        MusicLink(id: "music-videos", title: "Music Videos"),
+        MusicLink(id: "charts", title: "Charts"),
+        MusicLink(id: "genres", title: "Browse by Genre"),
+        MusicLink(id: "decades", title: "Decades"),
+        MusicLink(id: "moods", title: "Moods and Activities")
+    ]
+
+    private var sections: some View {
+        LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.sectionSpacing) {
+            HorizontalShelf(items: MusicFixtures.newHeroItems, itemWidth: MusicLayoutMetrics.newFeatureWidth, alignment: .bottom) { item in
+                EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.subtitle)) {
+                    ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                }
+            }
+            ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: MusicLayoutMetrics.newFeatureWidth) { song in
+                MediaRow {
+                    ArtworkThumbnail(symbol: song.symbol, background: AnyShapeStyle(song.artwork.gradient), size: 48)
+                } content: {
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text(song.title).font(.body).foregroundStyle(.primary).lineLimit(1)
+                        Text(song.subtitle).font(.caption).foregroundStyle(.secondary).lineLimit(1)
+                    }
+                } accessory: {
+                    Button("More actions for \(song.title)", systemImage: "ellipsis", action: {})
+                        .labelStyle(.iconOnly)
+                }
+                .padding(.trailing, 8)
+                .padding(.vertical, 4)
+            } separator: {
+                Divider().padding(.leading, 60)
+            }
+            artworkShelf(title: "New This Week", items: MusicFixtures.newThisWeek)
+            artworkShelf(title: "Recent Releases", items: MusicFixtures.recentReleases)
+            artworkShelf(title: "Watch Interviews", items: MusicFixtures.interviews, layout: .landscape(aspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio))
+            artworkShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, layout: .landscape(aspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio))
+            artworkShelf(title: "Coming Soon", items: MusicFixtures.comingSoon)
+            LinkSection(title: "More to Explore", items: exploreLinks, label: { $0.title }, action: { _ in })
+        }
+    }
+
+    private func artworkShelf(title: LocalizedStringKey, items: [MusicItem], layout: ArtworkLayout = .square) -> some View {
+        MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+            MediaTile(presentation: item.tilePresentation, artworkLayout: layout) {
+                ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+            }
+        }
+    }
+}
+
+#if DEBUG
+#Preview("New") {
+    MusicNewExample()
+}
+
+#Preview("Apple Music New Comparison") {
+    ReferenceComparison(
+        spec: ReferenceSpec(
+            id: "media/apple-music/new",
+            device: .iPhone,
+            orientation: .portrait,
+            colorScheme: .light,
+            dynamicTypeSize: .large,
+            notes: "Scrollable full-page reference including system and tab bars."
+        )
+    ) {
+        MusicAppExample(initialSelection: .new)
+    }
+}
+#endif

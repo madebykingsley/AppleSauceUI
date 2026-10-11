@@ -1,0 +1,10 @@
+{
+  "name": "Apple Podcasts — Home",
+  "platform": "iOS",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "Home",
+  "dimensions": "402 × 5042 pixels",
+  "notes": "Supplied scrollable full-page screenshot. Pixel dimensions document the bitmap and are not SwiftUI point measurements."
+}

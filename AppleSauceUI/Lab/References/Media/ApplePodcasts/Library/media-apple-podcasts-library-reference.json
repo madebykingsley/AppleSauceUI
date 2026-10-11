@@ -1,0 +1,10 @@
+{
+  "name": "Apple Podcasts — Library",
+  "platform": "iOS",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "Library",
+  "dimensions": "402 × 1831 pixels",
+  "notes": "Supplied scrollable full-page screenshot. Pixel dimensions document the bitmap and are not SwiftUI point measurements."
+}

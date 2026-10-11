@@ -1,0 +1,10 @@
+{
+  "name": "Apple Podcasts — New",
+  "platform": "iOS",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "New",
+  "dimensions": "402 × 4614 pixels",
+  "notes": "Supplied stitched full-page screenshot. A stitching seam and repeated status bar occur partway down; both are capture artifacts, not app content. Pixel dimensions are not SwiftUI point measurements."
+}
