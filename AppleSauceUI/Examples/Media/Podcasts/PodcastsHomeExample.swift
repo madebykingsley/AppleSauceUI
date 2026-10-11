@@ -40,7 +40,7 @@ struct PodcastsHomeExample: View {
     private func showShelf(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [PodcastShowFixture]) -> some View {
         MediaShelf(title: title, subtitle: subtitle, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
             Button(action: {}) {
-                MediaTile(presentation: show.tilePresentation()) {
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }
@@ -84,8 +84,8 @@ struct PodcastsHomeExample: View {
                 Image(systemName: "appletv.fill").foregroundStyle(.white).frame(width: 40, height: 40).background(.black, in: Circle())
             })
             .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-            HorizontalShelf(items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                MediaTile(presentation: show.tilePresentation()) {
+            MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }
@@ -99,8 +99,8 @@ struct PodcastsHomeExample: View {
                     .frame(width: 40, height: 40)
             }
             .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-            HorizontalShelf(items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                MediaTile(presentation: show.tilePresentation()) {
+            MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                     ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                 }
             }

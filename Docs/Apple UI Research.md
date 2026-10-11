@@ -1,5 +1,7 @@
 # AppleSauce: Research into Apple's Internal UI Architecture
 
+> The focused research summary and adopted AppleSauce naming decisions now live in [Research/apple-ui-internals.md](Research/apple-ui-internals.md). This document preserves the detailed exploratory evidence.
+
 **Status:** Exploratory research  
 **Research date:** October 10, 2026  
 **Platform:** iOS 27.0 Simulator (24A434)  

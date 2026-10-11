@@ -1,14 +1,18 @@
 import SwiftUI
 
 struct MediaShelf<Items: RandomAccessCollection, ItemView: View>: View where Items.Element: Identifiable {
-    let title: LocalizedStringKey; var subtitle: LocalizedStringKey?; let items: Items; let itemWidth: CGFloat
+    var title: LocalizedStringKey?; var subtitle: LocalizedStringKey?; let items: Items; let itemWidth: CGFloat
     var isHeaderActionable = true; var alignment = VerticalAlignment.top; var spacing: CGFloat = 12; var contentMargins: CGFloat = 20
     var scrollingPolicy = HorizontalShelfScrollingPolicy.viewAligned; var headerAction: () -> Void = {}
     @ViewBuilder let itemView: (Items.Element) -> ItemView
 
     var body: some View {
-        ShelfSection(title: title, subtitle: subtitle, isActionable: isHeaderActionable, spacing: spacing, contentMargins: contentMargins, action: headerAction) {
-            HorizontalShelf(items: items, itemWidth: itemWidth, alignment: alignment, spacing: spacing, contentMargins: contentMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+        if let title {
+            ShelfSection(title: title, subtitle: subtitle, isActionable: isHeaderActionable, spacing: spacing, contentMargins: contentMargins, action: headerAction) {
+                HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: spacing, contentMargins: contentMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
+            }
+        } else {
+            HorizontalShelfLayout(items: items, itemWidth: itemWidth, alignment: alignment, spacing: spacing, contentMargins: contentMargins, scrollingPolicy: scrollingPolicy, itemView: itemView)
         }
     }
 }

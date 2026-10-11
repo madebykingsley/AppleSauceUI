@@ -17,6 +17,8 @@ enum EpisodeRowPresentation: Equatable {
 }
 
 struct EpisodeRow<Artwork: View>: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
     let title: String
     let show: String
     let date: String
@@ -30,15 +32,27 @@ struct EpisodeRow<Artwork: View>: View {
     @ViewBuilder let artwork: Artwork
 
     var body: some View {
-        MediaRow(spacing: 12) {
-            artwork
-                .frame(width: presentation.artworkSize, height: presentation.artworkSize)
-                .accessibilityHidden(true)
-        } content: {
-            metadata
-        } accessory: {
-            controls
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack(alignment: .top, spacing: 12) {
+                    episodeArtwork
+                    metadata.frame(maxWidth: .infinity, alignment: .leading)
+                }
+                controls.frame(maxWidth: .infinity, alignment: .trailing)
+            }
+        } else {
+            HStack(spacing: 12) {
+                episodeArtwork
+                metadata.frame(maxWidth: .infinity, alignment: .leading)
+                controls
+            }
         }
+    }
+
+    private var episodeArtwork: some View {
+        artwork
+            .frame(width: presentation.artworkSize, height: presentation.artworkSize)
+            .accessibilityHidden(true)
     }
 
     private var metadata: some View {

@@ -65,16 +65,17 @@ private struct ExampleAppCard: View {
     let example: ExampleApp
 
     var body: some View {
-        ArtworkTile(layout: .landscape(aspectRatio: 3)) {
+        VStack(alignment: .leading, spacing: 6) {
             RoundedRectangle(cornerRadius: 18)
                 .fill(example.tint.gradient)
+                .aspectRatio(3, contentMode: .fit)
+                .frame(maxWidth: .infinity)
                 .overlay {
                     Image(systemName: example.systemImage)
                         .font(.largeTitle)
                         .foregroundStyle(.white)
                         .accessibilityHidden(true)
                 }
-        } metadata: {
             VStack(alignment: .leading, spacing: 2) {
                 Text(example.title)
                     .font(.headline)
@@ -84,6 +85,7 @@ private struct ExampleAppCard: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .accessibilityElement(children: .combine)
         .padding(.vertical, 6)
     }
 }

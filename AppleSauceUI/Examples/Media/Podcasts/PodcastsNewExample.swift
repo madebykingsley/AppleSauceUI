@@ -14,14 +14,14 @@ struct PodcastsNewExample: View {
                             .foregroundStyle(.brown, .orange.opacity(0.35))
                     }
                 }
-                HorizontalShelf(items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
+                MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
                     EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
                         ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
                     }
                 }
                 showShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, ranked: true)
                 ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
-                    MediaTile(presentation: show.tilePresentation()) {
+                    SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                         ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                     }
                 }
@@ -44,11 +44,19 @@ struct PodcastsNewExample: View {
         .background(Color(uiColor: .systemBackground))
     }
 
+    @ViewBuilder
     private func showShelf(title: LocalizedStringKey, items: [PodcastShowFixture], ranked: Bool = false) -> some View {
-        MediaShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-            let rank = items.firstIndex(where: { $0.id == show.id }).map { $0 + 1 }
-            MediaTile(presentation: show.tilePresentation(hierarchy: ranked ? .ranked(rank ?? 1) : .standard)) {
-                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+        if ranked {
+            RankedShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
+                SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
+                    ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                }
+            }
+        } else {
+            MediaShelf(title: title, items: items, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                    ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                }
             }
         }
     }

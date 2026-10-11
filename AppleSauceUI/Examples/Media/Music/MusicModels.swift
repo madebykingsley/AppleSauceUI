@@ -31,12 +31,6 @@ struct MusicLink: Identifiable {
     let title: LocalizedStringResource
 }
 
-extension MusicItem {
-    var tilePresentation: MediaTilePresentation {
-        MediaTilePresentation(title: title, secondaryText: subtitle)
-    }
-}
-
 enum ArtworkPalette {
     case sunset
     case midnight

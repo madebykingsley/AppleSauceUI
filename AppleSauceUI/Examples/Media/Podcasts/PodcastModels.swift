@@ -30,32 +30,6 @@ enum PodcastShowBadgeKind {
     }
 }
 
-extension PodcastShowFixture {
-    func tilePresentation(hierarchy: MediaTilePresentation.Hierarchy = .standard) -> MediaTilePresentation {
-        let secondary: String
-        let tertiary: String?
-        switch hierarchy {
-        case .standard:
-            secondary = category
-            tertiary = updateInformation
-        case .ranked:
-            secondary = publisher
-            tertiary = nil
-        case .library:
-            secondary = updateInformation
-            tertiary = nil
-        }
-        return MediaTilePresentation(
-            title: title,
-            secondaryText: secondary,
-            tertiaryText: tertiary,
-            badge: badge?.compactText,
-            badgeAccessibilityLabel: badge?.accessibilityName,
-            hierarchy: hierarchy
-        )
-    }
-}
-
 extension PodcastShowBadgeKind {
     var compactText: String {
         switch self {
