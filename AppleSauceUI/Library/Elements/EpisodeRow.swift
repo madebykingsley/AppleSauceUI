@@ -53,8 +53,18 @@ struct EpisodeRow<Artwork: View>: View {
     private var episodeArtwork: some View {
         artwork
             .frame(width: presentation.artworkSize, height: presentation.artworkSize)
-            .clipped()
+            .overlay(styleProfile.imagery.overlay)
+            .clipShape(artworkShape)
+            .shadow(
+                color: styleProfile.effects.shadowColor,
+                radius: styleProfile.effects.shadowRadius,
+                y: styleProfile.effects.shadowRadius / 2
+            )
             .accessibilityHidden(true)
+    }
+
+    private var artworkShape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous)
     }
 
     private var metadata: some View {
