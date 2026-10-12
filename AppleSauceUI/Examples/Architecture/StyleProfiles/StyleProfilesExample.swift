@@ -57,6 +57,8 @@ struct StyleProfilesExample: View {
                                 density: density,
                                 layout: cardLayout
                             )
+                        case .elements:
+                            StyleProfileElementsSection(profile: profile, density: density)
                         }
                     }
                 }
@@ -78,6 +80,7 @@ enum StyleProfileComparison: String, CaseIterable, Identifiable {
     case shelf
     case grid
     case card
+    case elements
 
     var id: Self { self }
 
@@ -86,6 +89,7 @@ enum StyleProfileComparison: String, CaseIterable, Identifiable {
         case .shelf: "MediaShelf"
         case .grid: "MediaGrid"
         case .card: "MediaCard"
+        case .elements: "Elements"
         }
     }
 }

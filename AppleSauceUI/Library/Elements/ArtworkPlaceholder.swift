@@ -19,7 +19,7 @@ struct ArtworkPlaceholder: View {
                     .resizable()
                     .scaledToFit()
                     .padding(symbolPadding)
-                    .foregroundStyle(.white.opacity(0.9))
+                    .foregroundStyle(styleProfile.colors.onMedia.opacity(0.9))
                     .symbolRenderingMode(styleProfile.imagery.symbolRenderingMode)
                     .accessibilityHidden(true)
             }

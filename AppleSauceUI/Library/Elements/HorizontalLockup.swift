@@ -3,6 +3,7 @@ import SwiftUI
 /// A leading-artwork presentation that adapts its accessory at accessibility sizes.
 struct HorizontalLockup<Artwork: View, Accessory: View>: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.styleProfile) private var styleProfile
 
     let title: String
     var subtitle: String?
@@ -32,19 +33,19 @@ struct HorizontalLockup<Artwork: View, Accessory: View>: View {
     private var labels: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title)
-                .font(.body)
-                .foregroundStyle(.primary)
+                .font(styleProfile.typography.body)
+                .foregroundStyle(styleProfile.colors.primaryText)
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
             if let subtitle {
                 Text(subtitle)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
             }
             if let metadata {
                 Text(metadata)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
             }
         }
