@@ -8,30 +8,30 @@ struct PodcastsHomeExample: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-            LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                episodeCardShelf(title: "Up Next", items: PodcastsFixtures.upNextCards)
-                showShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows)
-                showShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows)
-                showShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows)
-                showShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows)
-                episodeShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes)
-                subscriberShelf
-                episodeCardShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards)
-                showShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews)
-                episodeCardShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards)
-                episodeShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes)
-                referenceShelf
-                channelShelf
-                episodeShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, presentation: .recentlyPlayed)
-            }
-            .padding(.top, 2)
-            .padding(.bottom, 24)
+                LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
+                    episodeCardShelf(title: "Up Next", items: PodcastsFixtures.upNextCards)
+                    showShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows)
+                    showShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows)
+                    showShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows)
+                    showShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows)
+                    episodeShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes)
+                    subscriberShelf
+                    episodeCardShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards)
+                    showShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews)
+                    episodeCardShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards)
+                    episodeShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes)
+                    referenceShelf
+                    channelShelf
+                    episodeShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, presentation: .recentlyPlayed)
+                }
+                .padding(.top, density.metrics.contentMargin / 2)
+                .padding(.bottom, density.metrics.contentMargin)
             }
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("Home")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     AccountButton(action: onExit) {

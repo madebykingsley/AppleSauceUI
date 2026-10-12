@@ -1,60 +1,62 @@
 import SwiftUI
 
 struct PodcastsNewExample: View {
+    @Environment(\.interfaceDensity) private var density
+
     var onExit: () -> Void = {}
 
     var body: some View {
         NavigationStack {
             ScrollView {
-            LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
-                    EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
-                        ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
-                    }
-                }
-                showShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, ranked: true)
-                ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
-                    SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                        ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
-                    }
-                }
-                showShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows)
-                showShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, ranked: true)
-                episodeShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes)
-                episodeCardShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards)
-                showShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows)
-                episodeCardShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards)
-                showShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, ranked: true)
-                trailerShelf
-                discoveryShelf
-                Section {
-                    VStack(spacing: 0) {
-                        ForEach(PodcastsFixtures.quickLinks) { link in
-                            NavigationLink {
-                                ContentUnavailableView(link.title, systemImage: "mic")
-                                    .navigationTitle(Text(link.title))
-                            } label: {
-                                Text(link.title)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.vertical, 12)
-                            }
-                            Divider()
+                LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
+                    MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
+                        EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
                         }
                     }
-                    .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
-                } header: {
-                    SectionHeader(title: "Podcasts Quick Links")
+                    showShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, ranked: true)
+                    ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
+                        SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
+                    }
+                    showShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows)
+                    showShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, ranked: true)
+                    episodeShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes)
+                    episodeCardShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards)
+                    showShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows)
+                    episodeCardShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards)
+                    showShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, ranked: true)
+                    trailerShelf
+                    discoveryShelf
+                    Section {
+                        VStack(spacing: 0) {
+                            ForEach(PodcastsFixtures.quickLinks) { link in
+                                NavigationLink {
+                                    ContentUnavailableView(link.title, systemImage: "mic")
+                                        .navigationTitle(Text(link.title))
+                                } label: {
+                                    Text(link.title)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.vertical, 12)
+                                }
+                                Divider()
+                            }
+                        }
                         .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                    } header: {
+                        SectionHeader(title: "Podcasts Quick Links")
+                            .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                    }
                 }
-            }
-            .padding(.top, 2)
-            .padding(.bottom, 24)
+                .padding(.top, density.metrics.contentMargin / 2)
+                .padding(.bottom, density.metrics.contentMargin)
             }
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("New")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     AccountButton(action: onExit) {

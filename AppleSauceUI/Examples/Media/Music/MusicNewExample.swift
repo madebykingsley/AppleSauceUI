@@ -8,17 +8,15 @@ struct MusicNewExample: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-            LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.newHeaderSpacing) {
                 sections
-            }
-            .padding(.top, 2)
-            .padding(.bottom, 24)
+                    .padding(.top, density.metrics.contentMargin / 2)
+                    .padding(.bottom, density.metrics.contentMargin)
             }
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("New")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     AccountButton(action: onExit) {

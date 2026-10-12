@@ -60,9 +60,11 @@ struct StyleProfilesExample: View {
                         }
                     }
                 }
-                .padding(.vertical)
+                .padding(.top, density.metrics.contentMargin / 2)
+                .padding(.bottom, density.metrics.contentMargin)
             }
             .navigationTitle(comparison.name)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Close", systemImage: "xmark", action: onExit)

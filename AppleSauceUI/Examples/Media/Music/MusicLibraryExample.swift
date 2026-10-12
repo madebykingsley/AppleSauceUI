@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MusicLibraryExample: View {
+    @Environment(\.interfaceDensity) private var density
     var onExit: () -> Void = {}
 
     var body: some View {
@@ -35,12 +36,13 @@ struct MusicLibraryExample: View {
                     .listRowBackground(Color.clear)
                 }
             }
+            .listSectionSpacing(density.metrics.contentMargin * 2)
             .listStyle(.plain)
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("Library")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItemGroup {
                     Button("Add or sort library items", systemImage: "text.badge.plus", action: {})

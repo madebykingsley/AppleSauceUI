@@ -22,13 +22,14 @@ struct MusicHomeExample: View {
                     featuredShelf(title: "Replay: Your Top Music", items: MusicFixtures.replay)
                     sharedWithYou
                 }
-                .padding(.bottom, 24)
+                .padding(.top, density.metrics.contentMargin / 2)
+                .padding(.bottom, density.metrics.contentMargin)
             }
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("Home")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     AccountButton(action: onExit) {

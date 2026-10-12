@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PodcastsLibraryExample: View {
+    @Environment(\.interfaceDensity) private var density
     var onExit: () -> Void = {}
 
     var body: some View {
@@ -38,12 +39,13 @@ struct PodcastsLibraryExample: View {
                     .listRowBackground(Color.clear)
                 }
             }
+            .listSectionSpacing(density.metrics.contentMargin * 2)
             .listStyle(.plain)
             .visualComparisonScrollTracking()
             .scrollIndicators(.hidden)
             .background(Color(uiColor: .systemBackground))
             .navigationTitle("Library")
-            .toolbarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     Button("More library options", systemImage: "ellipsis", action: {})
