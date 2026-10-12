@@ -1,589 +1,254 @@
-
 # AppleSauceUI Agent Instructions
 
-AppleSauceUI is a research-driven SwiftUI pattern library focused on recreating the design language and interaction conventions of Apple's first-party apps across Apple platforms.
+AppleSauceUI is a research-driven SwiftUI pattern library informed by the design language and interaction conventions of Apple's first-party apps across Apple platforms.
 
-## Core implementation principles
+Treat each reconstructed screen as a **design-system research specimen**: build a convincing, idiomatic screen, reuse proven Elements and Patterns, and discover missing reusable design knowledge. The screen itself is not the reusable API.
 
-Prefer native SwiftUI and Apple system APIs over custom implementations.
+## 1. Native SwiftUI and platform behavior
 
-When recreating reference interfaces:
+Prefer native SwiftUI and Apple system APIs whenever they express the required behavior correctly. Do not manually recreate system UI when an appropriate native API exists.
 
-- Prefer semantic typography:
-  - `.largeTitle`
-  - `.title`
-  - `.title2`
-  - `.title3`
-  - `.headline`
-  - `.body`
-  - `.callout`
-  - `.footnote`
-  - `.caption`
-  - `.caption2`
+- Use native navigation and chrome: `NavigationStack`, `NavigationSplitView`, `NavigationLink`, `TabView`, toolbar APIs, and search APIs.
+- Use appropriate native containers: `List`, `Form`, `Section`, `ScrollView`, `Grid`, `LazyVGrid`, `LazyHGrid`, and `ForEach`.
+- Use native controls and semantics: `Button`, `Menu`, `Toggle`, `Picker`, and `Label`.
+- Prefer semantic typography: `.largeTitle`, `.title`, `.title2`, `.title3`, `.headline`, `.body`, `.callout`, `.footnote`, `.caption`, and `.caption2`.
+- Prefer semantic colors, system fills/backgrounds, SwiftUI materials, and native tint/accent behavior.
+- Preserve Dynamic Type, semantic accessibility labels, native interaction, and system navigation behavior.
+- Prefer intrinsic sizing and system layout behavior. Use fixed frames only when genuine content geometry, such as fixed media dimensions, requires them.
 
-- Prefer semantic colors and materials:
-  - `.primary`
-  - `.secondary`
-  - system fills
-  - system backgrounds
-  - SwiftUI materials
-  - system tint/accent behavior
+AppleSauce abstractions must encode reusable Apple-style design knowledge. Do not add wrappers that merely rename native SwiftUI syntax or lightly restyle system behavior.
 
-- Prefer native controls and containers:
-  - `NavigationStack`
-  - `NavigationSplitView`
-  - `TabView`
-  - `List`
-  - `Form`
-  - `Menu`
-  - `Button`
-  - `Toggle`
-  - `Picker`
-  - `ScrollView`
-  - native toolbar APIs
-  - native search APIs
+Adapt to platform conventions rather than identically resizing one interface across iOS, iPadOS, macOS, watchOS, tvOS, and visionOS. A Pattern need not support every platform; document unsupported platforms instead of forcing inappropriate parity.
 
-- Spacing:
-  - Prefer intrinsic/system layout behavior first.
-  - Introduce explicit spacing only after comparison demonstrates it is required.
-- Layout:
-  - Avoid fixed frames unless the reference pattern genuinely depends on fixed media dimensions.
-- Accessibility:
-  - Dynamic Type and semantic labels must survive the reconstruction.
+## 2. Library architecture and ownership
 
+### Library and Examples
 
-Do not recreate system UI manually when an appropriate native API exists.
+`Library` owns reusable visual presentation and behavior: typography, semantic foreground hierarchy, accessibility composition, controls, card structure, and collection layout. Style Profile and Density responsibilities are defined below.
 
-## Avoid arbitrary values
+`Examples` are thin demonstrations of the shared system. They own:
 
-Do not use arbitrary constants merely to make a screenshot appear closer.
+- App shells, screens, navigation, state, and destination wiring.
+- Domain models, fixtures, assets, and fake/demo data.
+- Mappings from domain data to narrow, neutral Library presentation inputs.
+- Content selection, section order, and screen-specific composition.
+- Deliberate specimen geometry and local one-off promotional compositions.
 
-Avoid:
-- arbitrary `.offset(...)`
-- hardcoded text point sizes
-- sampled RGB colors for system text/backgrounds
-- manual recreations of navigation bars, tab bars, buttons, or other system UI
-- hardcoded screenshot coordinates
+Keep screen bodies readable compositions of Elements, Patterns, and native views. Keep fixtures and models outside screen view files.
 
-Before adding an explicit numeric value, determine whether SwiftUI already provides the desired behavior semantically.
+A view does not remain example-owned merely because its initializer accepts an app model. Map domain data to semantic presentation inputs and use the Library component directly when its responsibility fits.
 
-Explicit values are appropriate when they describe genuine content geometry, for example:
-- media card dimensions
-- image aspect ratios
-- shelf spacing
-- content margins
-- corner radii for custom artwork
-- intentionally fixed visual assets
-
-When an explicit value is required, prefer a named local metric rather than an unexplained magic number.
-
-## Visual reconstruction workflow
-
-Reference screenshots live under:
-
-`AppleSauceUI/Lab/References/`
-
-Generated comparison artifacts live under:
-
-`Artifacts/VisualComparisons/`
-
-For visual-refinement tasks, use:
-
-`Scripts/compare-ui <target>`
-
-Example:
-
-`Scripts/compare-ui media/apple-music/home`
-
-When comparison artifacts are available, inspect:
-
-- `reference.png`
-- `actual.png`
-- `overlay-50.png`
-- `diff.png`
-
-Refine discrepancies in this order:
-
-1. overall hierarchy and structure
-2. navigation/system chrome
-3. major geometry and proportions
-4. spacing and alignment
-5. semantic typography
-6. colors/materials
-7. minor decorative details
-
-Do not optimize individual pixels before major structural discrepancies are resolved.
-
-Do not resize or alter the canonical reference image to make a comparison pass.
-
-## Library-first architecture
-
-Examples are thin demonstrations of the shared UI system. They should primarily contain app shells, screens, navigation and state, domain models, fixtures/assets, and mappings from domain data into Library presentation inputs.
-
-Library owns reusable visual presentation and behavior, including typography, semantic foreground hierarchy, accessibility composition, controls, card structure, and collection layout. A view does not remain example-owned merely because its initializer accepts an app model; map the model to narrow, neutral presentation data and use the Library component directly.
-
-Before implementing UI, inspect existing Library components and representative consumers. Evolve the smallest semantic component that supports demonstrated differences. Keep distinct concepts such as episode cards, event tiles, and promotional cards separate rather than creating a universal configurable card.
-
-- Keep fixtures and models outside screen view files.
-- Keep screen bodies as readable compositions of Library elements and patterns.
 - Prefer semantic presentation inputs for the normal path; reserve low-level content slots for artwork and genuinely custom content.
 - Collection abstractions accept identifiable items and caller-provided item views, never app-domain models.
-- Preserve semantic distinctions such as static versus actionable headers and independent child controls.
-- Example-owned visual views are exceptions limited to bespoke artwork/assets or app-shell behavior. Document each remaining exception.
+- Preserve distinctions such as static versus actionable headers and independent child controls.
 - Do not add forwarding wrappers that only pass data, defaults, or content into a Library component.
-- Brand tint belongs at the app/example root. Library controls inherit it.
-- Library must never depend on `Examples`.
+- Brand tint belongs at the app/example root; Library controls inherit it.
+- `Library` must never depend on `Examples`.
 
-When a reusable presentation is added or changed, update the Library index and documentation in the same change. Verify all consumers before deleting superseded example code.
+Keep bespoke artwork, app-shell behavior, and truly screen-specific compositions local. Also keep uncertain extraction candidates local until evidence supports promotion. Document remaining example-owned visual exceptions and why existing Library responsibilities do not fit; do not leave reusable presentation in Examples merely for convenience.
 
-## View files and previews
+### Elements and Patterns
 
-- Give every SwiftUI `View` its own file named after the type. Do not collect independent components in umbrella files.
-- Extract private helper `View` types into their own appropriately named files and keep their access as narrow as practical.
-- Keep computed view properties and small `@ViewBuilder` methods with their owner; do not turn every stack into a component.
-- Small supporting enums or configuration types may remain beside their sole owning component. Put shared models and configuration in separate files.
-- Keep each component's preview declarations in its corresponding file under `#if DEBUG`. Multiple preview variations do not require separate files.
-- Apply the same file and preview conventions to example screens and app-shell views.
-- Name previews consistently: `ComponentName — Variants`, plus `— Long Content`, `— Accessibility`, or `— Alternate Width` when those cases materially affect the component.
+**Element:** A relatively self-contained semantic UI object. It owns semantic anatomy, meaningful structural variants, and element-level behavior.
 
-## Library discovery and documentation
+Examples: `MediaCard`, `PosterLockup`, `EpisodeRow`, `MetadataBadge`, and `ArtworkPlaceholder`.
 
-Before implementing UI, consult `AppleSauceUI/Library/README.md` for existing elements and patterns. Read the relevant component documentation and representative consumers before using or extending an abstraction.
+**Pattern:** Defines relationships among Elements and/or repeated content. It owns arrangement, collection behavior, section relationships, and responsive collection structure.
 
-When extracting or changing a library component, update its index entry, public API documentation, and any component README in the same change. Document when to use it, caller responsibilities, supported variants/platforms, and demonstrated uses. Keep examples aligned with the current API.
+Examples: `MediaShelf`, `MediaGrid`, `RankedShelf`, and `MediaList`.
 
-Reuse components when their documented responsibilities fit. If they do not fit, keep the implementation local and explain the mismatch rather than adding speculative configuration.
+Do not create a Pattern merely because several Elements appear inside a `VStack`.
 
+### Style Profile ownership
 
-## Platform behavior
+New reusable Elements and Patterns must use the existing Style Profile system from the beginning.
 
-Do not assume that one interface should be identically resized across Apple platforms.
+Style Profile owns reusable visual language:
 
-Prefer platform-native adaptations for:
-- iOS
-- iPadOS
-- macOS
-- watchOS
-- tvOS
-- visionOS
+- Typography character and semantic foreground hierarchy.
+- Colors, surfaces, and shapes.
+- Imagery treatment and scrims.
+- Shadows and outlines.
+- Symbol rendering and motion character.
 
-A pattern does not need to support every platform.
+Use semantic style roles; never branch on profile identity, such as `if styleProfile == .entertainment`.
 
-Document unsupported platforms rather than forcing inappropriate parity.
+Reuse the existing vocabulary. Add a semantic role only when existing roles are genuinely insufficient, and prefer general roles over component-specific tokens:
 
-## Scope discipline
+| Prefer | Avoid |
+| --- | --- |
+| `foreground.onMedia` | `posterTitleColor` |
+| `typography.contentTitle` | `episodeSubtitleFont` |
+| `shape.content` | `musicCardRadius` |
+| `shadow.elevated` | Component-specific shadow tokens |
 
-Keep changes focused on the current task.
+Example screens must not own reusable visual language that belongs in Style Profile. Do not add new Style Profiles during screen extraction unless explicitly requested.
 
-Do not:
-- redesign unrelated screens
-- introduce large frameworks without need
-- add third-party dependencies without strong justification
-- refactor example-specific code into reusable abstractions prematurely
+### Density ownership
 
-Favor small, observable iterations.
+`InterfaceDensity` owns reusable spacing rhythm: content padding, gaps, section spacing, margins, metadata rhythm, and compactness.
 
-For visual-refinement work:
-1. make a meaningful change
-2. build/run
-3. regenerate comparison artifacts
-4. inspect results
-5. continue based on evidence
+Style Profile must not own density. Do not add density values for one-off geometry or convert every numeric value into a token. Explicit example-screen geometry may override density when reproducing a deliberate layout relationship.
 
-## Screen-Driven Development
+### Recipes and screen-level abstractions
 
-When implementing a new AppleSauce example screen, treat the screen as a **design-system research specimen**, not as a reusable component itself.
+Recipes are out of scope for ordinary screen-building and extraction work. Do not create Recipe implementations or agent-facing Recipe documentation as an automatic follow-up.
 
-The goal is:
+Do not extract reusable `FooScreen`, `MediaDetailRecipe`, or similar screen-level SwiftUI components unless explicitly requested. Leave concrete screen composition in Examples.
 
-1. Build a convincing, idiomatic SwiftUI screen.
-2. Reuse existing AppleSauce Elements and Patterns wherever appropriate.
-3. Discover missing reusable Elements or Patterns through implementation.
-4. Extract only abstractions that encode reusable design knowledge.
-5. Leave screen-specific composition local to the example screen.
+## 3. Library discovery, reuse, and extraction
 
-Do not create reusable screen-level or Recipe-level SwiftUI abstractions unless explicitly requested.
+Before implementing UI, consult `AppleSauceUI/Library/README.md`, relevant component documentation, and representative consumers. Identify the closest existing Element or Pattern and determine whether the requirement is already supported, a legitimate variant, a small semantic extension, or a different concept.
 
----
-
-## Native SwiftUI First
-
-Use native SwiftUI APIs whenever they already express the required behavior correctly.
-
-Prefer native:
-
-- `NavigationStack`
-- `NavigationSplitView`
-- `List`
-- `Section`
-- `NavigationLink`
-- `Label`
-- `Toolbar`
-- `Grid`
-- `LazyVGrid`
-- `LazyHGrid`
-- `ScrollView`
-- `ForEach`
-- native controls
-- system materials
-- system navigation behavior
-
-Do not introduce AppleSauce wrappers that merely rename or lightly restyle native SwiftUI behavior.
-
-An AppleSauce abstraction should exist because it encodes reusable Apple-style design knowledge, not because SwiftUI syntax can be wrapped.
-
----
-
-## Reuse Before Creating
-
-Before creating any new Element or Pattern:
-
-1. Search the existing AppleSauce library.
-2. Identify the closest existing abstraction.
-3. Determine whether the new requirement is:
-   - already supported
-   - a legitimate variant
-   - a small semantic extension
-   - genuinely a different abstraction
-
-Prefer extending an existing Element or Pattern when the new requirement preserves the same:
-
-- semantic purpose
-- basic anatomy
-- interaction model
-- content hierarchy
-- responsive behavior
-
-Create a new abstraction only when at least one of those meaningfully differs.
+Reuse an abstraction when its documented responsibilities fit. Otherwise, extend it only if the semantic identity remains intact; keep the implementation local and explain the mismatch when it does not fit and extraction is not yet justified.
 
 ### Extension threshold
 
-Prefer extending an existing abstraction when approximately **80% or more of the semantic structure and behavior is shared** and the difference can be expressed with:
+Prefer extending an existing abstraction when it preserves the same:
 
-- one small variant enum
-- one optional semantic capability
-- one additional content slot
-- a small number of non-orthogonal parameters
+- Semantic purpose and basic anatomy.
+- Interaction model and content hierarchy.
+- Responsive behavior.
 
-Do not use the 80% threshold mechanically. Semantic identity matters more than line-count similarity.
+The difference should fit a small semantic addition: one variant enum, one optional capability, one additional content slot, or a few closely related parameters.
 
-A new abstraction is usually warranted when extending the old one would require:
+As a rough heuristic, extension often makes sense when about **80% or more of semantic structure and behavior remains shared**. Do not apply the percentage mechanically or measure it by shared lines of code; semantic identity is decisive.
 
-- multiple unrelated booleans
-- several independently combinable configuration switches
-- conditionals throughout the implementation
-- substantially different anatomy
-- substantially different interaction
-- substantially different responsive behavior
-- a name that no longer accurately describes all variants
+A separate abstraction is usually warranted when purpose, anatomy, interaction, hierarchy, or responsive behavior meaningfully differs, or extension would require:
 
-Avoid configuration-object abstractions that attempt to represent many unrelated designs through dozens of options.
+- Multiple unrelated Boolean flags or independently combinable switches.
+- Conditionals throughout the implementation.
+- A name that no longer accurately describes every variant.
+- A configuration object attempting to represent unrelated designs through many options.
 
-Prefer:
+Prefer focused semantic choices such as `MediaCard(style: .poster)`. Keep distinct concepts such as episode cards, event tiles, and promotional cards separate rather than building a universal configurable card.
 
-`MediaCard(style: .poster)`
+### Evidence before extraction
 
-over:
+Extract only when there is evidence of reusable design grammar: demonstrated reuse across contexts or a clear semantic concept with credible applicability to at least two distinct screen contexts.
 
-`UniversalCard(showImage: true, imagePosition: ..., overlay: ..., rank: ..., footer: ..., etc.)`
+Evidence can include an existing AppleSauce counterpart, recurrence across Apple first-party apps, implementation duplication, or meaningful semantic intent an agent can select. Do not invent speculative future needs to justify extraction.
 
----
+For example, `MediaShelf` is a reusable Pattern and `PosterLockup` a reusable Element; a promotional banner unique to one screen stays local until reuse is supported.
 
-## Evidence Before Extraction
+Do not extract every visually distinctive object or create abstractions merely to shorten files. When uncertain, keep code local. Prefer fewer, stronger abstractions.
 
-Do not extract every visually distinctive object into the library.
+## 4. Screen-driven workflow
 
-Keep a component local to the screen when it appears to solve only that screen's specific composition.
+### Inventory
 
-Extract an Element or Pattern when there is evidence it represents reusable design grammar.
+Before coding, identify existing Elements and Patterns to reuse, likely missing capabilities, and likely screen-local compositions. Apply the discovery and extension rules above.
 
-Strong evidence includes:
+### Build
 
-- the structure already appears elsewhere in AppleSauce
-- the same concept appears in multiple Apple first-party apps
-- it could plausibly be used in at least two distinct screen contexts
-- the same implementation would otherwise be duplicated
-- the abstraction expresses meaningful semantic intent an agent would benefit from selecting
+Construct the screen with native SwiftUI, existing AppleSauce abstractions, and local screen-specific code. Establish the screen's structure before extracting new abstractions.
 
-Examples:
+### Observe
 
-`MediaShelf`
-→ reusable Pattern
+Once the structure works, inspect duplication and repeated semantic relationships:
 
-`PosterLockup`
-→ reusable Element
+- Is the concept represented elsewhere, or useful in another credible screen context?
+- Is it an Element, a Pattern, or merely local composition?
+- Could an existing abstraction support it cleanly?
 
-one-off promotional banner unique to a single screen
-→ keep local until reuse is demonstrated
+### Extract
 
-When uncertain, prefer leaving code local. Extraction can happen later.
+When the task includes extraction and evidence supports it, extend an existing abstraction or create a focused Element/Pattern. Keep APIs semantic and small, and preserve the ownership boundaries above.
 
----
+### Validate
 
-## Element vs Pattern
+Verify that extraction reduces duplication, improves semantic clarity, avoids excessive configuration, remains Style Profile compatible, and preserves native SwiftUI behavior.
 
-### Element
+Verify affected consumers before deleting superseded example code. Use the visual-verification mode below; extraction does not reset the screenshot budget or automatically authorize iterative visual refinement.
 
-A relatively self-contained semantic UI object.
+## 5. Visual reconstruction and verification
 
-Examples:
+### Explicit values
 
-- `MediaCard`
-- `PosterLockup`
-- `EpisodeRow`
-- `MetadataBadge`
-- `ArtworkPlaceholder`
+Do not use arbitrary constants merely to make a screenshot appear closer. Before adding a numeric value, determine whether SwiftUI already expresses the intended behavior semantically.
 
-An Element owns:
+Avoid arbitrary offsets, hardcoded text point sizes, sampled RGB values for system text/backgrounds, manually recreated system chrome/controls, and hardcoded screenshot coordinates.
 
-- semantic anatomy
-- its own meaningful structural variants
-- element-level behavior
+Explicit values are appropriate for evidenced content geometry: media dimensions, image aspect ratios, shelf spacing, content margins, custom artwork radii, and intentionally fixed visual assets. Prefer named local metrics over unexplained magic numbers.
 
-### Pattern
+Use intrinsic/system spacing first. Introduce explicit spacing only when comparison with the reference demonstrates the need; this does not require another capture after each edit.
 
-Defines relationships among Elements and/or repeated content.
+### Matching priority
 
-Examples:
+Resolve discrepancies in this order:
 
-- `MediaShelf`
-- `MediaGrid`
-- `RankedShelf`
-- `MediaList`
+1. Semantic structure and overall hierarchy.
+2. Navigation model and native system chrome.
+3. Section hierarchy.
+4. Major geometry and proportions.
+5. Content margins.
+6. Item sizing.
+7. Spacing rhythm and alignment.
+8. Semantic typography hierarchy.
+9. Imagery treatment, colors, and materials.
+10. Minor decorative details.
 
-A Pattern owns:
+Do not compromise architecture, accessibility, or native interaction for closer screenshot alignment. Resolve structural discrepancies before optimizing individual pixels.
 
-- arrangement
-- collection behavior
-- section relationships
-- responsive collection structure
+### Ordinary new-screen work: strict screenshot budget
 
-Do not create a Pattern merely because multiple Elements happen to be placed inside a `VStack`.
+Screenshots are a verification tool, not the primary implementation loop. Unless the task explicitly calls for dedicated visual refinement, follow this budget for the screen task as a whole:
 
----
+1. Inspect the supplied reference once and identify major geometry and hierarchy.
+2. Implement from code and existing AppleSauce conventions.
+3. Build and inspect the simulator after the major structure is complete.
+4. Perform at most **one primary screenshot comparison pass**.
+5. Make code corrections based on that comparison.
+6. Perform **one final verification capture only if materially necessary**.
 
-## Style Profile Ownership
+This allows at most two implementation captures: the primary comparison and a conditional final verification. Do not restart the budget after extraction or individual fixes.
 
-New reusable Elements and Patterns should use the existing Style Profile system from the beginning.
+Do not repeatedly capture after small edits, run iterative pixel-diff loops, process/crop/analyze many screenshots, or chase minor first-party rendering differences. Minimize image-processing work within each permitted pass.
 
-Style Profile owns reusable visual language such as:
+Prioritize hierarchy, margins, section cadence, element sizing, content relationships, native interaction, and reusable design grammar over exact pixel matching.
 
-- typography character
-- semantic foreground hierarchy
-- colors
-- surfaces
-- shapes
-- imagery treatment
-- scrims
-- shadows
-- outlines
-- symbol rendering
-- motion character
+Accept minor differences caused by private Apple components/effects, unavailable artwork, native materials, system typography rendering, and status-bar state. Stop when the screen is structurally correct and visually convincing.
 
-Do not branch on profile identity.
+### Dedicated visual-refinement tasks: evidence-driven iteration
 
-Forbidden:
+When visual refinement is explicitly the task, iterative comparison is allowed within any task-specific limits:
 
-```swift
-if styleProfile == .entertainment {
-    ...
-}
-```
+1. Identify the largest remaining discrepancy and make a meaningful, focused change.
+2. Build/run.
+3. Regenerate comparison artifacts.
+4. Inspect results and continue based on evidence.
 
-Use semantic style roles instead.
+Use the matching priority above and avoid unproductive pixel chasing. An ordinary screen implementation must not silently become a dedicated refinement task.
 
-Do not add a new semantic role unless the existing vocabulary is genuinely insufficient.
+### References and comparison tooling
 
-Prefer general semantic roles over component-specific tokens.
+- Canonical references: `AppleSauceUI/Lab/References/`.
+- Generated comparisons: `Artifacts/VisualComparisons/`.
+- Comparison command: `Scripts/compare-ui <target>`.
+- Example: `Scripts/compare-ui media/apple-music/home`.
 
-Avoid names such as:
+Use this tooling for dedicated visual refinement; when used during ordinary screen work, it must stay within the screenshot budget.
 
-- `posterTitleColor`
-- `musicCardRadius`
-- `episodeSubtitleFont`
+When artifacts are available, inspect `reference.png`, `actual.png`, `overlay-50.png`, and `diff.png` as part of the permitted comparison pass. Use current artifacts reflecting the intended screen and build.
 
-Prefer concepts such as:
+Never resize or alter the canonical reference to make a comparison pass. State what visual verification was actually performed and any remaining unverified differences.
 
-- `foreground.onMedia`
-- `typography.contentTitle`
-- `shape.content`
-- `shadow.elevated`
+## 6. Repository hygiene and change discipline
 
----
+### View files and previews
 
-## Density Ownership
+- Give every SwiftUI `View` its own file named after the type; do not collect independent components in umbrella files.
+- Put private helper `View` types in appropriately named files and keep access as narrow as practical.
+- Keep computed view properties and small `@ViewBuilder` methods with their owner; do not turn every stack into a component.
+- Small supporting enums/configuration types may remain beside their sole owner. Put shared models and configuration in separate files.
+- Keep previews in the corresponding component file under `#if DEBUG`; multiple variations do not require separate files.
+- Apply these conventions to example screens and app-shell views as well as Library components.
+- Name previews `ComponentName — Variants`, adding `— Long Content`, `— Accessibility`, or `— Alternate Width` when those cases materially affect the component.
 
-`InterfaceDensity` owns reusable spacing rhythm such as:
+### Documentation and scope
 
-- content padding
-- gaps
-- section spacing
-- margins
-- metadata rhythm
-- compactness
+When adding, extracting, or changing reusable presentation, update the Library index entry, public API documentation, and any component README in the same change. Document when to use it, caller responsibilities, supported variants/platforms, and demonstrated uses. Keep examples aligned with the current API.
 
-Style Profile must not own density.
+Keep work focused on the current task. Do not redesign unrelated screens, refactor unrelated Library code, introduce large frameworks without need, or add third-party dependencies without strong justification.
 
-Do not add density values for one-off geometry.
-
-Explicit example-screen geometry may override density when reproducing a deliberate layout relationship.
-
----
-
-## Example Screen Ownership
-
-Example screens may own:
-
-- content selection
-- section order
-- screen-specific composition
-- deliberate geometry required by the specimen
-- local one-off promotional compositions
-- navigation destination wiring
-- fake/demo data
-
-Example screens should not own reusable visual language that belongs in Style Profile.
-
-Do not extract a reusable `FooScreen`, `MediaDetailRecipe`, or similar screen-level component unless explicitly requested.
-
-For now, Recipes are out of scope.
-
----
-
-## Screenshot and Visual-Reference Budget
-
-Minimize screenshot capture and image-processing work.
-
-Screenshots are a verification tool, not the primary implementation loop.
-
-### Default workflow
-
-1. Inspect the provided reference once.
-2. Identify major geometry and hierarchy.
-3. Implement from code and existing AppleSauce conventions.
-4. Build and inspect the simulator only after the major structure is complete.
-5. Perform at most **one primary screenshot comparison pass**.
-6. Make code corrections based on that comparison.
-7. Perform **one final verification capture only if materially necessary**.
-
-Do not repeatedly:
-
-- capture screenshots after small edits
-- perform iterative pixel-diff loops
-- process/crop/analyze many screenshots
-- chase minor first-party rendering differences
-
-Unless explicitly requested, prioritize:
-
-- hierarchy
-- margins
-- section cadence
-- element sizing
-- content relationships
-- native interaction
-- reusable design grammar
-
-over exact pixel matching.
-
-Accept minor differences caused by:
-
-- private Apple components
-- unavailable artwork
-- native material rendering
-- system typography rendering
-- status-bar state
-- private first-party effects
-
-If the implementation is structurally correct and visually convincing, stop.
-
----
-
-## Visual Matching Priority
-
-When reproducing a reference, prioritize in this order:
-
-1. semantic structure
-2. navigation model
-3. section hierarchy
-4. major geometry
-5. content margins
-6. item sizing
-7. spacing rhythm
-8. typography hierarchy
-9. imagery treatment
-10. minor decorative differences
-
-Do not compromise architecture merely to match a screenshot more precisely.
-
----
-
-## Extraction Workflow
-
-For each new screen:
-
-### 1. Inventory
-
-Before coding, identify:
-
-- existing Elements that can be reused
-- existing Patterns that can be reused
-- likely missing capabilities
-- likely screen-local compositions
-
-### 2. Build
-
-Construct the screen using:
-
-- native SwiftUI
-- existing AppleSauce abstractions
-- local screen-specific code
-
-Do not prematurely extract new abstractions.
-
-### 3. Observe
-
-After the screen structure works, inspect duplication and repeated semantic relationships.
-
-Ask:
-
-- Is this already represented elsewhere?
-- Would another screen plausibly need this?
-- Is this an Element, Pattern, or merely local composition?
-- Could an existing abstraction support this cleanly?
-
-### 4. Extract
-
-Only then:
-
-- extend an existing abstraction, or
-- create a new Element/Pattern
-
-Keep APIs semantic and small.
-
-### 5. Validate
-
-Verify that extraction:
-
-- reduces duplication
-- improves semantic clarity
-- does not create configuration soup
-- remains Style Profile compatible
-- preserves native SwiftUI behavior
-
----
-
-## Change Discipline
-
-Do not refactor unrelated parts of the library while building a specimen screen.
-
-Do not create speculative abstractions for future screens.
-
-Do not add new Style Profiles during screen extraction unless explicitly requested.
-
-Do not add Recipe implementations.
-
-Do not convert every numeric value into a token.
-
-Do not create abstractions merely to reduce file length.
-
-Prefer fewer, stronger abstractions.
+Favor small, observable iterations. Preserve screen-specific decisions locally, extract only supported reusable knowledge, and report validation honestly.
