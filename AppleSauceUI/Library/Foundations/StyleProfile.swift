@@ -27,6 +27,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .editorial:
             StyleProfileTypography(
+                heroTitle: .system(.largeTitle, design: .serif, weight: .semibold),
                 sectionTitle: .system(.title2, design: .serif, weight: .semibold),
                 prominentSectionTitle: .system(.title2, design: .serif, weight: .bold),
                 contentTitle: .system(.title3, design: .serif, weight: .semibold),
@@ -37,6 +38,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
             )
         case .entertainment:
             StyleProfileTypography(
+                heroTitle: .largeTitle.weight(.bold),
                 sectionTitle: .title2.weight(.bold),
                 prominentSectionTitle: .title2.weight(.heavy),
                 contentTitle: .title3.weight(.bold),
@@ -47,6 +49,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
             )
         case .neutral:
             StyleProfileTypography(
+                heroTitle: .largeTitle.weight(.semibold),
                 sectionTitle: .title3.weight(.semibold),
                 prominentSectionTitle: .title2.bold(),
                 contentTitle: .headline,
@@ -137,6 +140,8 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
 }
 
 struct StyleProfileTypography {
+    /// Typography for the primary title in a hero-level content presentation.
+    let heroTitle: Font
     let sectionTitle: Font
     let prominentSectionTitle: Font
     let contentTitle: Font
