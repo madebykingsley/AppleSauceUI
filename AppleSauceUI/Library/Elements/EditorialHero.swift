@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct EditorialHero<Artwork: View>: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let eyebrow: LocalizedStringKey
     let title: LocalizedStringKey
     @ViewBuilder let artwork: Artwork
@@ -8,8 +10,14 @@ struct EditorialHero<Artwork: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             VStack(alignment: .leading, spacing: 2) {
-                Text(eyebrow).font(.caption2).foregroundStyle(.secondary).textCase(.uppercase)
-                Text(title).font(.title3).lineLimit(2)
+                Text(eyebrow)
+                    .font(styleProfile.typography.eyebrow)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
+                    .textCase(.uppercase)
+                Text(title)
+                    .font(styleProfile.typography.contentTitle)
+                    .foregroundStyle(styleProfile.colors.primaryText)
+                    .lineLimit(2)
             }
             artwork
                 .aspectRatio(1.5, contentMode: .fit)

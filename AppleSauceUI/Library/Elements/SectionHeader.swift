@@ -24,7 +24,7 @@ struct SectionHeader<Leading: View, Accessory: View>: View {
             VStack(alignment: .leading, spacing: 2) {
                 if let eyebrow {
                     Text(eyebrow)
-                        .font(.subheadline)
+                        .font(styleProfile.typography.eyebrow)
                         .foregroundStyle(styleProfile.colors.secondaryText)
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 4) {

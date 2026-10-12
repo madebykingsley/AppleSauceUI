@@ -18,6 +18,7 @@ enum EpisodeRowPresentation: Equatable {
 
 struct EpisodeRow<Artwork: View>: View {
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @Environment(\.styleProfile) private var styleProfile
 
     let title: String
     let show: String
@@ -59,14 +60,19 @@ struct EpisodeRow<Artwork: View>: View {
     private var metadata: some View {
         VStack(alignment: .leading, spacing: 2) {
             if presentation == .featured {
-                Text(show).font(.caption.weight(.semibold)).foregroundStyle(.primary).lineLimit(1)
+                Text(show)
+                    .font(styleProfile.typography.itemTitle)
+                    .foregroundStyle(styleProfile.colors.primaryText)
+                    .lineLimit(1)
             } else {
-                Text(date).font(.caption2).foregroundStyle(.secondary)
+                Text(date)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
             }
 
             Text(title)
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(.primary)
+                .font(styleProfile.typography.body)
+                .foregroundStyle(styleProfile.colors.primaryText)
                 .lineLimit(presentation == .recentlyPlayed ? 1 : 2)
 
             if presentation == .featured {
@@ -76,10 +82,13 @@ struct EpisodeRow<Artwork: View>: View {
                     Text(duration)
                     if let badge { MetadataBadge(label: badge) }
                 }
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+                .font(styleProfile.typography.metadata)
+                .foregroundStyle(styleProfile.colors.secondaryText)
             } else if presentation == .recentlyPlayed {
-                Text(show).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
+                Text(show)
+                    .font(styleProfile.typography.metadata)
+                    .foregroundStyle(styleProfile.colors.secondaryText)
+                    .lineLimit(1)
                 if let progress {
                     ProgressView(value: progress)
                         .accessibilityLabel("Playback progress")
