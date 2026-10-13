@@ -108,9 +108,25 @@ struct MusicHomeExample: View {
                             SectionHeader(title: "Shared with You")
                                 .padding(.horizontal, MusicLayoutMetrics.contentMargin)
 
-                            HorizontalLockup(title: "Existence Is Everything", subtitle: "Album · Hawk Thief", metadata: "From Patrick") {
+                            HorizontalLockup(artworkSize: 102, spacing: 12) {
                                 ArtworkPlaceholder(symbol: "mountain.2.fill", background: AnyShapeStyle(ArtworkPalette.ocean.gradient), cornerRadius: 5)
-                                    .frame(width: 88, height: 88)
+                                    .accessibilityHidden(true)
+                            } content: {
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text("Existence Is Everything")
+                                        .font(.subheadline)
+                                        .lineLimit(2)
+                                    Text("Album · Hawk Thief")
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(1)
+                                    Text("From Patrick")
+                                        .font(.caption2.weight(.semibold))
+                                        .padding(.horizontal, 7)
+                                        .padding(.vertical, 3)
+                                        .background(.quaternary, in: Capsule())
+                                }
+                                .accessibilityElement(children: .combine)
                             }
                             .padding(.horizontal, MusicLayoutMetrics.contentMargin)
                         }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PodcastsNewExample: View {
     @Environment(\.interfaceDensity) private var density
+    @Environment(\.styleProfile) private var styleProfile
 
     var onExit: () -> Void = {}
 
@@ -35,11 +36,48 @@ struct PodcastsNewExample: View {
                         }
                     }
                     ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .featured, playAction: {}, overflowAction: {}) {
+                        HorizontalLockup(
+                            artworkSize: PodcastsLayoutMetrics.compactEpisodeArtworkSize,
+                            spacing: PodcastsLayoutMetrics.compactEpisodeSpacing,
+                            alignment: .center
+                        ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                                .overlay(styleProfile.imagery.overlay)
+                                .shadow(
+                                    color: styleProfile.effects.standardShadow.color,
+                                    radius: styleProfile.effects.standardShadow.radius,
+                                    x: styleProfile.effects.standardShadow.x,
+                                    y: styleProfile.effects.standardShadow.y
+                                )
+                                .accessibilityHidden(true)
+                        } content: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(episode.title)
+                                        .font(.body.weight(.semibold))
+                                        .lineLimit(2)
+                                    HStack(spacing: 4) {
+                                        Text(episode.episodeDate)
+                                        Text("·")
+                                        Text(episode.duration)
+                                        if let badge = episode.badge?.compactText {
+                                            MetadataBadge(label: badge)
+                                        }
+                                    }
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                                }
+                                .accessibilityElement(children: .combine)
+                            }
+                        } accessory: {
+                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
+                                .labelStyle(.iconOnly)
+                                .buttonStyle(.plain)
+                                .foregroundStyle(.secondary)
                         }
+                        .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, EpisodeRowPresentation.featured.separatorInset)
+                        Divider().padding(.leading, PodcastsLayoutMetrics.compactEpisodeArtworkSize + PodcastsLayoutMetrics.compactEpisodeSpacing)
                     }
                     MediaShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
                         PodcastEpisodeCard(episode: episode)
