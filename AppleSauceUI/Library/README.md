@@ -9,7 +9,7 @@ The Library owns reusable presentation and behavior. `Examples` owns product mod
 | Foundations | Shared visual and behavioral primitives |
 | Elements | Independent content presentations and controls |
 | Patterns | Collection layout, scrolling, margins, and interaction |
-| Recipes | Complete screenshot-driven example screens |
+| Examples | Concrete screenshot-driven screens, navigation, fixtures, and domain-to-Library mapping |
 | Style Profiles | Coherent typography, color, shape, imagery, effects, motion, and chrome decisions |
 | Density | Independent compact, standard, or spacious layout rhythm |
 | Platform adaptation | Native conventions applied after pattern, profile, and density selection |
@@ -40,11 +40,13 @@ Artwork containers own clipping and effects for supplied artwork so placeholders
 
 Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional independent accessory. It intentionally moves the accessory below the main content at accessibility Dynamic Type sizes. `ViewThatFits` was considered, but geometry-only selection could retain the compact arrangement at an accessibility size; the explicit Dynamic Type policy better preserves the component's demonstrated behavior.
 
+Use `VideoLockup` for lightweight landscape video artwork with a title and optional subtitle or metadata inside a shelf or grid. The caller supplies artwork and any reference-specific aspect ratio. Use `MediaCard` instead when the item needs a richer surface, overlay, or independent controls. Music video and interview shelves currently demonstrate `VideoLockup` on iOS and iPadOS.
+
 `CircleLockup` is planned only after a concrete reference establishes its API. A separate `TrackLockup` is not currently needed.
 
-Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle, metadata, and badge hierarchy. Select `.standard` for distinct artwork and text regions or `.overlay` for metadata layered over artwork; the Style Profile never selects this structural layout. Specialized Recipes may use the lower-level metadata and independent-actions slots when the semantic initializer is insufficient.
+Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle, metadata, and badge hierarchy. Select `.standard` for distinct artwork and text regions or `.overlay` for metadata layered over artwork; the Style Profile never selects this structural layout. Specialized example presentations may use the lower-level metadata and independent-actions slots when the semantic initializer is insufficient.
 
-Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain recipe-owned compositions rather than separate Library card types.
+Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
 
 `EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
 
@@ -56,8 +58,8 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 - `ColumnMediaShelf` uses native `LazyHGrid` column-major placement for demonstrated multi-row episode and track collections.
 - Native `Section`, `NavigationLink`, `Label`, and navigation toolbars own standard structure and interaction; the Library does not wrap them.
 
-Brand tint is applied at the recipe root and inherited by Library controls. Actions are caller-provided, accessory controls remain independent, and recipe-specific measurements do not become global component defaults.
+Brand tint is applied at the example root and inherited by Library controls. Actions are caller-provided, accessory controls remain independent, and example-specific measurements do not become global component defaults.
 
 ## Platform scope
 
-These APIs are demonstrated on iOS and iPadOS by the Music and Podcasts recipes. Other Apple platforms are not yet documented.
+These APIs are demonstrated on iOS and iPadOS by the Music and Podcasts examples. Other Apple platforms are not yet documented.
