@@ -5,6 +5,7 @@ struct EditorialHero<Artwork: View>: View {
 
     let eyebrow: LocalizedStringKey
     let title: LocalizedStringKey
+    var elevation: ElementElevation = .standard
     @ViewBuilder let artwork: Artwork
 
     var body: some View {
@@ -22,8 +23,13 @@ struct EditorialHero<Artwork: View>: View {
             artwork
                 .aspectRatio(1.5, contentMode: .fit)
                 .frame(maxWidth: .infinity)
+                .shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y)
         }
         .accessibilityElement(children: .combine)
+    }
+
+    private var shadow: StyleProfileShadow {
+        styleProfile.effects.shadow(for: elevation)
     }
 }
 

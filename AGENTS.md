@@ -34,18 +34,31 @@ Adapt to platform conventions rather than identically resizing one interface acr
 - Content selection, section order, and screen-specific composition.
 - Deliberate specimen geometry and local one-off promotional compositions.
 
-Keep screen bodies readable compositions of Elements, Patterns, and native views. Keep fixtures and models outside screen view files.
+Keep fixtures and models outside screen view files. Follow the example-screen composition rules below when mapping their data into Library presentation.
 
 A view does not remain example-owned merely because its initializer accepts an app model. Map domain data to semantic presentation inputs and use the Library component directly when its responsibility fits.
 
 - Prefer semantic presentation inputs for the normal path; reserve low-level content slots for artwork and genuinely custom content.
 - Collection abstractions accept identifiable items and caller-provided item views, never app-domain models.
 - Preserve distinctions such as static versus actionable headers and independent child controls.
-- Do not add forwarding wrappers that only pass data, defaults, or content into a Library component.
 - Brand tint belongs at the app/example root; Library controls inherit it.
 - `Library` must never depend on `Examples`.
 
 Keep bespoke artwork, app-shell behavior, and truly screen-specific compositions local. Also keep uncertain extraction candidates local until evidence supports promotion. Document remaining example-owned visual exceptions and why existing Library responsibilities do not fit; do not leave reusable presentation in Examples merely for convenience.
+
+### Example-screen composition
+
+Example screens are living documentation of AppleSauce. Keep their major visual hierarchy readable directly in source.
+
+- Declare major AppleSauce Patterns, such as `MediaShelf`, `ColumnMediaShelf`, `RankedShelf`, `MediaGrid`, and `MediaList`, directly in the screen's `body`. Do not hide them or primary screen sections behind view-returning helper methods, computed properties, or forwarding Views.
+- Prefer keeping Library Elements visible in those Pattern item closures too when mapping example/domain data into their inputs is simple. A direct `MediaShelf` → `SquareLockup` composition makes both Library responsibilities apparent.
+- Do not create example-specific `View` types solely to map fixture/model fields into an existing Library Element, or forwarding wrappers that only pass data, defaults, or content through. Inline those mappings at the composition site. Repetition, use across multiple screens, a shorter file, or a separate preview does not by itself justify wrapping a simple mapping.
+- Extract an example-specific child `View` only when the item composition itself is meaningfully substantial: substantial repeated presentation logic, meaningful interaction/state or accessibility composition, a substantial composition reused across multiple screens, or enough internal complexity that inlining obscures the screen. Assess the implementation, not its name or number of call sites. Passing an action or accessibility label through to an Element alone does not meet this threshold.
+- Keep justified example-specific child Views in `Examples`, scoped to their actual responsibility. Their extraction does not justify moving domain models into Library APIs, duplicating Library-owned presentation, or bypassing the Library extraction criteria below.
+- Small computed view properties and `@ViewBuilder` methods remain appropriate for implementation details, local conditional fragments, and small chrome fragments that do not conceal the major hierarchy. Do not replace a trivial adapter View with an equally opaque view factory.
+- Prefer explicit declarative composition for static specimen screens. Do not introduce a generic section array or section-kind switch merely to reduce repetition; use data-driven section structure only when the screen genuinely requires it.
+
+Simple field mapping belongs at the call site; substantial item composition may deserve its own View. Keep major Patterns visible in either case. Clear source-to-preview navigation is useful, but does not justify unnecessary abstractions or guarantee a particular Xcode Preview selector result.
 
 ### Elements and Patterns
 
@@ -91,6 +104,8 @@ Example screens must not own reusable visual language that belongs in Style Prof
 Style Profile must not own density. Do not add density values for one-off geometry or convert every numeric value into a token. Explicit example-screen geometry may override density when reproducing a deliberate layout relationship.
 
 ### Recipes and screen-level abstractions
+
+Reserve **Recipe** for future agent-facing composition guidance, not SwiftUI factory namespaces or example-specific presentation adapters. Do not introduce Swift `Recipe`/`Recipes` types or static view factories masquerading as Recipes. Place composition with its actual owner under the rules above.
 
 Recipes are out of scope for ordinary screen-building and extraction work. Do not create Recipe implementations or agent-facing Recipe documentation as an automatic follow-up.
 
@@ -239,7 +254,7 @@ Never resize or alter the canonical reference to make a comparison pass. State w
 
 - Give every SwiftUI `View` its own file named after the type; do not collect independent components in umbrella files.
 - Put private helper `View` types in appropriately named files and keep access as narrow as practical.
-- Keep computed view properties and small `@ViewBuilder` methods with their owner; do not turn every stack into a component.
+- Keep permitted computed view properties and small `@ViewBuilder` methods with their owner, following the example-screen composition rules above. File organization is not a reason to extract a new View.
 - Small supporting enums/configuration types may remain beside their sole owner. Put shared models and configuration in separate files.
 - Keep previews in the corresponding component file under `#if DEBUG`; multiple variations do not require separate files.
 - Apply these conventions to example screens and app-shell views as well as Library components.

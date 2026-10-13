@@ -24,7 +24,7 @@ struct SectionHeader<Leading: View, Accessory: View>: View {
             VStack(alignment: .leading, spacing: 2) {
                 if let eyebrow {
                     Text(eyebrow)
-                        .font(styleProfile.typography.eyebrow)
+                        .font(styleProfile.typography.body)
                         .foregroundStyle(styleProfile.colors.secondaryText)
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 4) {
@@ -36,7 +36,7 @@ struct SectionHeader<Leading: View, Accessory: View>: View {
                 }
                 if let subtitle {
                     Text(subtitle)
-                        .font(styleProfile.typography.metadata)
+                        .font(styleProfile.typography.body)
                         .foregroundStyle(styleProfile.colors.secondaryText)
                         .fixedSize(horizontal: false, vertical: true)
                 }
