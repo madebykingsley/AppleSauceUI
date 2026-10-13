@@ -48,7 +48,7 @@ Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle,
 
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
 
-`EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
+`EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Beside the artwork, it stacks metadata above a bottom action row with a tinted play control and trailing secondary overflow control. Recently played rows integrate playback progress into the play control. It also provides balanced vertical spacing around collection dividers, while row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
 
 ## Collection patterns
 

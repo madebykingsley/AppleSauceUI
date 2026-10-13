@@ -41,8 +41,7 @@ struct StyleProfileElementsSection: View {
                 badge: "NEW",
                 presentation: .featured,
                 playAction: {},
-                overflowAction: {},
-                skipForwardAction: {}
+                overflowAction: {}
             ) {
                 ArtworkPlaceholder(
                     symbol: "building.2.fill",

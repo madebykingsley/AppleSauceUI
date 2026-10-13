@@ -50,7 +50,7 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
                         }
                     } separator: {
@@ -91,7 +91,7 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
                         }
                     } separator: {
@@ -141,7 +141,7 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
                         }
                     } separator: {
