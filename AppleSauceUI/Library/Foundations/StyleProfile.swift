@@ -63,7 +63,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
                 sectionTitle: .title3.weight(.semibold),
                 prominentSectionTitle: .title2.bold(),
                 contentTitle: .headline,
-                prominentContentTitle: .title3.weight(.semibold),
+                prominentContentTitle: .title3,
                 body: .subheadline,
                 eyebrow: .caption2.weight(.semibold),
                 itemTitle: .footnote.weight(.medium),
