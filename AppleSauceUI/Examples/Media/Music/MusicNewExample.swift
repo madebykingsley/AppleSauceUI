@@ -37,10 +37,22 @@ struct MusicNewExample: View {
                         }
                     }
                     MediaShelf(title: "Watch Interviews", items: MusicFixtures.interviews, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicVideoLockup(item: item)
+                        VideoLockup(
+                            title: item.title,
+                            subtitle: item.subtitle,
+                            artworkAspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio
+                        ) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                        }
                     }
                     MediaShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicVideoLockup(item: item)
+                        VideoLockup(
+                            title: item.title,
+                            subtitle: item.subtitle,
+                            artworkAspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio
+                        ) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                        }
                     }
                     MediaShelf(title: "Coming Soon", items: MusicFixtures.comingSoon, itemWidth: MusicLayoutMetrics.albumWidth) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
