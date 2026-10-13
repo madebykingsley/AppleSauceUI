@@ -12,4 +12,8 @@ enum PodcastsLayoutMetrics {
     static let trailerAspectRatio: CGFloat = 1.45
     static let discoveryWidth: CGFloat = 249
     static let channelWidth: CGFloat = 280
+    static let compactEpisodeArtworkSize: CGFloat = 63
+    static let compactEpisodeSpacing: CGFloat = 20
+    static let featuredEpisodeArtworkSize: CGFloat = 90
+    static let featuredEpisodeSpacing: CGFloat = 11
 }

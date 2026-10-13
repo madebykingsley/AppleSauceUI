@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PodcastsHomeExample: View {
     @Environment(\.interfaceDensity) private var density
+    @Environment(\.styleProfile) private var styleProfile
 
     var onExit: () -> Void = {}
 
@@ -50,11 +51,42 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}) {
+                        HorizontalLockup(
+                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
+                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            alignment: .top
+                        ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                                .overlay(styleProfile.imagery.overlay)
+                                .shadow(
+                                    color: styleProfile.effects.standardShadow.color,
+                                    radius: styleProfile.effects.standardShadow.radius,
+                                    x: styleProfile.effects.standardShadow.x,
+                                    y: styleProfile.effects.standardShadow.y
+                                )
+                                .accessibilityHidden(true)
+                        } content: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(episode.episodeDate)
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                    Text(episode.title)
+                                        .font(.body.weight(.semibold))
+                                        .lineLimit(2)
+                                }
+                                .accessibilityElement(children: .combine)
+                                PlaybackButton(label: episode.duration, accessibilityLabel: "Play \(episode.title), \(episode.duration)", action: {})
+                            }
+                        } accessory: {
+                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
+                                .labelStyle(.iconOnly)
+                                .buttonStyle(.plain)
+                                .foregroundStyle(.secondary)
                         }
+                        .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, EpisodeRowPresentation.compact.separatorInset)
+                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
                     }
 
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
@@ -91,11 +123,42 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}) {
+                        HorizontalLockup(
+                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
+                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            alignment: .top
+                        ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                                .overlay(styleProfile.imagery.overlay)
+                                .shadow(
+                                    color: styleProfile.effects.standardShadow.color,
+                                    radius: styleProfile.effects.standardShadow.radius,
+                                    x: styleProfile.effects.standardShadow.x,
+                                    y: styleProfile.effects.standardShadow.y
+                                )
+                                .accessibilityHidden(true)
+                        } content: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(episode.episodeDate)
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                    Text(episode.title)
+                                        .font(.body.weight(.semibold))
+                                        .lineLimit(2)
+                                }
+                                .accessibilityElement(children: .combine)
+                                PlaybackButton(label: episode.duration, accessibilityLabel: "Play \(episode.title), \(episode.duration)", action: {})
+                            }
+                        } accessory: {
+                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
+                                .labelStyle(.iconOnly)
+                                .buttonStyle(.plain)
+                                .foregroundStyle(.secondary)
                         }
+                        .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, EpisodeRowPresentation.compact.separatorInset)
+                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
                     }
 
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
@@ -141,11 +204,51 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}) {
+                        HorizontalLockup(
+                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
+                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            alignment: .top
+                        ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                                .overlay(styleProfile.imagery.overlay)
+                                .shadow(
+                                    color: styleProfile.effects.standardShadow.color,
+                                    radius: styleProfile.effects.standardShadow.radius,
+                                    x: styleProfile.effects.standardShadow.x,
+                                    y: styleProfile.effects.standardShadow.y
+                                )
+                                .accessibilityHidden(true)
+                        } content: {
+                            VStack(alignment: .leading, spacing: 8) {
+                                VStack(alignment: .leading, spacing: 2) {
+                                    Text(episode.episodeDate)
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                    Text(episode.title)
+                                        .font(.body.weight(.semibold))
+                                        .lineLimit(1)
+                                    Text(episode.show)
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                        .lineLimit(1)
+                                }
+                                .accessibilityElement(children: .combine)
+                                PlaybackButton(
+                                    label: episode.duration,
+                                    accessibilityLabel: "Play \(episode.title), \(episode.duration)",
+                                    progress: episode.progress,
+                                    action: {}
+                                )
+                            }
+                        } accessory: {
+                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
+                                .labelStyle(.iconOnly)
+                                .buttonStyle(.plain)
+                                .foregroundStyle(.secondary)
                         }
+                        .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, EpisodeRowPresentation.recentlyPlayed.separatorInset)
+                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
                     }
                 }
                 .padding(.top, density.metrics.contentMargin / 2)

@@ -90,6 +90,45 @@
   ],
   "elements": [
     {
+      "id": "horizontal-lockup",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "browse",
+        "inform",
+        "act"
+      ],
+      "content": [
+        "album",
+        "app",
+        "audiobook",
+        "book",
+        "episode",
+        "game",
+        "song",
+        "workout"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "unsupported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "unsupported"
+      },
+      "anatomy": [
+        "artwork",
+        "content",
+        "accessory"
+      ],
+      "variants": [],
+      "avoidWhen": [
+        "content is primarily vertical or full-bleed",
+        "the relationship requires a card surface or overlay presentation"
+      ],
+      "documentation": "Docs/Elements/horizontal-lockup.md"
+    },
+    {
       "id": "media-card",
       "kind": "element",
       "category": "content",

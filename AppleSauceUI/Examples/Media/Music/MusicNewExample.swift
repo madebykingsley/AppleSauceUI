@@ -15,11 +15,24 @@ struct MusicNewExample: View {
                         }
                     }
                     ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: MusicLayoutMetrics.newFeatureWidth) { song in
-                        HorizontalLockup(title: song.title, subtitle: song.subtitle) {
+                        HorizontalLockup(artworkSize: 48, spacing: 11) {
                             ArtworkThumbnail(symbol: song.symbol, background: AnyShapeStyle(song.artwork.gradient), size: 48)
+                                .accessibilityHidden(true)
+                        } content: {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(song.title)
+                                    .font(.callout)
+                                    .lineLimit(1)
+                                Text(song.subtitle)
+                                    .font(.footnote)
+                                    .foregroundStyle(.secondary)
+                                    .lineLimit(1)
+                            }
+                            .accessibilityElement(children: .combine)
                         } accessory: {
                             Button("More actions for \(song.title)", systemImage: "ellipsis", action: {})
                                 .labelStyle(.iconOnly)
+                                .tint(.secondary)
                         }
                         .padding(.trailing, 8)
                         .padding(.vertical, 4)

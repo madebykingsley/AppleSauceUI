@@ -22,7 +22,7 @@ Apply `.styleProfile(.editorial)`, `.styleProfile(.entertainment)`, or `.stylePr
 
 Apply `.interfaceDensity(.compact)`, `.standard`, or `.spacious` separately. Density changes broad collection rhythm—section spacing, item spacing, content margins, and metadata spacing—without encoding brand or visual personality. Existing screens inherit Neutral + Standard, whose values preserve the previous defaults.
 
-The original proof covers the `MediaShelf` and `MediaGrid` Patterns plus the content-rich `MediaCard` Element. The same semantic vocabulary is now adopted by `PosterLockup`, `EditorialHero`, `HorizontalLockup`, `EpisodeRow`, `SectionHeader`, and artwork placeholders. Collection patterns consume density; content Elements request Style Profile semantics without branching on profile identity; and explicit Element variants remain caller-selected.
+The original proof covers the `MediaShelf` and `MediaGrid` Patterns plus the content-rich `MediaCard` Element. The same semantic vocabulary is now adopted by `PosterLockup`, `EditorialHero`, `SectionHeader`, and artwork placeholders. Collection patterns consume density; content Elements request Style Profile semantics without branching on profile identity; and explicit Element variants remain caller-selected. `HorizontalLockup` deliberately remains geometry-only so its children can supply the appropriate semantic hierarchy for each category.
 
 `heroTitle`, `heroEyebrow`, and `heroSupporting` describe the hierarchy within a hero-level content presentation. They are intentionally broader than `PosterLockup`: use them only when content establishes the dominant hierarchy for an entire hero, not for section headings, ordinary card metadata, or component-specific sizing. Neutral preserves the established large-title hero treatment.
 
@@ -38,7 +38,7 @@ Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplie
 
 Artwork containers own clipping and effects for supplied artwork so placeholders and real images receive the same treatment. `ArtworkPlaceholder` supplies placeholder visuals and inherits the semantic artwork shape when no override is provided; it is not a universal artwork container. `ArtworkThumbnail` remains placeholder-specific, so its fixed thumbnail radius is not yet a shared shape convention.
 
-Use `HorizontalLockup` for leading artwork, semantic metadata, and an optional independent accessory. It intentionally moves the accessory below the main content at accessibility Dynamic Type sizes. `ViewThatFits` was considered, but geometry-only selection could retain the compact arrangement at an accessibility size; the explicit Dynamic Type policy better preserves the component's demonstrated behavior.
+Use `HorizontalLockup` for sized leading artwork, flexible caller-supplied content, and an optional independent trailing accessory. Supply a scalar size for square artwork or `CGSize` for other proportions. The caller owns typography, hierarchy, artwork treatment, actions, and accessibility; bottom controls belong inside the content builder. Artwork/content and accessory vertical alignments are independent, while row padding and separators remain container responsibilities.
 
 Use `VideoLockup` for lightweight landscape video artwork with a title and optional subtitle or metadata inside a shelf or grid. The caller supplies artwork and any reference-specific aspect ratio. Use `MediaCard` instead when the item needs a richer surface, overlay, or independent controls. Music video and interview shelves currently demonstrate `VideoLockup` on iOS and iPadOS.
 
@@ -47,8 +47,6 @@ Use `VideoLockup` for lightweight landscape video artwork with a title and optio
 Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle, metadata, and badge hierarchy. Select `.standard` for distinct artwork and text regions or `.overlay` for metadata layered over artwork; the Style Profile never selects this structural layout. Specialized example presentations may use the lower-level metadata and independent-actions slots when the semantic initializer is insufficient.
 
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
-
-`EpisodeRow` gives supplied artwork a fixed square viewport based on its presentation and clips artwork to that viewport. Beside the artwork, it stacks metadata above a bottom action row with a tinted play control and trailing secondary overflow control. Recently played rows integrate playback progress into the play control. It also provides balanced vertical spacing around collection dividers, while row height remains content-driven so metadata and controls can adapt at accessibility Dynamic Type sizes.
 
 ## Collection patterns
 

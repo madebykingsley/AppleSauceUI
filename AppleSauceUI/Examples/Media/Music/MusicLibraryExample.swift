@@ -46,7 +46,9 @@ struct MusicLibraryExample: View {
             .toolbar {
                 ToolbarItemGroup {
                     Button("Add or sort library items", systemImage: "text.badge.plus", action: {})
+                        .tint(.primary)
                     Button("More library options", systemImage: "ellipsis", action: {})
+                        .tint(.primary)
                 }
 
                 ToolbarSpacer(.fixed)
