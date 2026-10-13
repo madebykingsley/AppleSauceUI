@@ -27,10 +27,14 @@ struct MusicNewExample: View {
                         Divider().padding(.leading, 60)
                     }
                     MediaShelf(title: "New This Week", items: MusicFixtures.newThisWeek, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     MediaShelf(title: "Recent Releases", items: MusicFixtures.recentReleases, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     MediaShelf(title: "Watch Interviews", items: MusicFixtures.interviews, itemWidth: MusicLayoutMetrics.albumWidth) { item in
                         MusicVideoLockup(item: item)
@@ -39,7 +43,9 @@ struct MusicNewExample: View {
                         MusicVideoLockup(item: item)
                     }
                     MediaShelf(title: "Coming Soon", items: MusicFixtures.comingSoon, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     Section {
                         VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {

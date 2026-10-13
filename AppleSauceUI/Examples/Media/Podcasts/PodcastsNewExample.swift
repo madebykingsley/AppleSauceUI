@@ -15,19 +15,29 @@ struct PodcastsNewExample: View {
                         }
                     }
                     RankedShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
-                        PodcastShowLockup(show: show, presentation: .ranked(rank))
+                        SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
-                        PodcastShowLockup(show: show)
+                        SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     MediaShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        PodcastShowLockup(show: show)
+                        SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     RankedShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
-                        PodcastShowLockup(show: show, presentation: .ranked(rank))
+                        SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        PodcastEpisodeRow(episode: episode, presentation: .featured)
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .featured, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     } separator: {
                         Divider().padding(.leading, EpisodeRowPresentation.featured.separatorInset)
                     }
@@ -35,13 +45,17 @@ struct PodcastsNewExample: View {
                         PodcastEpisodeCard(episode: episode)
                     }
                     MediaShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        PodcastShowLockup(show: show)
+                        SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
                     RankedShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
-                        PodcastShowLockup(show: show, presentation: .ranked(rank))
+                        SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
+                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                        }
                     }
                     MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: PodcastsLayoutMetrics.trailerWidth) { trailer in
                         MediaCard(background: trailer.color.gradient) {

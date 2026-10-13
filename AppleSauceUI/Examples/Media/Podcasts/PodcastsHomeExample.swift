@@ -14,27 +14,45 @@ struct PodcastsHomeExample: View {
                     }
 
                     MediaShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        Button(action: {}) { PodcastShowLockup(show: show) }
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
+                        }
                             .buttonStyle(.plain)
                     }
 
                     MediaShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        Button(action: {}) { PodcastShowLockup(show: show) }
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
+                        }
                             .buttonStyle(.plain)
                     }
 
                     MediaShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        Button(action: {}) { PodcastShowLockup(show: show) }
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
+                        }
                             .buttonStyle(.plain)
                     }
 
                     MediaShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        Button(action: {}) { PodcastShowLockup(show: show) }
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
+                        }
                             .buttonStyle(.plain)
                     }
 
                     ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        PodcastEpisodeRow(episode: episode)
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     } separator: {
                         Divider().padding(.leading, EpisodeRowPresentation.compact.separatorInset)
                     }
@@ -49,7 +67,9 @@ struct PodcastsHomeExample: View {
                         .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
 
                         MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                            PodcastShowLockup(show: show)
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
                         }
                     }
 
@@ -58,7 +78,11 @@ struct PodcastsHomeExample: View {
                     }
 
                     MediaShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                        Button(action: {}) { PodcastShowLockup(show: show) }
+                        Button(action: {}) {
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
+                        }
                             .buttonStyle(.plain)
                     }
 
@@ -67,7 +91,9 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        PodcastEpisodeRow(episode: episode)
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .compact, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     } separator: {
                         Divider().padding(.leading, EpisodeRowPresentation.compact.separatorInset)
                     }
@@ -88,7 +114,9 @@ struct PodcastsHomeExample: View {
                         .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
 
                         MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
-                            PodcastShowLockup(show: show)
+                            SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
                         }
                     }
 
@@ -113,7 +141,9 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
-                        PodcastEpisodeRow(episode: episode, presentation: .recentlyPlayed)
+                        EpisodeRow(title: episode.title, show: episode.show, date: episode.episodeDate, duration: episode.duration, badge: episode.badge?.compactText, progress: episode.progress, presentation: .recentlyPlayed, playAction: {}, overflowAction: {}, skipForwardAction: {}) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     } separator: {
                         Divider().padding(.leading, EpisodeRowPresentation.recentlyPlayed.separatorInset)
                     }

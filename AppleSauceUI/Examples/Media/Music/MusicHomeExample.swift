@@ -10,13 +10,19 @@ struct MusicHomeExample: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.sectionSpacing) {
                     MediaShelf(title: "Top Picks for You", items: MusicFixtures.topPicks, itemWidth: MusicLayoutMetrics.featureWidth, isHeaderActionable: false) { item in
-                        MusicFeaturedLockup(item: item)
+                        PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight, elevation: .prominent) {
+                            Rectangle().fill(item.artwork.gradient)
+                        }
                     }
                     MediaShelf(title: "Recently Played", items: MusicFixtures.recentlyPlayed, itemWidth: MusicLayoutMetrics.albumWidth, isHeaderActionable: true) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     MediaShelf(title: "’90s", items: MusicFixtures.nineties, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
                         Button(action: {}) {
@@ -32,20 +38,30 @@ struct MusicHomeExample: View {
                         .accessibilityHint("Opens the section")
                         .padding(.horizontal, MusicLayoutMetrics.contentMargin)
                         MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.moreLikePrisoner, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                            MusicArtworkLockup(item: item)
+                            SquareLockup(title: item.title, subtitle: item.subtitle) {
+                                ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            }
                         }
                     }
                     MediaShelf(title: "Playlists Made for You", items: MusicFixtures.playlists, itemWidth: MusicLayoutMetrics.featureWidth, isHeaderActionable: false) { item in
-                        MusicFeaturedLockup(item: item)
+                        PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight, elevation: .prominent) {
+                            Rectangle().fill(item.artwork.gradient)
+                        }
                     }
                     MediaShelf(title: "Stations for You", items: MusicFixtures.stations, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item, symbolPadding: 35)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 35)
+                        }
                     }
                     MediaShelf(title: "Find Your Mood", items: MusicFixtures.moods, itemWidth: MusicLayoutMetrics.albumWidth) { item in
-                        MusicArtworkLockup(item: item, symbolPadding: 35)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 35)
+                        }
                     }
                     MediaShelf(title: "New Releases for You", items: MusicFixtures.newReleases, itemWidth: MusicLayoutMetrics.albumWidth, isHeaderActionable: true) { item in
-                        MusicArtworkLockup(item: item)
+                        SquareLockup(title: item.title, subtitle: item.subtitle) {
+                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                        }
                     }
                     MediaShelf(title: "Concerts", items: MusicFixtures.concerts, itemWidth: MusicLayoutMetrics.albumWidth, scrollingPolicy: .continuous) { item in
                         SquareLockup(title: item.title, subtitle: item.venue, metadata: item.schedule, artworkAccessoryAccessibilityLabel: "\(item.month) \(item.day)") {
@@ -83,7 +99,9 @@ struct MusicHomeExample: View {
                         }
                     }
                     MediaShelf(title: "Replay: Your Top Music", items: MusicFixtures.replay, itemWidth: MusicLayoutMetrics.featureWidth, isHeaderActionable: false) { item in
-                        MusicFeaturedLockup(item: item)
+                        PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight, elevation: .prominent) {
+                            Rectangle().fill(item.artwork.gradient)
+                        }
                     }
                     Section {
                         VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {

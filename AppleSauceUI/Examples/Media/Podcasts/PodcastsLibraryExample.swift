@@ -28,7 +28,9 @@ struct PodcastsLibraryExample: View {
                 Section {
                     MediaGrid(title: "Recently Updated", items: PodcastsFixtures.libraryShows) { show in
                         Button(action: {}) {
-                            PodcastShowLockup(show: show, presentation: .library)
+                            SquareLockup(title: show.title, subtitle: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .library) {
+                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            }
                         }
                         .buttonStyle(.plain)
                     }
