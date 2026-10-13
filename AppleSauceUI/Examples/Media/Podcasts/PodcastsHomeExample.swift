@@ -135,12 +135,6 @@ struct PodcastsHomeExample: View {
 #if DEBUG
 #Preview("Podcasts Home") {
     PodcastsHomeExample()
-        .frame(width: 402)
-}
-
-#Preview("Podcasts Home — alternate width") {
-    PodcastsHomeExample()
-        .frame(width: 480)
 }
 
 #Preview("Apple Podcasts Home Comparison") {

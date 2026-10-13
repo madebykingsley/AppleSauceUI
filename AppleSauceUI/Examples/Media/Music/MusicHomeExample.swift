@@ -53,7 +53,7 @@ struct MusicHomeExample: View {
 
     private func featuredShelf(title: LocalizedStringKey, items: [MusicItem]) -> some View {
         MediaShelf(title: title, items: items, itemWidth: MusicLayoutMetrics.featureWidth, isHeaderActionable: false) { item in
-            PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight) {
+            PosterLockup(title: item.title, eyebrow: item.eyebrow, subtitle: item.subtitle, height: MusicLayoutMetrics.featureHeight, elevation: .prominent) {
                 Rectangle().fill(item.artwork.gradient)
             }
         }

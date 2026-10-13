@@ -28,34 +28,46 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
         case .editorial:
             StyleProfileTypography(
                 heroTitle: .system(.largeTitle, design: .serif, weight: .semibold),
+                heroEyebrow: .system(.caption2, design: .serif, weight: .semibold),
+                heroSupporting: .system(.callout, design: .serif),
                 sectionTitle: .system(.title2, design: .serif, weight: .semibold),
                 prominentSectionTitle: .system(.title2, design: .serif, weight: .bold),
                 contentTitle: .system(.title3, design: .serif, weight: .semibold),
+                prominentContentTitle: .system(.title2, design: .serif, weight: .semibold),
                 body: .system(.callout, design: .serif),
                 eyebrow: .system(.caption2, design: .serif, weight: .semibold),
                 itemTitle: .system(.footnote, design: .serif, weight: .semibold),
+                itemSubtitle: .system(.footnote, design: .serif),
                 metadata: .system(.caption2, design: .serif)
             )
         case .entertainment:
             StyleProfileTypography(
                 heroTitle: .largeTitle.weight(.bold),
+                heroEyebrow: .callout.weight(.bold),
+                heroSupporting: .callout,
                 sectionTitle: .title2.weight(.bold),
                 prominentSectionTitle: .title2.weight(.heavy),
                 contentTitle: .title3.weight(.bold),
+                prominentContentTitle: .title2.weight(.bold),
                 body: .callout,
                 eyebrow: .caption2.weight(.bold),
                 itemTitle: .footnote.weight(.bold),
+                itemSubtitle: .footnote.weight(.medium),
                 metadata: .caption2.weight(.medium)
             )
         case .neutral:
             StyleProfileTypography(
                 heroTitle: .largeTitle.weight(.semibold),
+                heroEyebrow: .footnote,
+                heroSupporting: .footnote,
                 sectionTitle: .title3.weight(.semibold),
                 prominentSectionTitle: .title2.bold(),
                 contentTitle: .headline,
+                prominentContentTitle: .title3.weight(.semibold),
                 body: .subheadline,
                 eyebrow: .caption2.weight(.semibold),
                 itemTitle: .footnote.weight(.medium),
+                itemSubtitle: .footnote,
                 metadata: .caption2
             )
         }
@@ -130,11 +142,35 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
     var effects: StyleProfileEffects {
         switch self {
         case .editorial:
-            StyleProfileEffects(outlineColor: .secondary.opacity(0.28), outlineWidth: 1, shadowColor: .clear, shadowRadius: 0, chromeProminence: .subtle, standardMotionDuration: 0.2)
+            StyleProfileEffects(
+                outlineColor: .secondary.opacity(0.28),
+                outlineWidth: 1,
+                subtleShadow: .none,
+                standardShadow: .none,
+                prominentShadow: StyleProfileShadow(color: .black.opacity(0.24), radius: 10, x: 0, y: 4),
+                chromeProminence: .subtle,
+                standardMotionDuration: 0.2
+            )
         case .entertainment:
-            StyleProfileEffects(outlineColor: .clear, outlineWidth: 0, shadowColor: .black.opacity(0.35), shadowRadius: 10, chromeProminence: .expressive, standardMotionDuration: 0.35)
+            StyleProfileEffects(
+                outlineColor: .clear,
+                outlineWidth: 0,
+                subtleShadow: StyleProfileShadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2.5),
+                standardShadow: StyleProfileShadow(color: .black.opacity(0.35), radius: 10, x: 0, y: 5),
+                prominentShadow: StyleProfileShadow(color: .black.opacity(0.38), radius: 20, x: 0, y: 10),
+                chromeProminence: .expressive,
+                standardMotionDuration: 0.35
+            )
         case .neutral:
-            StyleProfileEffects(outlineColor: .secondary.opacity(0.16), outlineWidth: 0.5, shadowColor: .black.opacity(0.12), shadowRadius: 3, chromeProminence: .standard, standardMotionDuration: 0.25)
+            StyleProfileEffects(
+                outlineColor: .secondary.opacity(0.16),
+                outlineWidth: 0.5,
+                subtleShadow: StyleProfileShadow(color: .black.opacity(0.08), radius: 2, x: 0, y: 1),
+                standardShadow: StyleProfileShadow(color: .black.opacity(0.12), radius: 3, x: 0, y: 1.5),
+                prominentShadow: StyleProfileShadow(color: .black.opacity(0.22), radius: 14, x: 0, y: 7),
+                chromeProminence: .standard,
+                standardMotionDuration: 0.25
+            )
         }
     }
 }
@@ -142,12 +178,18 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
 struct StyleProfileTypography {
     /// Typography for the primary title in a hero-level content presentation.
     let heroTitle: Font
+    /// Typography for a short label that qualifies hero-level content.
+    let heroEyebrow: Font
+    /// Typography for supporting information within hero-level content.
+    let heroSupporting: Font
     let sectionTitle: Font
     let prominentSectionTitle: Font
     let contentTitle: Font
+    let prominentContentTitle: Font
     let body: Font
     let eyebrow: Font
     let itemTitle: Font
+    let itemSubtitle: Font
     let metadata: Font
 }
 
@@ -179,10 +221,20 @@ enum StyleProfileChromeProminence {
 struct StyleProfileEffects {
     let outlineColor: Color
     let outlineWidth: CGFloat
-    let shadowColor: Color
-    let shadowRadius: CGFloat
+    let subtleShadow: StyleProfileShadow
+    let standardShadow: StyleProfileShadow
+    let prominentShadow: StyleProfileShadow
     let chromeProminence: StyleProfileChromeProminence
     let standardMotionDuration: TimeInterval
+
+    func shadow(for elevation: ElementElevation) -> StyleProfileShadow {
+        switch elevation {
+        case .none: .none
+        case .subtle: subtleShadow
+        case .standard: standardShadow
+        case .prominent: prominentShadow
+        }
+    }
 }
 
 private struct StyleProfileEnvironmentKey: EnvironmentKey {

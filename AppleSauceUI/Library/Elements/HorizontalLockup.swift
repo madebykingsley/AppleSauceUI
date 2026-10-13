@@ -38,7 +38,7 @@ struct HorizontalLockup<Artwork: View, Accessory: View>: View {
                 .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
             if let subtitle {
                 Text(subtitle)
-                    .font(styleProfile.typography.metadata)
+                    .font(styleProfile.typography.itemSubtitle)
                     .foregroundStyle(styleProfile.colors.secondaryText)
                     .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
             }

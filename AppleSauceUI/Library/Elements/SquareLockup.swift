@@ -29,7 +29,12 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
                 .frame(maxWidth: .infinity)
                 .overlay(styleProfile.imagery.overlay)
                 .clipShape(RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous))
-                .shadow(color: styleProfile.effects.shadowColor, radius: styleProfile.effects.shadowRadius, y: styleProfile.effects.shadowRadius / 2)
+                .shadow(
+                    color: styleProfile.effects.standardShadow.color,
+                    radius: styleProfile.effects.standardShadow.radius,
+                    x: styleProfile.effects.standardShadow.x,
+                    y: styleProfile.effects.standardShadow.y
+                )
                 .overlay(alignment: .topLeading) { artworkAccessory.padding(8) }
             lockupMetadata
                 .accessibilityHidden(true)
@@ -61,7 +66,7 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
                         MetadataBadge(label: badge)
                     }
                 }
-                .font(styleProfile.typography.metadata)
+                .font(styleProfile.typography.itemSubtitle)
                 .foregroundStyle(styleProfile.colors.secondaryText)
             }
             if let metadata {

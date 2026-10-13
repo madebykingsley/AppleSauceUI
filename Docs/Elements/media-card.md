@@ -52,7 +52,7 @@ Avoid it for dense libraries dominated by square artwork, broad collections that
 
 ## Anatomy
 
-The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. Specialized Recipes may use the lower-level metadata and actions slots when independent controls are required, while retaining the same card container and explicit layout model.
+The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. Specialized Recipes may use the lower-level metadata and actions slots when independent controls are required, and may provide explicit content insets when reference geometry differs from density defaults, while retaining the same card container and explicit layout model.
 
 ## Variants
 
@@ -64,7 +64,7 @@ The Style Profile supplies content typography, primary and secondary foreground 
 
 ## Density responsibilities
 
-Density supplies content padding and metadata rhythm. It does not select layout, typography personality, color, surface, or imagery treatment. Standard density preserves the original 12-point card padding.
+Density supplies default content padding and metadata rhythm. It does not select layout, typography personality, color, surface, or imagery treatment. Standard density preserves the original 12-point card padding; explicit Recipe geometry may override the card insets without changing global density.
 
 ## Accessibility considerations
 

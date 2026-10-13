@@ -24,7 +24,9 @@ Apply `.interfaceDensity(.compact)`, `.standard`, or `.spacious` separately. Den
 
 The original proof covers the `MediaShelf` and `MediaGrid` Patterns plus the content-rich `MediaCard` Element. The same semantic vocabulary is now adopted by `PosterLockup`, `EditorialHero`, `HorizontalLockup`, `EpisodeRow`, `SectionHeader`, and artwork placeholders. Collection patterns consume density; content Elements request Style Profile semantics without branching on profile identity; and explicit Element variants remain caller-selected.
 
-`heroTitle` describes the primary title in a hero-level content presentation. It is intentionally broader than `PosterLockup`: use it only when a title establishes the dominant content hierarchy for an entire hero, not for section headings, ordinary card titles, or component-specific sizing. Neutral preserves the established large-title hero treatment.
+`heroTitle`, `heroEyebrow`, and `heroSupporting` describe the hierarchy within a hero-level content presentation. They are intentionally broader than `PosterLockup`: use them only when content establishes the dominant hierarchy for an entire hero, not for section headings, ordinary card metadata, or component-specific sizing. Neutral preserves the established large-title hero treatment.
+
+`prominentContentTitle` distinguishes feature-level content headings from ordinary card titles, while `itemSubtitle` provides readable secondary identity such as an artist or show name without promoting lower-priority metadata.
 
 Profile values currently remain native SwiftUI values because the proof has no external token exchange requirement. If customizable tokens cross tool or platform boundaries later, expose only meaningful decisions in Design Tokens Community Group format and map them into these semantic Swift types; do not serialize system colors, text styles, or materials merely to replace native APIs.
 
@@ -32,7 +34,7 @@ Profile values currently remain native SwiftUI values because the proof has no e
 
 Use `SquareLockup` for albums, shows, square events, rankings, and library items. Its direct inputs cover title, optional subtitle and metadata, optional badge accessibility, and the demonstrated standard, ranked, and library styles.
 
-Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplies its reference-specific height; the component does not provide a landscape mode or arbitrary overlay slots.
+Use `PosterLockup` for portrait, full-bleed featured artwork. The caller supplies its reference-specific height and may choose a semantic elevation; the active Style Profile defines how that elevation is rendered. The component does not provide a landscape mode or arbitrary overlay slots.
 
 Artwork containers own clipping and effects for supplied artwork so placeholders and real images receive the same treatment. `ArtworkPlaceholder` supplies placeholder visuals and inherits the semantic artwork shape when no override is provided; it is not a universal artwork container. `ArtworkThumbnail` remains placeholder-specific, so its fixed thumbnail radius is not yet a shared shape convention.
 

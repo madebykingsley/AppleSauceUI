@@ -22,6 +22,7 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
 
     let layout: MediaCardLayout
     let background: Background
+    let contentInsets: EdgeInsets?
     @ViewBuilder let artwork: Artwork
     @ViewBuilder let metadata: Metadata
     @ViewBuilder let actions: Actions
@@ -29,12 +30,14 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
     init(
         layout: MediaCardLayout = .standard,
         background: Background,
+        contentInsets: EdgeInsets? = nil,
         @ViewBuilder artwork: () -> Artwork,
         @ViewBuilder metadata: () -> Metadata,
         @ViewBuilder actions: () -> Actions
     ) {
         self.layout = layout
         self.background = background
+        self.contentInsets = contentInsets
         self.artwork = artwork()
         self.metadata = metadata()
         self.actions = actions()
@@ -47,9 +50,10 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
             .clipShape(cardShape)
             .overlay { cardShape.stroke(styleProfile.effects.outlineColor, lineWidth: styleProfile.effects.outlineWidth) }
             .shadow(
-                color: styleProfile.effects.shadowColor,
-                radius: styleProfile.effects.shadowRadius,
-                y: styleProfile.effects.shadowRadius / 2
+                color: styleProfile.effects.standardShadow.color,
+                radius: styleProfile.effects.standardShadow.radius,
+                x: styleProfile.effects.standardShadow.x,
+                y: styleProfile.effects.standardShadow.y
             )
             .accessibilityElement(children: .contain)
     }
@@ -60,14 +64,14 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
             VStack(alignment: .leading, spacing: 0) {
                 artwork
                 cardDetails
-                    .padding(density.metrics.contentPadding)
+                    .padding(resolvedContentInsets)
             }
         case .overlay:
             ZStack(alignment: .bottomLeading) {
                 artwork
                     .overlay(styleProfile.imagery.scrim)
                 cardDetails
-                    .padding(density.metrics.contentPadding)
+                    .padding(resolvedContentInsets)
             }
         }
     }
@@ -83,17 +87,28 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
     private var cardShape: RoundedRectangle {
         RoundedRectangle(cornerRadius: styleProfile.shapes.cardCornerRadius, style: .continuous)
     }
+
+    private var resolvedContentInsets: EdgeInsets {
+        contentInsets ?? EdgeInsets(
+            top: density.metrics.contentPadding,
+            leading: density.metrics.contentPadding,
+            bottom: density.metrics.contentPadding,
+            trailing: density.metrics.contentPadding
+        )
+    }
 }
 
 extension MediaCard where Actions == EmptyView {
     init(
         layout: MediaCardLayout = .standard,
         background: Background,
+        contentInsets: EdgeInsets? = nil,
         @ViewBuilder artwork: () -> Artwork,
         @ViewBuilder metadata: () -> Metadata
     ) {
         self.layout = layout
         self.background = background
+        self.contentInsets = contentInsets
         self.artwork = artwork()
         self.metadata = metadata()
         self.actions = EmptyView()
@@ -113,6 +128,7 @@ extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCa
     ) {
         self.layout = layout
         self.background = StyleProfileSurface()
+        self.contentInsets = nil
         self.artwork = artwork()
         self.metadata = MediaCardMetadata(
             layout: layout,

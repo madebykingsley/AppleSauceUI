@@ -53,7 +53,7 @@ A shelf uses native `Section` structure with an optional custom visual header an
 
 ## Behavior
 
-Items scroll horizontally with hidden indicators. View-aligned scrolling is the default; continuous scrolling is available for content that should not snap. An actionable header remains a separate control from item actions.
+Items scroll horizontally with hidden indicators. View-aligned scrolling is the default; continuous scrolling is available for content that should not snap. The shelf disables the scroll view’s default clipping so Element shadows and other visual effects can render beyond its vertical bounds; screen and ancestor layout boundaries remain the outer clipping boundary. An actionable header remains a separate control from item actions.
 
 ## Variants
 

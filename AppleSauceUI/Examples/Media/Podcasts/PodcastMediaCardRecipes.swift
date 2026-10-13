@@ -6,7 +6,10 @@ enum PodcastMediaCardRecipes {
         playAction: @escaping () -> Void,
         overflowAction: @escaping () -> Void
     ) -> some View {
-        MediaCard(background: episode.color.gradient) {
+        MediaCard(
+            background: episode.color.gradient,
+            contentInsets: EdgeInsets(top: 12, leading: 20, bottom: 12, trailing: 20)
+        ) {
             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
                 .overlay(alignment: .topTrailing) {
                     if let badge = episode.badge {
@@ -21,7 +24,7 @@ enum PodcastMediaCardRecipes {
                 }
                 .aspectRatio(PodcastsLayoutMetrics.episodeCardAspectRatio, contentMode: .fit)
         } metadata: {
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: 7) {
                 Text(episode.episodeDate)
                     .font(.caption2)
                     .foregroundStyle(.white.opacity(0.72))
@@ -49,7 +52,7 @@ enum PodcastMediaCardRecipes {
                     .labelStyle(.iconOnly)
                     .accessibilityLabel("More options for \(episode.title)")
             }
-            .padding(.top, 3)
+            .padding(.top, 7)
         }
     }
 }

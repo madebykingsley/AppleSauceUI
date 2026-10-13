@@ -15,7 +15,7 @@ struct EditorialHero<Artwork: View>: View {
                     .foregroundStyle(styleProfile.colors.secondaryText)
                     .textCase(.uppercase)
                 Text(title)
-                    .font(styleProfile.typography.contentTitle)
+                    .font(styleProfile.typography.prominentContentTitle)
                     .foregroundStyle(styleProfile.colors.primaryText)
                     .lineLimit(2)
             }

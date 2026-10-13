@@ -56,9 +56,10 @@ struct EpisodeRow<Artwork: View>: View {
             .overlay(styleProfile.imagery.overlay)
             .clipShape(artworkShape)
             .shadow(
-                color: styleProfile.effects.shadowColor,
-                radius: styleProfile.effects.shadowRadius,
-                y: styleProfile.effects.shadowRadius / 2
+                color: styleProfile.effects.standardShadow.color,
+                radius: styleProfile.effects.standardShadow.radius,
+                x: styleProfile.effects.standardShadow.x,
+                y: styleProfile.effects.standardShadow.y
             )
             .accessibilityHidden(true)
     }

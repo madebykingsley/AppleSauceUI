@@ -35,6 +35,7 @@ struct HorizontalShelfLayout<Items: RandomAccessCollection, ItemView: View>: Vie
         }
         .contentMargins(.horizontal, contentMargins, for: .scrollContent)
         .scrollIndicators(.hidden)
+        .scrollClipDisabled()
         if scrollingPolicy == .viewAligned {
             scrollView.scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         } else {

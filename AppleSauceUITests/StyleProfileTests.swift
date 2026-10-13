@@ -8,6 +8,7 @@ struct StyleProfileTests {
         #expect(InterfaceDensity.standard.metrics.contentMargin == 20)
         #expect(InterfaceDensity.standard.metrics.collectionRowSpacing == 20)
         #expect(InterfaceDensity.standard.metrics.contentPadding == 12)
+        #expect(InterfaceDensity.standard.metrics.prominentContentPadding == 16)
         #expect(InterfaceDensity.compact.metrics.itemSpacing < InterfaceDensity.standard.metrics.itemSpacing)
         #expect(InterfaceDensity.standard.metrics.itemSpacing < InterfaceDensity.spacious.metrics.itemSpacing)
         #expect(InterfaceDensity.compact.metrics.contentMargin < InterfaceDensity.standard.metrics.contentMargin)
@@ -16,6 +17,8 @@ struct StyleProfileTests {
         #expect(InterfaceDensity.standard.metrics.collectionRowSpacing < InterfaceDensity.spacious.metrics.collectionRowSpacing)
         #expect(InterfaceDensity.compact.metrics.contentPadding < InterfaceDensity.standard.metrics.contentPadding)
         #expect(InterfaceDensity.standard.metrics.contentPadding < InterfaceDensity.spacious.metrics.contentPadding)
+        #expect(InterfaceDensity.compact.metrics.prominentContentPadding < InterfaceDensity.standard.metrics.prominentContentPadding)
+        #expect(InterfaceDensity.standard.metrics.prominentContentPadding < InterfaceDensity.spacious.metrics.prominentContentPadding)
     }
 
     @Test func profilesExpressDistinctShapeAndColorSchemeStrategies() {
@@ -24,5 +27,17 @@ struct StyleProfileTests {
         #expect(StyleProfile.editorial.preferredColorScheme == nil)
         #expect(StyleProfile.neutral.preferredColorScheme == nil)
         #expect(StyleProfile.entertainment.preferredColorScheme == .dark)
+    }
+
+    @Test func profilesResolveSemanticElevation() {
+        for profile in StyleProfile.allCases {
+            let effects = profile.effects
+
+            #expect(effects.shadow(for: .none).radius == 0)
+            #expect(effects.shadow(for: .prominent).radius >= effects.shadow(for: .standard).radius)
+        }
+
+        #expect(StyleProfile.editorial.effects.shadow(for: .prominent).radius < StyleProfile.neutral.effects.shadow(for: .prominent).radius)
+        #expect(StyleProfile.neutral.effects.shadow(for: .prominent).radius < StyleProfile.entertainment.effects.shadow(for: .prominent).radius)
     }
 }
