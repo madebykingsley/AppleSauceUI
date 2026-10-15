@@ -61,7 +61,7 @@ Artwork, poster, landscape, ranked, and editorial variants describe the supplied
 
 ## Content requirements
 
-Items must have stable, unique identity. Callers provide the item width because it describes genuine content geometry and preserves reference comparison. A future demonstrated use may add adaptive `containerRelativeFrame` sizing, but fixed and adaptive sizing should remain distinct API choices. Titles should be concise, and artwork must carry an accessible semantic label through its containing lockup.
+Items must have stable, unique identity. Callers provide the item width because it describes genuine content geometry and preserves reference comparison. Use `HorizontalCollectionItemSize` when the compact, standard, or wide semantic tier fits; resolve it with the demonstrated platform-and-density context before passing the resulting width to the collection. The current values are calibrated only for iPhone at Standard density, leaving other platform and density mappings to future reference evidence. Explicit widths remain appropriate for reference-specific geometry. A future demonstrated use may add adaptive `containerRelativeFrame` sizing, but fixed and adaptive sizing should remain distinct API choices. Titles should be concise, and artwork must carry an accessible semantic label through its containing lockup.
 
 ## Accessibility considerations
 

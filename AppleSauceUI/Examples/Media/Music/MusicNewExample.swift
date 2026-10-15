@@ -8,13 +8,13 @@ struct MusicNewExample: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: MusicLayoutMetrics.sectionSpacing) {
-                    MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.newHeroItems, itemWidth: MusicLayoutMetrics.newFeatureWidth, alignment: .bottom) { item in
+                LazyVStack(alignment: .leading, spacing: sectionSpacing) {
+                    MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.newHeroItems, itemWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard), alignment: .bottom) { item in
                         EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.subtitle)) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
                         }
                     }
-                    ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: MusicLayoutMetrics.newFeatureWidth) { song in
+                    ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { song in
                         HorizontalLockup(artworkSize: 48, spacing: 11) {
                             ArtworkThumbnail(symbol: song.symbol, background: AnyShapeStyle(song.artwork.gradient), size: 48)
                                 .accessibilityHidden(true)
@@ -39,35 +39,33 @@ struct MusicNewExample: View {
                     } separator: {
                         Divider().padding(.leading, 60)
                     }
-                    MediaShelf(title: "New This Week", items: MusicFixtures.newThisWeek, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                    MediaShelf(title: "New This Week", items: MusicFixtures.newThisWeek, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
                         }
                     }
-                    MediaShelf(title: "Recent Releases", items: MusicFixtures.recentReleases, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                    MediaShelf(title: "Recent Releases", items: MusicFixtures.recentReleases, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
                         }
                     }
-                    MediaShelf(title: "Watch Interviews", items: MusicFixtures.interviews, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                    MediaShelf(title: "Watch Interviews", items: MusicFixtures.interviews, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         VideoLockup(
                             title: item.title,
-                            subtitle: item.subtitle,
-                            artworkAspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio
+                            subtitle: item.subtitle
                         ) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
                         }
                     }
-                    MediaShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                    MediaShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         VideoLockup(
                             title: item.title,
-                            subtitle: item.subtitle,
-                            artworkAspectRatio: MusicLayoutMetrics.videoArtworkAspectRatio
+                            subtitle: item.subtitle
                         ) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
                         }
                     }
-                    MediaShelf(title: "Coming Soon", items: MusicFixtures.comingSoon, itemWidth: MusicLayoutMetrics.albumWidth) { item in
+                    MediaShelf(title: "Coming Soon", items: MusicFixtures.comingSoon, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
                         }
@@ -95,7 +93,7 @@ struct MusicNewExample: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, MusicLayoutMetrics.contentMargin)
+                        .padding(.horizontal, density.metrics.contentMargin)
                     }
                 }
                     .padding(.top, density.metrics.contentMargin / 2)
@@ -128,6 +126,8 @@ struct MusicNewExample: View {
         MusicLink(id: "decades", title: "Decades"),
         MusicLink(id: "moods", title: "Moods and Activities")
     ]
+
+    private let sectionSpacing: CGFloat = 34
 
 }
 

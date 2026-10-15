@@ -5,7 +5,7 @@ struct RankedShelf<Item: Identifiable, ItemView: View>: View {
     let title: LocalizedStringKey
     let items: [Item]
     let itemWidth: CGFloat
-    var contentMargins: CGFloat = 20
+    var contentMargins: CGFloat?
     @ViewBuilder let itemView: (Int, Item) -> ItemView
 
     var body: some View {

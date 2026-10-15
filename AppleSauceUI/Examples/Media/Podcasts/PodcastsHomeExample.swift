@@ -9,12 +9,12 @@ struct PodcastsHomeExample: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                    MediaShelf(title: "Up Next", items: PodcastsFixtures.upNextCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
+                LazyVStack(alignment: .leading, spacing: sectionSpacing) {
+                    MediaShelf(title: "Up Next", items: PodcastsFixtures.upNextCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
 
-                    MediaShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
@@ -23,7 +23,7 @@ struct PodcastsHomeExample: View {
                             .buttonStyle(.plain)
                     }
 
-                    MediaShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
@@ -32,7 +32,7 @@ struct PodcastsHomeExample: View {
                             .buttonStyle(.plain)
                     }
 
-                    MediaShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
@@ -41,7 +41,7 @@ struct PodcastsHomeExample: View {
                             .buttonStyle(.plain)
                     }
 
-                    MediaShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
@@ -50,10 +50,10 @@ struct PodcastsHomeExample: View {
                             .buttonStyle(.plain)
                     }
 
-                    ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
+                    ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
                         HorizontalLockup(
-                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
-                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            artworkSize: featuredEpisodeArtworkSize,
+                            spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
@@ -86,7 +86,7 @@ struct PodcastsHomeExample: View {
                         }
                         .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
+                        Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }
 
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
@@ -96,20 +96,20 @@ struct PodcastsHomeExample: View {
                                 .frame(width: 40, height: 40)
                                 .background(.black, in: Circle())
                         })
-                        .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                        .padding(.horizontal, density.metrics.contentMargin)
 
-                        MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                        MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                             }
                         }
                     }
 
-                    MediaShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
+                    MediaShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
 
-                    MediaShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
@@ -118,14 +118,14 @@ struct PodcastsHomeExample: View {
                             .buttonStyle(.plain)
                     }
 
-                    MediaShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
+                    MediaShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
 
-                    ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
+                    ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
                         HorizontalLockup(
-                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
-                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            artworkSize: featuredEpisodeArtworkSize,
+                            spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
@@ -158,7 +158,7 @@ struct PodcastsHomeExample: View {
                         }
                         .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
+                        Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }
 
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
@@ -174,16 +174,16 @@ struct PodcastsHomeExample: View {
                         }
                         .buttonStyle(.plain)
                         .accessibilityHint("Opens the section")
-                        .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                        .padding(.horizontal, density.metrics.contentMargin)
 
-                        MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                        MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                                 ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                             }
                         }
                     }
 
-                    MediaShelf(title: "Channels to Try", items: PodcastsFixtures.channels, itemWidth: PodcastsLayoutMetrics.channelWidth, isHeaderActionable: false) { channel in
+                    MediaShelf(title: "Channels to Try", items: PodcastsFixtures.channels, itemWidth: channelWidth, isHeaderActionable: false) { channel in
                         Button(action: {}) {
                             VStack(alignment: .leading, spacing: 12) {
                                 Image(systemName: channel.symbol)
@@ -203,10 +203,10 @@ struct PodcastsHomeExample: View {
                         .buttonStyle(.plain)
                     }
 
-                    ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
+                    ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
                         HorizontalLockup(
-                            artworkSize: PodcastsLayoutMetrics.featuredEpisodeArtworkSize,
-                            spacing: PodcastsLayoutMetrics.featuredEpisodeSpacing,
+                            artworkSize: featuredEpisodeArtworkSize,
+                            spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
@@ -248,7 +248,7 @@ struct PodcastsHomeExample: View {
                         }
                         .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, PodcastsLayoutMetrics.featuredEpisodeArtworkSize + PodcastsLayoutMetrics.featuredEpisodeSpacing)
+                        Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }
                 }
                 .padding(.top, density.metrics.contentMargin / 2)
@@ -272,6 +272,10 @@ struct PodcastsHomeExample: View {
         }
     }
 
+    private let sectionSpacing: CGFloat = 32
+    private let channelWidth: CGFloat = 280
+    private let featuredEpisodeArtworkSize: CGFloat = 90
+    private let featuredEpisodeSpacing: CGFloat = 11
 }
 
 #if DEBUG
