@@ -80,7 +80,18 @@ struct PodcastsNewExample: View {
                         Divider().padding(.leading, compactEpisodeArtworkSize + compactEpisodeSpacing)
                     }
                     MediaShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
-                        PodcastEpisodeCard(episode: episode)
+                        EpisodeCard(
+                            date: episode.episodeDate,
+                            showTitle: episode.show,
+                            episodeTitle: episode.title,
+                            summary: episode.description,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
+                            background: episode.color.gradient
+                        ) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     }
                     MediaShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
@@ -88,7 +99,18 @@ struct PodcastsNewExample: View {
                         }
                     }
                     MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
-                        PodcastEpisodeCard(episode: episode)
+                        EpisodeCard(
+                            date: episode.episodeDate,
+                            showTitle: episode.show,
+                            episodeTitle: episode.title,
+                            summary: episode.description,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
+                            background: episode.color.gradient
+                        ) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     }
                     RankedShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {

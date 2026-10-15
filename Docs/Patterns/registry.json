@@ -90,6 +90,47 @@
   ],
   "elements": [
     {
+      "id": "episode-card",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "feature",
+        "inform",
+        "act"
+      ],
+      "content": [
+        "audio",
+        "episode",
+        "video"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "artwork",
+        "date-or-status",
+        "show-title",
+        "episode-title",
+        "summary",
+        "duration",
+        "media-badge",
+        "playback-action",
+        "overflow-action"
+      ],
+      "variants": [],
+      "avoidWhen": [
+        "the content is not an episode",
+        "portrait artwork is the dominant hero presentation",
+        "dense scanning is more important than episode context and actions"
+      ],
+      "documentation": "Docs/Elements/episode-card.md"
+    },
+    {
       "id": "horizontal-lockup",
       "kind": "element",
       "category": "content",

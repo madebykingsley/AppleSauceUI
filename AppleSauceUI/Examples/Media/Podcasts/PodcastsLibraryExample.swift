@@ -47,8 +47,13 @@ struct PodcastsLibraryExample: View {
             .navigationTitle("Library")
             .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
-                ToolbarItemGroup(placement: .topBarTrailing) {
+                ToolbarItemGroup {
                     Button("More library options", systemImage: "ellipsis", action: {})
+                }
+                
+                ToolbarSpacer(.fixed)
+                
+                ToolbarItem {
                     AccountButton(action: onExit) {
                         Image(systemName: "person.crop.circle.fill")
                             .resizable()

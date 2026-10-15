@@ -46,6 +46,8 @@ Use `VideoLockup` for lightweight landscape video artwork with a title and optio
 
 Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle, metadata, and badge hierarchy. Select `.standard` for distinct artwork and text regions or `.overlay` for metadata layered over artwork; the Style Profile never selects this structural layout. Specialized example presentations may use the lower-level metadata and independent-actions slots when the semantic initializer is insufficient.
 
+Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, show identity, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
+
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
 
 ## Collection patterns
