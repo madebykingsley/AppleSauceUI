@@ -9,36 +9,36 @@ struct PodcastsNewExample: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                LazyVStack(alignment: .leading, spacing: PodcastsLayoutMetrics.sectionSpacing) {
-                    MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: PodcastsLayoutMetrics.promotionWidth) { item in
+                LazyVStack(alignment: .leading, spacing: sectionSpacing) {
+                    MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.newPromotions, itemWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { item in
                         EditorialHero(eyebrow: LocalizedStringKey(item.eyebrow), title: LocalizedStringKey(item.title)) {
                             ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.color.gradient))
                         }
                     }
-                    RankedShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
+                    RankedShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: PodcastsLayoutMetrics.showWidth, interItemSpacing: 16) { show in
+                    ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard), interItemSpacing: 16) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    MediaShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    RankedShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
+                    RankedShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: PodcastsLayoutMetrics.episodeColumnWidth) { episode in
+                    ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
                         HorizontalLockup(
-                            artworkSize: PodcastsLayoutMetrics.compactEpisodeArtworkSize,
-                            spacing: PodcastsLayoutMetrics.compactEpisodeSpacing,
+                            artworkSize: compactEpisodeArtworkSize,
+                            spacing: compactEpisodeSpacing,
                             alignment: .center
                         ) {
                             ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
@@ -77,28 +77,28 @@ struct PodcastsNewExample: View {
                         }
                         .padding(.vertical, 8)
                     } separator: {
-                        Divider().padding(.leading, PodcastsLayoutMetrics.compactEpisodeArtworkSize + PodcastsLayoutMetrics.compactEpisodeSpacing)
+                        Divider().padding(.leading, compactEpisodeArtworkSize + compactEpisodeSpacing)
                     }
-                    MediaShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
+                    MediaShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
-                    MediaShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows, itemWidth: PodcastsLayoutMetrics.showWidth) { show in
+                    MediaShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: PodcastsLayoutMetrics.episodeCardWidth) { episode in
+                    MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         PodcastEpisodeCard(episode: episode)
                     }
-                    RankedShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, itemWidth: PodcastsLayoutMetrics.showWidth) { rank, show in
+                    RankedShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
                             ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
                         }
                     }
-                    MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: PodcastsLayoutMetrics.trailerWidth) { trailer in
+                    MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { trailer in
                         MediaCard(background: trailer.color.gradient) {
                             ArtworkPlaceholder(symbol: trailer.symbol, background: AnyShapeStyle(trailer.color.gradient))
-                                .aspectRatio(PodcastsLayoutMetrics.trailerAspectRatio, contentMode: .fit)
+                                .aspectRatio(trailerAspectRatio, contentMode: .fit)
                         } metadata: {
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(trailer.title)
@@ -121,7 +121,7 @@ struct PodcastsNewExample: View {
                             .padding(.top, 3)
                         }
                     }
-                    MediaShelf(title: "More to Discover", items: PodcastsFixtures.discovery, itemWidth: PodcastsLayoutMetrics.discoveryWidth, isHeaderActionable: false) { item in
+                    MediaShelf(title: "More to Discover", items: PodcastsFixtures.discovery, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard), isHeaderActionable: false) { item in
                         Button(action: {}) {
                             ZStack {
                                 Image(systemName: item.symbol)
@@ -150,10 +150,10 @@ struct PodcastsNewExample: View {
                                 Divider()
                             }
                         }
-                        .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                        .padding(.horizontal, density.metrics.contentMargin)
                     } header: {
                         SectionHeader(title: "Podcasts Quick Links")
-                            .padding(.horizontal, PodcastsLayoutMetrics.contentMargin)
+                            .padding(.horizontal, density.metrics.contentMargin)
                     }
                 }
                 .padding(.top, density.metrics.contentMargin / 2)
@@ -177,6 +177,10 @@ struct PodcastsNewExample: View {
         }
     }
 
+    private let sectionSpacing: CGFloat = 32
+    private let compactEpisodeArtworkSize: CGFloat = 63
+    private let compactEpisodeSpacing: CGFloat = 20
+    private let trailerAspectRatio: CGFloat = 1.45
 }
 
 #if DEBUG

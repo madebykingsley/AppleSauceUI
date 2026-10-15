@@ -24,7 +24,7 @@ struct PodcastEpisodeCard: View {
                             .accessibilityLabel(badge.label)
                     }
                 }
-                .aspectRatio(PodcastsLayoutMetrics.episodeCardAspectRatio, contentMode: .fit)
+                .aspectRatio(artworkAspectRatio, contentMode: .fit)
         } metadata: {
             VStack(alignment: .leading, spacing: 7) {
                 Text(episode.episodeDate)
@@ -57,12 +57,14 @@ struct PodcastEpisodeCard: View {
             .padding(.top, 7)
         }
     }
+
+    private let artworkAspectRatio: CGFloat = 1.1
 }
 
 #if DEBUG
 #Preview("PodcastEpisodeCard") {
     PodcastEpisodeCard(episode: PodcastsFixtures.upNextCards[0])
-        .frame(width: PodcastsLayoutMetrics.episodeCardWidth)
+        .frame(width: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard))
         .padding()
 }
 #endif

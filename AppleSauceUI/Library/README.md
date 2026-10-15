@@ -50,10 +50,10 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 
 ## Collection patterns
 
-- `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
+- `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence. `HorizontalCollectionItemSize` names compact, standard, and wide collection tiers, resolved for an explicit demonstrated sizing context. The current 161-, 249-, and 334-point values apply only to iPhone at Standard density and must not be treated as universal platform dimensions.
 - `RankedShelf` supplies stable, one-based ranks while delegating presentation to its item closure.
 - `MediaGrid` owns optional heading, columns, gaps, and horizontal margins. Its default gaps and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
-- `ColumnMediaShelf` uses native `LazyHGrid` column-major placement for demonstrated multi-row episode and track collections.
+- `ColumnMediaShelf` uses native `LazyHGrid` column-major placement for demonstrated multi-row episode and track collections. It and `RankedShelf` inherit content margins from `InterfaceDensity` unless the caller supplies an explicit override.
 - Native `Section`, `NavigationLink`, `Label`, and navigation toolbars own standard structure and interaction; the Library does not wrap them.
 
 Brand tint is applied at the example root and inherited by Library controls. Actions are caller-provided, accessory controls remain independent, and example-specific measurements do not become global component defaults.

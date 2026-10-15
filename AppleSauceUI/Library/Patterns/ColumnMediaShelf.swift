@@ -1,12 +1,16 @@
 import SwiftUI
 
 struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
+    @Environment(\.interfaceDensity) private var density
+
     let title: LocalizedStringKey; var subtitle: LocalizedStringKey?; let items: [Item]; let rows: Int; let columnWidth: CGFloat
-    var interItemSpacing: CGFloat = 0; var contentMargins: CGFloat = 20; var headerAction: () -> Void = {}
+    var interItemSpacing: CGFloat = 0; var contentMargins: CGFloat?; var headerAction: () -> Void = {}
     @ViewBuilder let row: (Item) -> Row
     @ViewBuilder let separator: () -> Separator
 
     var body: some View {
+        let resolvedMargins = contentMargins ?? density.metrics.contentMargin
+
         Section {
             VStack(alignment: .leading, spacing: 12) {
                 Button(action: headerAction) {
@@ -17,7 +21,7 @@ struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
                     })
                 }
                 .buttonStyle(.plain)
-                .padding(.horizontal, contentMargins)
+                .padding(.horizontal, resolvedMargins)
                 .accessibilityHint("Opens the section")
 
                 ScrollView(.horizontal) {
@@ -34,7 +38,7 @@ struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
                     }
                     .scrollTargetLayout()
                 }
-                .contentMargins(.horizontal, contentMargins, for: .scrollContent)
+                .contentMargins(.horizontal, resolvedMargins, for: .scrollContent)
                 .scrollIndicators(.hidden)
                 .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             }
@@ -49,7 +53,7 @@ struct ColumnMediaShelf<Item: Identifiable, Row: View, Separator: View>: View {
 }
 
 extension ColumnMediaShelf where Separator == EmptyView {
-    init(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [Item], rows: Int, columnWidth: CGFloat, interItemSpacing: CGFloat = 0, contentMargins: CGFloat = 20, headerAction: @escaping () -> Void = {}, @ViewBuilder row: @escaping (Item) -> Row) {
+    init(title: LocalizedStringKey, subtitle: LocalizedStringKey? = nil, items: [Item], rows: Int, columnWidth: CGFloat, interItemSpacing: CGFloat = 0, contentMargins: CGFloat? = nil, headerAction: @escaping () -> Void = {}, @ViewBuilder row: @escaping (Item) -> Row) {
         self.init(title: title, subtitle: subtitle, items: items, rows: rows, columnWidth: columnWidth, interItemSpacing: interItemSpacing, contentMargins: contentMargins, headerAction: headerAction, row: row, separator: { EmptyView() })
     }
 }
