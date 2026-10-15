@@ -20,14 +20,17 @@ struct PlaybackButton: View {
 
     var body: some View {
         Button(action: action) {
-            VStack(spacing: 3) {
-                Label(label, systemImage: "play.fill")
+            HStack(spacing: 8) {
+                Image(systemName: "play.fill")
 
                 if let progress {
                     ProgressView(value: progress)
                         .progressViewStyle(.linear)
+                        .frame(width: 25)
                         .accessibilityHidden(true)
                 }
+
+                Text(label)
             }
         }
         .font(.caption.weight(.semibold))
@@ -38,5 +41,21 @@ struct PlaybackButton: View {
 }
 
 #if DEBUG
-#Preview("PlaybackButton — Variants") { HStack { PlaybackButton(label: "Play", accessibilityLabel: "Play episode", action: {}); PlaybackButton(label: "24 min", accessibilityLabel: "Play episode, 24 minutes", action: {}) }.padding().tint(.purple) }
+#Preview("PlaybackButton — Variants") {
+    HStack {
+        PlaybackButton(
+            label: "24m",
+            accessibilityLabel: "Play episode, 24 minutes remaining",
+            action: {}
+        )
+        PlaybackButton(
+            label: "4m",
+            accessibilityLabel: "Play episode, 4 minutes remaining",
+            progress: 0.5,
+            action: {}
+        )
+    }
+    .padding()
+    .tint(.purple)
+}
 #endif

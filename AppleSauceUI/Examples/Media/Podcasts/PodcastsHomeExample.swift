@@ -11,7 +11,18 @@ struct PodcastsHomeExample: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: sectionSpacing) {
                     MediaShelf(title: "Up Next", items: PodcastsFixtures.upNextCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
-                        PodcastEpisodeCard(episode: episode)
+                        EpisodeCard(
+                            date: episode.episodeDate,
+                            showTitle: episode.show,
+                            episodeTitle: episode.title,
+                            summary: episode.description,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
+                            background: episode.color.gradient
+                        ) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     }
 
                     MediaShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
@@ -106,7 +117,18 @@ struct PodcastsHomeExample: View {
                     }
 
                     MediaShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
-                        PodcastEpisodeCard(episode: episode)
+                        EpisodeCard(
+                            date: episode.episodeDate,
+                            showTitle: episode.show,
+                            episodeTitle: episode.title,
+                            summary: episode.description,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
+                            background: episode.color.gradient
+                        ) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     }
 
                     MediaShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
@@ -119,7 +141,18 @@ struct PodcastsHomeExample: View {
                     }
 
                     MediaShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
-                        PodcastEpisodeCard(episode: episode)
+                        EpisodeCard(
+                            date: episode.episodeDate,
+                            showTitle: episode.show,
+                            episodeTitle: episode.title,
+                            summary: episode.description,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
+                            background: episode.color.gradient
+                        ) {
+                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                        }
                     }
 
                     ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
