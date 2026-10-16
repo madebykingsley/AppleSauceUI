@@ -7,6 +7,11 @@ struct MusicItem: Identifiable {
     let eyebrow: String
     let symbol: String
     let artwork: ArtworkPalette
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "MusicNightTrain" : "MusicPrismLight")
+    }
 }
 
 struct ConcertItem: Identifiable {
@@ -18,6 +23,11 @@ struct ConcertItem: Identifiable {
     let day: Int
     let symbol: String
     let artwork: ArtworkPalette
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "EpisodeCoastalTrail" : "EditorialLivingArchive")
+    }
 }
 
 struct MusicLibraryCategory: Identifiable {

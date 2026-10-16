@@ -143,8 +143,8 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .editorial:
             StyleProfileEffects(
-                outlineColor: .secondary.opacity(0.28),
-                outlineWidth: 1,
+                outlineColor: .primary.opacity(0.22),
+                outlineWidth: 0.5,
                 subtleShadow: .none,
                 standardShadow: .none,
                 prominentShadow: StyleProfileShadow(color: .black.opacity(0.24), radius: 10, x: 0, y: 4),
@@ -153,8 +153,8 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
             )
         case .entertainment:
             StyleProfileEffects(
-                outlineColor: .clear,
-                outlineWidth: 0,
+                outlineColor: .white.opacity(0.22),
+                outlineWidth: 0.5,
                 subtleShadow: StyleProfileShadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 2.5),
                 standardShadow: StyleProfileShadow(color: .black.opacity(0.35), radius: 10, x: 0, y: 5),
                 prominentShadow: StyleProfileShadow(color: .black.opacity(0.38), radius: 20, x: 0, y: 10),
@@ -163,7 +163,7 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
             )
         case .neutral:
             StyleProfileEffects(
-                outlineColor: .secondary.opacity(0.16),
+                outlineColor: .primary.opacity(0.22),
                 outlineWidth: 0.5,
                 subtleShadow: StyleProfileShadow(color: .black.opacity(0.08), radius: 2, x: 0, y: 1),
                 standardShadow: StyleProfileShadow(color: .black.opacity(0.12), radius: 3, x: 0, y: 1.5),

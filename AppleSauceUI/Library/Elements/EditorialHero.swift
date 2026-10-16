@@ -23,6 +23,13 @@ struct EditorialHero<Artwork: View>: View {
             artwork
                 .aspectRatio(1.5, contentMode: .fit)
                 .frame(maxWidth: .infinity)
+                .clipShape(artworkShape)
+                .overlay {
+                    artworkShape.strokeBorder(
+                        styleProfile.effects.outlineColor,
+                        lineWidth: styleProfile.effects.outlineWidth
+                    )
+                }
                 .shadow(color: shadow.color, radius: shadow.radius, x: shadow.x, y: shadow.y)
         }
         .accessibilityElement(children: .combine)
@@ -30,6 +37,10 @@ struct EditorialHero<Artwork: View>: View {
 
     private var shadow: StyleProfileShadow {
         styleProfile.effects.shadow(for: elevation)
+    }
+
+    private var artworkShape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous)
     }
 }
 

@@ -2,6 +2,8 @@ import SwiftUI
 
 /// A geometry-only presentation for leading artwork, flexible content, and an optional accessory.
 struct HorizontalLockup<Artwork: View, Content: View, Accessory: View>: View {
+    @Environment(\.styleProfile) private var styleProfile
+
     let artworkSize: CGSize
     let spacing: CGFloat
     let alignment: VerticalAlignment
@@ -53,6 +55,13 @@ struct HorizontalLockup<Artwork: View, Content: View, Accessory: View>: View {
             HStack(alignment: alignment, spacing: spacing) {
                 artwork
                     .frame(width: artworkSize.width, height: artworkSize.height)
+                    .clipShape(artworkShape)
+                    .overlay {
+                        artworkShape.strokeBorder(
+                            styleProfile.effects.outlineColor,
+                            lineWidth: styleProfile.effects.outlineWidth
+                        )
+                    }
 
                 content
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -61,6 +70,10 @@ struct HorizontalLockup<Artwork: View, Content: View, Accessory: View>: View {
 
             accessory
         }
+    }
+
+    private var artworkShape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous)
     }
 }
 

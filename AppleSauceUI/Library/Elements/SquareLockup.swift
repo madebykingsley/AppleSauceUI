@@ -28,7 +28,13 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
                 .aspectRatio(1, contentMode: .fit)
                 .frame(maxWidth: .infinity)
                 .overlay(styleProfile.imagery.overlay)
-                .clipShape(RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous))
+                .clipShape(artworkShape)
+                .overlay {
+                    artworkShape.strokeBorder(
+                        styleProfile.effects.outlineColor,
+                        lineWidth: styleProfile.effects.outlineWidth
+                    )
+                }
                 .shadow(
                     color: styleProfile.effects.standardShadow.color,
                     radius: styleProfile.effects.standardShadow.radius,
@@ -41,6 +47,10 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
         }
         .accessibilityElement(children: .ignore)
         .accessibilityLabel(accessibilityLabel)
+    }
+
+    private var artworkShape: RoundedRectangle {
+        RoundedRectangle(cornerRadius: styleProfile.shapes.artworkCornerRadius, style: .continuous)
     }
 
     private var lockupMetadata: some View {

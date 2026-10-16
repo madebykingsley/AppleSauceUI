@@ -16,7 +16,7 @@ struct MusicNewExample: View {
                     }
                     ColumnMediaShelf(title: "Best New Songs", items: MusicFixtures.bestNewSongs, rows: 4, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { song in
                         HorizontalLockup(artworkSize: 48, spacing: 11) {
-                            ArtworkThumbnail(symbol: song.symbol, background: AnyShapeStyle(song.artwork.gradient), size: 48)
+                            ArtworkImage(assetName: song.resolvedArtworkName, placeholderSymbol: song.symbol, placeholderBackground: AnyShapeStyle(song.artwork.gradient))
                                 .accessibilityHidden(true)
                         } content: {
                             VStack(alignment: .leading, spacing: 2) {
@@ -41,12 +41,12 @@ struct MusicNewExample: View {
                     }
                     MediaShelf(title: "New This Week", items: MusicFixtures.newThisWeek, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     MediaShelf(title: "Recent Releases", items: MusicFixtures.recentReleases, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     MediaShelf(title: "Watch Interviews", items: MusicFixtures.interviews, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
@@ -54,7 +54,7 @@ struct MusicNewExample: View {
                             title: item.title,
                             subtitle: item.subtitle
                         ) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient))
                         }
                     }
                     MediaShelf(title: "New Music Videos", items: MusicFixtures.musicVideos, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
@@ -62,12 +62,12 @@ struct MusicNewExample: View {
                             title: item.title,
                             subtitle: item.subtitle
                         ) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient))
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient))
                         }
                     }
                     MediaShelf(title: "Coming Soon", items: MusicFixtures.comingSoon, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     Section {

@@ -1,37 +1,40 @@
 import SwiftUI
 
 enum PodcastsFixtures {
-    private static let songExploder = PodcastShowFixture(id: "song-exploder", title: "Song Exploder", category: "Music", publisher: "Radiotopia", updateInformation: "Updated 1d ago", symbol: "waveform", color: .purple, badge: nil)
-    private static let theDaily = PodcastShowFixture(id: "daily", title: "The Daily", category: "News", publisher: "The New York Times", updateInformation: "Updated Weekly", symbol: "newspaper.fill", color: .cyan, badge: .video)
-    private static let crimeJunkie = PodcastShowFixture(id: "crime-junkie", title: "Crime Junkie", category: "True Crime", publisher: "audiochuck", updateInformation: "Updated Weekly", symbol: "magnifyingglass", color: .indigo, badge: .explicit)
-    private static let betterPerson = PodcastShowFixture(id: "better-person", title: "How to Be a Better Person", category: "Documentary", publisher: "TED", updateInformation: "Updated Weekly", symbol: "person.wave.2.fill", color: .blue, badge: nil)
-    private static let liveAwake = PodcastShowFixture(id: "live-awake", title: "Live Awake", category: "Health & Fitness", publisher: "Sarah Blondin", updateInformation: "Updated 10/22/2020", symbol: "touchid", color: .gray, badge: nil)
-    private static let timFerriss = PodcastShowFixture(id: "tim-ferriss", title: "The Tim Ferriss Show", category: "Health & Fitness", publisher: "Tim Ferriss", updateInformation: "Updated Daily", symbol: "figure.strengthtraining.traditional", color: .orange, badge: nil)
-    private static let happyHour = PodcastShowFixture(id: "happy-hour", title: "Happy Hour", category: "Society & Culture", publisher: "Jessi Cruickshank", updateInformation: "Updated Weekly", symbol: "wineglass.fill", color: .pink, badge: .explicit)
-    private static let dateline = PodcastShowFixture(id: "dateline", title: "Dateline NBC", category: "True Crime", publisher: "NBC News", updateInformation: "Updated Weekly", symbol: "eye.fill", color: .blue, badge: nil)
-    private static let switchedOnPop = PodcastShowFixture(id: "switched-on-pop", title: "Switched on Pop", category: "Music Commentary", publisher: "Vulture", updateInformation: "Updated Weekly", symbol: "music.note", color: .mint, badge: nil)
+    private static let velvetOrbit = PodcastShowFixture(id: "velvet-orbit", title: "Velvet Orbit", category: "Science", publisher: "Northstar Audio", updateInformation: "Updated weekly", symbol: "sparkles", color: .purple, badge: nil, artworkName: "PodcastVelvetOrbit")
+    private static let sundayLadle = PodcastShowFixture(id: "sunday-ladle", title: "The Sunday Ladle", category: "Food", publisher: "Kitchen Window Studio", updateInformation: "Updated Sundays", symbol: "fork.knife", color: .orange, badge: .video, artworkName: "PodcastSundayLadle")
+    private static let sidewalkAtlas = PodcastShowFixture(id: "sidewalk-atlas", title: "Sidewalk Atlas", category: "Society & Culture", publisher: "Corner Map Media", updateInformation: "Updated twice monthly", symbol: "map.fill", color: .cyan, badge: nil, artworkName: "PodcastSidewalkAtlas")
+    private static let mossMinutes = PodcastShowFixture(id: "moss-minutes", title: "Moss & Minutes", category: "Nature", publisher: "Fieldglass Audio", updateInformation: "New episodes every Tuesday", symbol: "leaf.fill", color: .green, badge: nil, artworkName: "PodcastMossMinutes")
+    private static let staticAfterDark = PodcastShowFixture(id: "static-after-dark", title: "Static After Dark", category: "Fiction", publisher: "Night Dial Studio", updateInformation: "Updated Fridays", symbol: "waveform", color: .indigo, badge: .explicit, artworkName: "PodcastStaticAfterDark")
+    private static let tinyRevolutions = PodcastShowFixture(id: "tiny-revolutions", title: "Tiny Revolutions", category: "Documentary", publisher: "Common Thread Studio", updateInformation: "Updated weekly", symbol: "arrow.trianglehead.2.clockwise.rotate.90", color: .red, badge: nil, artworkName: "PodcastTinyRevolutions")
+    private static let paperComet = PodcastShowFixture(id: "paper-comet", title: "The Paper Comet", category: "Arts", publisher: "Folded Light Audio", updateInformation: "Updated monthly", symbol: "paperplane.fill", color: .pink, badge: nil, artworkName: "PodcastPaperComet")
+    private static let offbeatAssembly = PodcastShowFixture(id: "offbeat-assembly", title: "Offbeat Assembly", category: "Music", publisher: "Side Door Sessions", updateInformation: "Updated Wednesdays", symbol: "music.note", color: .mint, badge: .video, artworkName: "PodcastOffbeatAssembly")
+    private static let futureOrchard = PodcastShowFixture(id: "future-orchard", title: "Future Orchard", category: "Technology", publisher: "Tomorrow Field", updateInformation: "Updated weekdays", symbol: "tree.fill", color: .green, badge: nil, artworkName: "PodcastFutureOrchard")
+    private static let detourClub = PodcastShowFixture(id: "detour-club", title: "Detour Club", category: "Travel", publisher: "Elsewhere Audio", updateInformation: "Updated every other week", symbol: "road.lanes.curved.right", color: .blue, badge: nil, artworkName: "PodcastDetourClub")
+    private static let softLaunchLife = PodcastShowFixture(id: "soft-launch-life", title: "Soft Launch Life", category: "Comedy", publisher: "Low Stakes Media", updateInformation: "Updated weekly", symbol: "party.popper.fill", color: .yellow, badge: .explicit, artworkName: "PodcastSoftLaunchLife")
+    private static let underFloorboards = PodcastShowFixture(id: "under-floorboards", title: "Under the Floorboards", category: "True Crime", publisher: "Lantern Audio", updateInformation: "Updated weekly", symbol: "magnifyingglass", color: .brown, badge: nil, artworkName: "PodcastUnderFloorboards")
 
-    static let homeTopShows = [songExploder, timFerriss, theDaily, happyHour, switchedOnPop, betterPerson]
-    static let homeVideoShows = [theDaily, betterPerson, songExploder, switchedOnPop, timFerriss]
-    static let homeRecommendedShows = [betterPerson, liveAwake, timFerriss, happyHour, dateline, switchedOnPop]
-    static let homePopularShows = [happyHour, timFerriss, crimeJunkie, dateline, theDaily, songExploder]
-    static let homeMusicInterviews = [switchedOnPop, songExploder, timFerriss, happyHour, betterPerson]
-    static let referenceShows = [songExploder, switchedOnPop, theDaily, crimeJunkie, happyHour, dateline]
-    static let referenceSeed = timFerriss
-    static let libraryShows = [betterPerson, songExploder, timFerriss, theDaily, switchedOnPop, liveAwake, dateline, happyHour]
-    static let newTopShows = [theDaily, crimeJunkie, betterPerson, timFerriss, dateline, happyHour]
-    static let newShows = [happyHour, betterPerson, liveAwake, switchedOnPop, songExploder, theDaily, crimeJunkie]
-    static let newVideoShows = [theDaily, betterPerson, switchedOnPop, happyHour, songExploder]
-    static let newTopSeries = [crimeJunkie, theDaily, dateline, liveAwake, timFerriss, happyHour]
-    static let newHeritageShows = [happyHour, switchedOnPop, betterPerson, songExploder, theDaily, timFerriss]
-    static let newTrueCrimeShows = [crimeJunkie, dateline, happyHour, theDaily]
+    static let homeTopShows = [velvetOrbit, sundayLadle, sidewalkAtlas, mossMinutes, staticAfterDark, tinyRevolutions]
+    static let homeVideoShows = [sundayLadle, offbeatAssembly, paperComet, futureOrchard, velvetOrbit]
+    static let homeRecommendedShows = [mossMinutes, detourClub, softLaunchLife, paperComet, futureOrchard, sidewalkAtlas]
+    static let homePopularShows = [staticAfterDark, velvetOrbit, underFloorboards, sundayLadle, tinyRevolutions, offbeatAssembly]
+    static let homeMusicInterviews = [offbeatAssembly, paperComet, velvetOrbit, softLaunchLife, sidewalkAtlas]
+    static let referenceShows = [velvetOrbit, sidewalkAtlas, staticAfterDark, underFloorboards, softLaunchLife, detourClub]
+    static let referenceSeed = futureOrchard
+    static let libraryShows = [mossMinutes, velvetOrbit, futureOrchard, sundayLadle, offbeatAssembly, detourClub, underFloorboards, softLaunchLife]
+    static let newTopShows = [sundayLadle, underFloorboards, tinyRevolutions, velvetOrbit, staticAfterDark, softLaunchLife]
+    static let newShows = [softLaunchLife, mossMinutes, detourClub, offbeatAssembly, paperComet, sidewalkAtlas, underFloorboards]
+    static let newVideoShows = [sundayLadle, offbeatAssembly, tinyRevolutions, softLaunchLife, velvetOrbit]
+    static let newTopSeries = [underFloorboards, staticAfterDark, sidewalkAtlas, detourClub, futureOrchard, paperComet]
+    static let newHeritageShows = [sidewalkAtlas, sundayLadle, mossMinutes, offbeatAssembly, paperComet, detourClub]
+    static let newTrueCrimeShows = [underFloorboards, staticAfterDark, detourClub, sidewalkAtlas]
 
     static let episodes = [
-        PodcastEpisodeFixture(id: "ryen", title: "Talking CFPB, Falcons Down", show: "The Ryen Russillo Podcast", publisher: "The Ringer", episodeDate: "1d ago", description: "Ryen opens with the latest football news and listener questions.", duration: "23 min", symbol: "football.fill", color: .orange, badge: nil, progress: nil),
-        PodcastEpisodeFixture(id: "hard-fork", title: "This Is Nuts: An OpenAI Insider Explains Why", show: "Hard Fork", publisher: "The New York Times", episodeDate: "1d ago", description: "A conversation about the fast-moving world of artificial intelligence.", duration: "1 hr", symbol: "cpu", color: .blue, badge: .explicit, progress: 0.22),
-        PodcastEpisodeFixture(id: "daily-plane", title: "A Startled Farmer and an Iranian Plane", show: "The Daily", publisher: "The New York Times", episodeDate: "1d ago", description: "The surprising chain of events behind a story in the news.", duration: "32 min", symbol: "airplane", color: .cyan, badge: nil, progress: nil),
-        PodcastEpisodeFixture(id: "parents", title: "Annoying Partners, Aging Parents, Impossible Coworkers", show: "The Mel Robbins Podcast", publisher: "SiriusXM", episodeDate: "Sep 20", description: "Practical advice for difficult conversations.", duration: "1h 13m", symbol: "person.2.fill", color: .pink, badge: nil, progress: 0.4),
-        PodcastEpisodeFixture(id: "citizen", title: "Law Abiding Citizen with Bill Simmons, Van Lathan, and Chris Ryan", show: "The Rewatchables", publisher: "The Ringer", episodeDate: "Sep 21", description: "A spirited conversation about a memorable movie.", duration: "1h 39m", symbol: "film.fill", color: .green, badge: nil, progress: nil)
+        PodcastEpisodeFixture(id: "late-train", title: "The Last Train Through Arroyo County", show: "Detour Club", publisher: "Elsewhere Audio", episodeDate: "Yesterday", description: "A night journey reveals why one rural rail line still matters.", duration: "23 min", symbol: "tram.fill", color: .orange, badge: nil, progress: nil, artworkName: "PodcastDetourClub"),
+        PodcastEpisodeFixture(id: "model-town", title: "The Model That Tried to Run a Small Town", show: "Future Orchard", publisher: "Tomorrow Field", episodeDate: "Yesterday", description: "Residents test an ambitious civic experiment and discover its blind spots.", duration: "1 hr", symbol: "cpu", color: .blue, badge: .explicit, progress: 0.22, artworkName: "PodcastFutureOrchard"),
+        PodcastEpisodeFixture(id: "weather-station", title: "The Weather Station at the Edge of the Sea", show: "Moss & Minutes", publisher: "Fieldglass Audio", episodeDate: "Yesterday", description: "The observers recording a coastline in rapid transition.", duration: "32 min", symbol: "cloud.sun.fill", color: .cyan, badge: nil, progress: nil, artworkName: "PodcastMossMinutes"),
+        PodcastEpisodeFixture(id: "parents", title: "Annoying Partners, Aging Parents, Impossible Coworkers", show: "Soft Launch Life", publisher: "Low Stakes Media", episodeDate: "Sep 20", description: "Practical advice for difficult conversations.", duration: "1h 13m", symbol: "person.2.fill", color: .pink, badge: nil, progress: 0.4, artworkName: "PodcastSoftLaunchLife"),
+        PodcastEpisodeFixture(id: "citizen", title: "A Movie Argument with Avery Cole, Micah Reed, and Tessa Ward", show: "Static After Dark", publisher: "Night Dial Studio", episodeDate: "Sep 21", description: "A spirited conversation about a memorable movie.", duration: "1h 39m", symbol: "film.fill", color: .green, badge: nil, progress: nil, artworkName: "PodcastStaticAfterDark")
     ]
     static let homeMissedEpisodes = [episodes[1], episodes[3], episodes[2], episodes[4]]
     static let homeDiscoverEpisodes = [episodes[4], episodes[3], episodes[1], episodes[2]]
@@ -39,32 +42,32 @@ enum PodcastsFixtures {
     static let trendingEpisodes = [episodes[0], episodes[1], episodes[2], episodes[3]]
 
     static let newPromotions = [
-        PodcastPromotionFixture(id: "occupy", eyebrow: "New Season", title: "The protest that changed how we talk about wealth inequality.", symbol: "person.3.sequence.fill", color: .purple),
+        PodcastPromotionFixture(id: "living-archive", eyebrow: "New Season", title: "Inside the living archive connecting forgotten stories across generations.", symbol: "archivebox.fill", color: .purple),
         PodcastPromotionFixture(id: "new-voices", eyebrow: "New This Week", title: "New voices, unforgettable stories, and conversations worth sharing.", symbol: "person.2.wave.2.fill", color: .cyan)
     ]
     static let upNextCards = [
-        PodcastEpisodeCardFixture(id: "wtf", show: "WTF with Marc Maron", title: "Happy 17th Anniversary, WTF! On the WTF journey", episodeDate: "New · Sep 19", description: "Marc drops in to reflect on years of conversations.", duration: "23m", symbol: "mic.fill", color: .teal, badge: nil),
-        PodcastEpisodeCardFixture(id: "songwriter", show: "Songwriter", title: "You're Not a Failure at Parenting", episodeDate: "Followed", description: "A thoughtful conversation about family and creativity.", duration: "33m", symbol: "music.mic", color: .blue, badge: nil)
+        PodcastEpisodeCardFixture(id: "orbit-listener", show: "Velvet Orbit", title: "The Listener Beyond the Kuiper Belt", episodeDate: "New · Sep 19", description: "A signal analyst reflects on years of listening to the quietest corners of space.", duration: "23m", symbol: "antenna.radiowaves.left.and.right", color: .teal, badge: nil, artworkName: "PodcastVelvetOrbit"),
+        PodcastEpisodeCardFixture(id: "sunday-table", show: "The Sunday Ladle", title: "The Soup That Starts Before Sunrise", episodeDate: "Followed", description: "A thoughtful conversation about family recipes and the people who preserve them.", duration: "33m", symbol: "fork.knife", color: .blue, badge: nil, artworkName: "PodcastSundayLadle")
     ]
     static let newsCards = [
-        PodcastEpisodeCardFixture(id: "happiness", show: "How To!", title: "The Delivery Protection Act Takes on Amazon", episodeDate: "1d ago", description: "A conversation about policy, labor, and what comes next.", duration: "46m", symbol: "shippingbox.fill", color: .brown, badge: nil),
-        PodcastEpisodeCardFixture(id: "daily-news", show: "The Daily", title: "What Changed This Week", episodeDate: "1d ago", description: "The stories shaping the week ahead.", duration: "1h 12m", symbol: "newspaper.fill", color: .gray, badge: nil)
+        PodcastEpisodeCardFixture(id: "small-change", show: "Tiny Revolutions", title: "The Neighborhood That Rewrote Its Delivery Rules", episodeDate: "1d ago", description: "A conversation about policy, labor, and what comes next.", duration: "46m", symbol: "shippingbox.fill", color: .brown, badge: nil, artworkName: "PodcastTinyRevolutions"),
+        PodcastEpisodeCardFixture(id: "sidewalk-week", show: "Sidewalk Atlas", title: "What Changed on This Block This Week", episodeDate: "1d ago", description: "The street-level stories shaping the week ahead.", duration: "1h 12m", symbol: "newspaper.fill", color: .gray, badge: nil, artworkName: "PodcastSidewalkAtlas")
     ]
     static let narratedArticleCards = [
-        PodcastEpisodeCardFixture(id: "scorsese", show: "The New Yorker", title: "Year of the Horse", episodeDate: "2d ago", description: "From The New Yorker: After a young journalist was killed in a Central Park carriage accident this summer.", duration: "40m", symbol: "book.closed.fill", color: .red, badge: nil),
-        PodcastEpisodeCardFixture(id: "culture", show: "The Atlantic", title: "The cure for the news hiding in plain sight", episodeDate: "2d ago", description: "A narrated essay about culture and attention.", duration: "39m", symbol: "text.book.closed.fill", color: .blue, badge: nil)
+        PodcastEpisodeCardFixture(id: "paper-year", show: "The Paper Comet", title: "The Year the Sketchbook Wouldn't Close", episodeDate: "2d ago", description: "A narrated profile of an illustrator building a world one page at a time.", duration: "40m", symbol: "book.closed.fill", color: .red, badge: nil, artworkName: "PodcastPaperComet"),
+        PodcastEpisodeCardFixture(id: "hidden-news", show: "Under the Floorboards", title: "The Clue Hiding in Plain Sight", episodeDate: "2d ago", description: "A narrated investigation about memory, attention, and an overlooked room.", duration: "39m", symbol: "text.book.closed.fill", color: .blue, badge: nil, artworkName: "PodcastUnderFloorboards")
     ]
     static let momentCards = [
-        PodcastEpisodeCardFixture(id: "texas", show: "The Moment", title: "Texas Is Testing the Power of MAGA Inc.'s Money", episodeDate: "Today", description: "President Trump is campaigning in Texas on Wednesday, rallying voters.", duration: "38m", symbol: "building.columns.fill", color: .indigo, badge: nil),
-        PodcastEpisodeCardFixture(id: "blue-wave", show: "The Moment", title: "What Happens to the Blue Wave", episodeDate: "Today", description: "Voters weigh a changing political landscape.", duration: "31m", symbol: "person.3.fill", color: .blue, badge: nil)
+        PodcastEpisodeCardFixture(id: "night-signal", show: "Static After Dark", title: "The Frequency Nobody Was Supposed to Hear", episodeDate: "Today", description: "A late-night engineer traces an impossible broadcast across the city.", duration: "38m", symbol: "waveform", color: .indigo, badge: nil, artworkName: "PodcastStaticAfterDark"),
+        PodcastEpisodeCardFixture(id: "detour-vote", show: "Detour Club", title: "When the Highway Bypassed Main Street", episodeDate: "Today", description: "Residents weigh the promises and costs of a changing route.", duration: "31m", symbol: "road.lanes", color: .blue, badge: nil, artworkName: "PodcastDetourClub")
     ]
     static let worthWatchingCards = [
-        PodcastEpisodeCardFixture(id: "cancer", show: "HubMed", title: "Cancer Surgeon Dr. James Witting: I Was Hanging On by a Thread", episodeDate: "Sep 18", description: "Dr. James Witting tells his career story and what healing means.", duration: "46m", symbol: "stethoscope", color: .brown, badge: .video),
-        PodcastEpisodeCardFixture(id: "christiane", show: "Talks", title: "The Christiane Amanpour Interview", episodeDate: "Sep 17", description: "A wide-ranging conversation about the news.", duration: "1h 24m", symbol: "video.fill", color: .orange, badge: .video)
+        PodcastEpisodeCardFixture(id: "orchard-roots", show: "Future Orchard", title: "Can an Orchard Predict Its Own Future?", episodeDate: "Sep 18", description: "A field scientist explains what roots, sensors, and seasons can teach us.", duration: "46m", symbol: "tree.fill", color: .brown, badge: .video, artworkName: "PodcastFutureOrchard"),
+        PodcastEpisodeCardFixture(id: "assembly-interview", show: "Offbeat Assembly", title: "The Mira Sayeed Interview", episodeDate: "Sep 17", description: "A wide-ranging conversation about collaboration and sound.", duration: "1h 24m", symbol: "video.fill", color: .orange, badge: .video, artworkName: "PodcastOffbeatAssembly")
     ]
     static let trailers = [
-        PodcastTrailerFixture(id: "doomed", title: "Is the world ending, or does it just feel like it?", description: "Are We Doomed? investigates the greatest risks facing us.", duration: "Trailer", symbol: "globe.americas.fill", color: .orange),
-        PodcastTrailerFixture(id: "dream", title: "What might a good future look like?", description: "Explore ideas about technology, society, and change.", duration: "Trailer", symbol: "sparkles", color: .teal)
+        PodcastTrailerFixture(id: "floorboards-trailer", title: "What has been waiting under the floorboards?", description: "A new investigation follows the clues a renovated house refused to surrender.", duration: "Trailer", symbol: "magnifyingglass", color: .orange, artworkName: "PodcastUnderFloorboards"),
+        PodcastTrailerFixture(id: "soft-launch-trailer", title: "What if being unfinished is the whole point?", description: "Soft Launch Life explores work, friendship, and plans still taking shape.", duration: "Trailer", symbol: "sparkles", color: .teal, artworkName: "PodcastSoftLaunchLife")
     ]
 
     static let categories = [
@@ -76,8 +79,8 @@ enum PodcastsFixtures {
         PodcastCategoryFixture(id: "downloaded", title: "Downloaded", symbol: "arrow.down.circle.fill")
     ]
     static let channels = [
-        PodcastChannelFixture(id: "sirius", title: "SiriusXM Podcasts", description: "The best in comedy, sports, talk, news, and entertainment.", symbol: "dot.radiowaves.left.and.right", color: .blue),
-        PodcastChannelFixture(id: "sc", title: "SC Media", description: "Podcasts from researchers and creators.", symbol: "waveform", color: .indigo)
+        PodcastChannelFixture(id: "sirius", title: "Side Street Podcasts", description: "The best in comedy, sports, talk, news, and entertainment.", symbol: "dot.radiowaves.left.and.right", color: .blue),
+        PodcastChannelFixture(id: "sc", title: "Common Thread Media", description: "Podcasts from researchers and creators.", symbol: "waveform", color: .indigo)
     ]
     static let discovery = [
         PodcastDiscoveryFixture(id: "video", title: "Video", symbol: "video.fill", color: .orange),

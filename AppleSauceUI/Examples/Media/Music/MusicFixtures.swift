@@ -1,6 +1,19 @@
 import SwiftUI
 
 enum MusicFixtures {
+    static let glasshouseWeather = MusicItem(id: "glasshouse-weather", title: "Glasshouse Weather", subtitle: "Mara Voss", eyebrow: "", symbol: "cloud.sun.fill", artwork: .ocean, artworkName: "MusicGlasshouseWeather")
+    static let neonApricot = MusicItem(id: "neon-apricot", title: "Neon Apricot", subtitle: "Atlas Bloom", eyebrow: "", symbol: "sun.max.fill", artwork: .orange, artworkName: "MusicNeonApricot")
+    static let lettersFromLowTide = MusicItem(id: "letters-from-low-tide", title: "Letters from Low Tide", subtitle: "Harborlight", eyebrow: "", symbol: "water.waves", artwork: .ocean, artworkName: "MusicLettersFromLowTide")
+    static let midnightInCopper = MusicItem(id: "midnight-in-copper", title: "Midnight in Copper", subtitle: "Cedar Arcade", eyebrow: "", symbol: "moon.stars.fill", artwork: .amber, artworkName: "MusicMidnightInCopper")
+    static let everythingIsBlooming = MusicItem(id: "everything-is-blooming", title: "Everything Is Blooming", subtitle: "Juniper Vale", eyebrow: "", symbol: "camera.macro", artwork: .rose, artworkName: "MusicEverythingIsBlooming")
+    static let slowElectric = MusicItem(id: "slow-electric", title: "Slow Electric", subtitle: "North Arcade", eyebrow: "", symbol: "bolt.fill", artwork: .violet, artworkName: "MusicSlowElectric")
+    static let lastSunMotel = MusicItem(id: "the-last-sun-motel", title: "The Last Sun Motel", subtitle: "Theo March", eyebrow: "", symbol: "sun.haze.fill", artwork: .sunset, artworkName: "MusicLastSunMotel")
+    static let honeyOnSaturn = MusicItem(id: "honey-on-saturn", title: "Honey on Saturn", subtitle: "Lena Vale", eyebrow: "", symbol: "sparkles", artwork: .amber, artworkName: "MusicHoneyOnSaturn")
+    static let pocketThunder = MusicItem(id: "pocket-thunder", title: "Pocket Thunder", subtitle: "Stone & Signal", eyebrow: "", symbol: "cloud.bolt.fill", artwork: .midnight, artworkName: "MusicPocketThunder")
+    static let blueHourArcade = MusicItem(id: "blue-hour-arcade", title: "Blue Hour Arcade", subtitle: "Static Gardens", eyebrow: "", symbol: "arcade.stick", artwork: .ocean, artworkName: "MusicBlueHourArcade")
+    static let wildflowerStatic = MusicItem(id: "wildflower-static", title: "Wildflower Static", subtitle: "Paper Moons", eyebrow: "", symbol: "leaf.fill", artwork: .forest, artworkName: "MusicWildflowerStatic")
+    static let mapOfQuiet = MusicItem(id: "a-map-of-quiet", title: "A Map of Quiet", subtitle: "Ellis North", eyebrow: "", symbol: "map.fill", artwork: .sepia, artworkName: "MusicMapOfQuiet")
+
     static let libraryCategories = [
         MusicLibraryCategory(id: "playlists", title: "Playlists", symbol: "music.note.list"),
         MusicLibraryCategory(id: "artists", title: "Artists", symbol: "music.microphone"),
@@ -13,36 +26,29 @@ enum MusicFixtures {
     ]
 
     static let topPicks = [
-        MusicItem(id: "essentials", title: "Your Essentials", subtitle: "Ryan Adams, Sparta, Silversun Pickups, The Strokes, Radiohead, Death Cab for Cutie, and more", eyebrow: "Made for You", symbol: "sparkles", artwork: .violet),
+        MusicItem(id: "essentials", title: "Your Essentials", subtitle: "Harborlight, Juniper Vale, North Arcade, Paper Moons, and more", eyebrow: "Made for You", symbol: "sparkles", artwork: .violet),
         MusicItem(id: "energy", title: "Energy", subtitle: "Keep it moving with guitar-driven favorites.", eyebrow: "Mood for You", symbol: "bolt", artwork: .green),
-        MusicItem(id: "get-up", title: "Get Up!", subtitle: "Pearl Jam, Incubus, Blind Melon, Nada Surf, Soundgarden, and more", eyebrow: "Made for You", symbol: "figure.run", artwork: .sunset)
+        MusicItem(id: "get-up", title: "Get Up!", subtitle: "Harborlight, North Arcade, Juniper Vale, Paper Moons, Stone & Signal, and more", eyebrow: "Made for You", symbol: "figure.run", artwork: .sunset)
     ]
 
     static let recentlyPlayed = [
-        MusicItem(id: "bob-marley", title: "Bob Marley Essentials", subtitle: "Apple Music Reggae", eyebrow: "", symbol: "sun.max.fill", artwork: .forest),
-        MusicItem(id: "heavy-rotation", title: "Heavy Rotation", subtitle: "Apple Music for Kingsley…", eyebrow: "", symbol: "repeat", artwork: .amber),
-        MusicItem(id: "90s-country", title: "90’s Country", subtitle: "Apple Music Country", eyebrow: "", symbol: "music.mic", artwork: .rose)
+        glasshouseWeather,
+        neonApricot,
+        lettersFromLowTide
     ]
 
     static let nineties = [
-        MusicItem(id: "1979", title: "1979 Mixes - EP", subtitle: "The Smashing Pumpkins", eyebrow: "", symbol: "record.circle", artwork: .midnight),
-        MusicItem(id: "promises", title: "Promises Broken EP - EP", subtitle: "Soul Asylum", eyebrow: "", symbol: "guitars.fill", artwork: .rose),
-        MusicItem(id: "gin", title: "’Til I Hear It From You", subtitle: "Gin Blossoms", eyebrow: "", symbol: "music.note", artwork: .amber)
+        midnightInCopper,
+        everythingIsBlooming,
+        slowElectric
     ]
 
-    static let prisoner = MusicItem(
-        id: "prisoner",
-        title: "Prisoner",
-        subtitle: "Ryan Adams",
-        eyebrow: "",
-        symbol: "person.crop.square",
-        artwork: .rose
-    )
+    static let prisoner = lastSunMotel
 
     static let moreLikePrisoner = [
-        MusicItem(id: "sleep-well", title: "Sleep Well Beast", subtitle: "The National", eyebrow: "", symbol: "mountain.2.fill", artwork: .midnight),
-        MusicItem(id: "deeper", title: "A Deeper Understanding", subtitle: "The War on Drugs", eyebrow: "", symbol: "car.fill", artwork: .amber),
-        MusicItem(id: "integrity", title: "Integrity Blues", subtitle: "Jimmy Eat World", eyebrow: "", symbol: "circle.grid.cross.fill", artwork: .ocean)
+        honeyOnSaturn,
+        pocketThunder,
+        blueHourArcade
     ]
 
     static let playlists = [
@@ -52,9 +58,9 @@ enum MusicFixtures {
     ]
 
     static let stations = [
-        MusicItem(id: "personal-station", title: "Kingsley Wientge’s Station", subtitle: "Radio Station", eyebrow: "", symbol: "forward.fill", artwork: .sunset),
+        MusicItem(id: "personal-station", title: "Your Station", subtitle: "Radio Station", eyebrow: "", symbol: "forward.fill", artwork: .sunset),
         MusicItem(id: "discovery", title: "Discovery Station", subtitle: "Radio Station", eyebrow: "", symbol: "play.fill", artwork: .violet),
-        MusicItem(id: "pearl-jam", title: "Pearl Jam Station", subtitle: "Radio Station", eyebrow: "", symbol: "waveform", artwork: .ocean)
+        MusicItem(id: "harborlight", title: "Harborlight Station", subtitle: "Radio Station", eyebrow: "", symbol: "waveform", artwork: .ocean)
     ]
 
     static let moods = [
@@ -64,83 +70,86 @@ enum MusicFixtures {
     ]
 
     static let newReleases = [
-        MusicItem(id: "recuerda", title: "Recuerda Tu Muerte", subtitle: "Sponge", eyebrow: "", symbol: "waveform", artwork: .midnight),
-        MusicItem(id: "perfect-circle", title: "To Whom It May Concern", subtitle: "A Perfect Circle", eyebrow: "", symbol: "bird.fill", artwork: .sepia),
-        MusicItem(id: "hen", title: "Hen’s Teeth", subtitle: "Iron & Wine", eyebrow: "", symbol: "leaf.fill", artwork: .rose)
+        wildflowerStatic,
+        mapOfQuiet,
+        glasshouseWeather
     ]
 
     static let concerts = [
-        ConcertItem(id: "local-h", title: "Local H", venue: "Pappy & Harriet’s", schedule: "Tue, Oct 6 · 8 PM", month: "Oct", day: 6, symbol: "person.fill", artwork: .monochrome),
-        ConcertItem(id: "toadies", title: "Toadies", venue: "Pappy & Harriet’s", schedule: "Tue, Oct 6 · 7 PM", month: "Oct", day: 6, symbol: "person.3.fill", artwork: .midnight),
-        ConcertItem(id: "dan", title: "Dan Mangan", venue: "Oscar’s", schedule: "Fri, Oct 9 · 8 PM", month: "Oct", day: 9, symbol: "music.mic", artwork: .ocean)
+        ConcertItem(id: "local-h", title: "Fallow Street", venue: "Canyon Lantern Hall", schedule: "Tue, Oct 6 · 8 PM", month: "Oct", day: 6, symbol: "person.fill", artwork: .monochrome, artworkName: "MusicPocketThunder"),
+        ConcertItem(id: "toadies", title: "Limestone Radio", venue: "Canyon Lantern Hall", schedule: "Tue, Oct 6 · 7 PM", month: "Oct", day: 6, symbol: "person.3.fill", artwork: .midnight, artworkName: "MusicBlueHourArcade"),
+        ConcertItem(id: "dan", title: "Theo March", venue: "The Meridian Room", schedule: "Fri, Oct 9 · 8 PM", month: "Oct", day: 9, symbol: "music.mic", artwork: .ocean, artworkName: "MusicWildflowerStatic")
     ]
 
     static let replay = [
         MusicItem(id: "september", title: "Your September Replay is here.", subtitle: "Replay the artists, songs, and albums that defined your month.", eyebrow: "Replay Monthly", symbol: "arrow.counterclockwise", artwork: .sunset),
-        MusicItem(id: "all-time", title: "Replay All Time", subtitle: "The National, Death Cab for Cutie, Of Monsters and Men, and more", eyebrow: "Replay", symbol: "infinity", artwork: .ocean)
+        MusicItem(id: "all-time", title: "Replay All Time", subtitle: "Harborlight, Cedar Arcade, Of Monsters and Men, and more", eyebrow: "Replay", symbol: "infinity", artwork: .ocean)
     ]
 
     static let newHeroItems = [
-        MusicItem(id: "alt-ctrl", title: "ALT\nCTRL", subtitle: "CHVRCHES gives a nursery rhyme a powerful update with “Roses.”", eyebrow: "Updated Playlist", symbol: "waveform", artwork: .monochrome),
+        MusicItem(id: "alt-ctrl", title: "ALT\nCTRL", subtitle: "Nova Grey gives a nursery rhyme a powerful update with “Roses.”", eyebrow: "Updated Playlist", symbol: "waveform", artwork: .monochrome),
         MusicItem(id: "new-alt", title: "NEW\nMUSIC", subtitle: "The songs defining this week.", eyebrow: "New Music Daily", symbol: "music.note", artwork: .rose),
         MusicItem(id: "k-pop", title: "KPOP WORLD", subtitle: "Your go-to destination for all things K-pop.", eyebrow: "Updated Playlist", symbol: "music.note", artwork: .amber)
     ]
 
     static let bestNewSongs = [
-        MusicItem(id: "to-whom", title: "To Whom It May Concern", subtitle: "A Perfect Circle", eyebrow: "", symbol: "bird.fill", artwork: .sepia),
-        MusicItem(id: "silencio", title: "Silencio", subtitle: "U2", eyebrow: "", symbol: "building.2.fill", artwork: .ocean),
-        MusicItem(id: "sky-hill", title: "Sky and Hill", subtitle: "The Church", eyebrow: "", symbol: "sun.haze.fill", artwork: .rose),
-        MusicItem(id: "summer-clothes", title: "Summer Clothes", subtitle: "Michael Kiwanuka", eyebrow: "", symbol: "camera.macro", artwork: .violet),
-        MusicItem(id: "the-dead-dance", title: "The Dead Dance", subtitle: "Lady Gaga", eyebrow: "", symbol: "person.crop.square.fill", artwork: .rose),
-        MusicItem(id: "whole-wide-world", title: "Whole Wide World", subtitle: "The Rolling Stones", eyebrow: "", symbol: "mouth.fill", artwork: .green),
-        MusicItem(id: "sugar-on-my-tongue", title: "Sugar on My Tongue", subtitle: "Tyler, The Creator", eyebrow: "", symbol: "paintpalette.fill", artwork: .amber),
-        MusicItem(id: "stay-in-your-lane", title: "Stay in Your Lane", subtitle: "Tame Impala", eyebrow: "", symbol: "sparkles", artwork: .ocean),
-        MusicItem(id: "silencio", title: "Silencio", subtitle: "U2", eyebrow: "", symbol: "building.2.fill", artwork: .ocean),
-        MusicItem(id: "sky-hill", title: "Sky and Hill", subtitle: "The Church", eyebrow: "", symbol: "sun.haze.fill", artwork: .rose),
-        MusicItem(id: "summer-clothes", title: "Summer Clothes", subtitle: "Michael Kiwanuka", eyebrow: "", symbol: "camera.macro", artwork: .violet)
+        glasshouseWeather,
+        neonApricot,
+        lettersFromLowTide,
+        midnightInCopper,
+        everythingIsBlooming,
+        slowElectric,
+        lastSunMotel,
+        honeyOnSaturn,
+        pocketThunder,
+        blueHourArcade,
+        wildflowerStatic,
+        mapOfQuiet
     ]
 
     static let newThisWeek = [
-        MusicItem(id: "bleeding", title: "We Were Bleeding…", subtitle: "From First to Last", eyebrow: "", symbol: "waveform.path.ecg", artwork: .rose),
-        MusicItem(id: "rubber-soul", title: "Rubber Soul (Super Deluxe)", subtitle: "The Beatles", eyebrow: "", symbol: "leaf.fill", artwork: .forest),
-        MusicItem(id: "post-self", title: "Post Self", subtitle: "The Fall", eyebrow: "", symbol: "text.below.photo", artwork: .monochrome)
+        pocketThunder,
+        blueHourArcade,
+        wildflowerStatic
     ]
 
     static let recentReleases = [
-        MusicItem(id: "ride-lonesome", title: "Ride Lonesome", subtitle: "Beck", eyebrow: "", symbol: "door.left.hand.open", artwork: .amber),
-        MusicItem(id: "better-days", title: "Better Days (Deluxe)", subtitle: "Yellowcard", eyebrow: "", symbol: "pianokeys", artwork: .ocean),
-        MusicItem(id: "live-album", title: "Live at the Theatre", subtitle: "The Church", eyebrow: "", symbol: "person.fill", artwork: .violet)
+        mapOfQuiet,
+        glasshouseWeather,
+        neonApricot
     ]
 
     static let interviews = [
-        MusicItem(id: "charli-interview", title: "Charli xcx: The Zane Lowe Interview", subtitle: "Charli xcx & Zane Lowe", eyebrow: "", symbol: "mic.fill", artwork: .monochrome),
-        MusicItem(id: "andrew-interview", title: "Andrew Watt: The Interview", subtitle: "Andrew Watt & Zane Lowe", eyebrow: "", symbol: "person.2.fill", artwork: .ocean),
-        MusicItem(id: "e40-interview", title: "E-40: The Interview", subtitle: "E-40 & Zane Lowe", eyebrow: "", symbol: "quote.bubble.fill", artwork: .rose)
+        MusicItem(id: "mara-interview", title: "Mara Voss: Inside Glasshouse Weather", subtitle: "Mara Voss & Eli Hart", eyebrow: "", symbol: "mic.fill", artwork: .monochrome, artworkName: "MusicGlasshouseWeather"),
+        MusicItem(id: "len-interview", title: "The Story of A Map of Quiet", subtitle: "Ellis North & Eli Hart", eyebrow: "", symbol: "person.2.fill", artwork: .ocean, artworkName: "MusicMapOfQuiet"),
+        MusicItem(id: "nova-interview", title: "Behind Neon Apricot", subtitle: "Atlas Bloom & Eli Hart", eyebrow: "", symbol: "quote.bubble.fill", artwork: .rose, artworkName: "MusicNeonApricot")
     ]
 
     static let musicVideos = [
-        MusicItem(id: "silencio-video", title: "Silencio", subtitle: "U2", eyebrow: "", symbol: "play.rectangle.fill", artwork: .rose),
-        MusicItem(id: "run-away", title: "Run Away", subtitle: "Beck", eyebrow: "", symbol: "play.rectangle.fill", artwork: .forest),
-        MusicItem(id: "tongue", title: "Tongue Tied", subtitle: "Fontaines D.C.", eyebrow: "", symbol: "play.rectangle.fill", artwork: .ocean)
+        MusicItem(id: "glasshouse-video", title: "Glasshouse Weather", subtitle: "Mara Voss", eyebrow: "", symbol: "play.rectangle.fill", artwork: .rose, artworkName: "MusicGlasshouseWeather"),
+        MusicItem(id: "low-tide-video", title: "Letters from Low Tide", subtitle: "Harborlight", eyebrow: "", symbol: "play.rectangle.fill", artwork: .forest, artworkName: "MusicLettersFromLowTide"),
+        MusicItem(id: "slow-electric-video", title: "Slow Electric", subtitle: "North Arcade", eyebrow: "", symbol: "play.rectangle.fill", artwork: .ocean, artworkName: "MusicSlowElectric")
     ]
 
     static let comingSoon = [
-        MusicItem(id: "dopamine", title: "Dopamine Chamber", subtitle: "Fontaines D.C.", eyebrow: "", symbol: "waveform", artwork: .pink),
-        MusicItem(id: "carnaval", title: "Carnaval De Luz", subtitle: "U2", eyebrow: "", symbol: "figure.walk", artwork: .ocean),
-        MusicItem(id: "origin", title: "Origin", subtitle: "Tom Petty", eyebrow: "", symbol: "line.diagonal", artwork: .amber)
+        lastSunMotel,
+        honeyOnSaturn,
+        pocketThunder
     ]
 
     static let recentlyAdded = [
-        MusicItem(id: "library-dopamine", title: "Dopamine Chamber", subtitle: "Fontaines D.C.", eyebrow: "", symbol: "waveform", artwork: .pink),
-        MusicItem(id: "library-smile", title: "Put A Smile On For Me", subtitle: "Keo", eyebrow: "", symbol: "person.crop.square", artwork: .amber),
-        MusicItem(id: "library-icky-thump", title: "Icky Thump", subtitle: "The White Stripes", eyebrow: "", symbol: "guitars.fill", artwork: .monochrome),
-        MusicItem(id: "library-vast", title: "Visual Audio Sensory Theater", subtitle: "VAST", eyebrow: "", symbol: "triangle.fill", artwork: .sunset),
-        MusicItem(id: "library-music-for-people", title: "Music for People", subtitle: "VAST", eyebrow: "", symbol: "camera.macro", artwork: .midnight),
-        MusicItem(id: "library-collective-soul", title: "Hints, Allegations & Things Left Unsaid", subtitle: "Collective Soul", eyebrow: "", symbol: "quote.bubble.fill", artwork: .rose),
-        MusicItem(id: "library-dirt", title: "Dirt (Remastered)", subtitle: "Alice In Chains", eyebrow: "", symbol: "mountain.2.fill", artwork: .sunset),
-        MusicItem(id: "library-ukulele", title: "Ukulele Songs", subtitle: "Eddie Vedder", eyebrow: "", symbol: "person.fill", artwork: .forest),
-        MusicItem(id: "library-no-one-sings", title: "No One Sings Like You Anymore", subtitle: "Chris Cornell", eyebrow: "", symbol: "square.grid.3x3.fill", artwork: .rose),
-        MusicItem(id: "library-above", title: "Above (Deluxe Edition)", subtitle: "Mad Season", eyebrow: "", symbol: "person.2.fill", artwork: .monochrome)
+        glasshouseWeather,
+        neonApricot,
+        lettersFromLowTide,
+        midnightInCopper,
+        everythingIsBlooming,
+        slowElectric,
+        lastSunMotel,
+        honeyOnSaturn,
+        pocketThunder,
+        blueHourArcade,
+        wildflowerStatic,
+        mapOfQuiet
     ]
 }
 

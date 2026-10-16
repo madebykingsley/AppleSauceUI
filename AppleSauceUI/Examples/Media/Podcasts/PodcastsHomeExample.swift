@@ -21,14 +21,14 @@ struct PodcastsHomeExample: View {
                             mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             background: episode.color.gradient
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                         }
                     }
 
                     MediaShelf(title: "Now with Video", items: PodcastsFixtures.homeVideoShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                             .buttonStyle(.plain)
@@ -37,7 +37,7 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "Your Top Shows", items: PodcastsFixtures.homeTopShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                             .buttonStyle(.plain)
@@ -46,7 +46,7 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "You Might Like", subtitle: "Based on your listening", items: PodcastsFixtures.homeRecommendedShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                             .buttonStyle(.plain)
@@ -55,7 +55,7 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "Popular Shows", items: PodcastsFixtures.homePopularShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                             .buttonStyle(.plain)
@@ -67,7 +67,7 @@ struct PodcastsHomeExample: View {
                             spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                                 .overlay(styleProfile.imagery.overlay)
                                 .shadow(
                                     color: styleProfile.effects.standardShadow.color,
@@ -111,7 +111,7 @@ struct PodcastsHomeExample: View {
 
                         MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.homeRecommendedShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                     }
@@ -127,14 +127,14 @@ struct PodcastsHomeExample: View {
                             mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             background: episode.color.gradient
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                         }
                     }
 
                     MediaShelf(title: "Music Interviews", items: PodcastsFixtures.homeMusicInterviews, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         Button(action: {}) {
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                             .buttonStyle(.plain)
@@ -151,7 +151,7 @@ struct PodcastsHomeExample: View {
                             mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             background: episode.color.gradient
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                         }
                     }
 
@@ -161,7 +161,7 @@ struct PodcastsHomeExample: View {
                             spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                                 .overlay(styleProfile.imagery.overlay)
                                 .shadow(
                                     color: styleProfile.effects.standardShadow.color,
@@ -197,7 +197,7 @@ struct PodcastsHomeExample: View {
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
                         Button(action: {}) {
                             SectionHeader(title: LocalizedStringKey(PodcastsFixtures.referenceSeed.title), eyebrow: "If You Like", leading: {
-                                ArtworkPlaceholder(symbol: PodcastsFixtures.referenceSeed.symbol, background: AnyShapeStyle(PodcastsFixtures.referenceSeed.color.gradient), symbolPadding: 10)
+                                ArtworkImage(assetName: PodcastsFixtures.referenceSeed.resolvedArtworkName, placeholderSymbol: PodcastsFixtures.referenceSeed.symbol, placeholderBackground: AnyShapeStyle(PodcastsFixtures.referenceSeed.color.gradient), placeholderSymbolPadding: 10)
                                     .frame(width: 40, height: 40)
                             }, accessory: {
                                 Image(systemName: "chevron.right")
@@ -211,7 +211,7 @@ struct PodcastsHomeExample: View {
 
                         MediaShelf(title: nil, subtitle: nil, items: PodcastsFixtures.referenceShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                             SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                                ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                                ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                             }
                         }
                     }
@@ -242,7 +242,7 @@ struct PodcastsHomeExample: View {
                             spacing: featuredEpisodeSpacing,
                             alignment: .top
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                                 .overlay(styleProfile.imagery.overlay)
                                 .shadow(
                                     color: styleProfile.effects.standardShadow.color,

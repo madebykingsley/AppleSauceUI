@@ -17,22 +17,22 @@ struct PodcastsNewExample: View {
                     }
                     RankedShelf(title: "Top Shows", items: PodcastsFixtures.newTopShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     ColumnMediaShelf(title: "New Shows", items: PodcastsFixtures.newShows, rows: 2, columnWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard), interItemSpacing: 16) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     MediaShelf(title: "Newly Added Video", items: PodcastsFixtures.newVideoShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     RankedShelf(title: "Top Series", items: PodcastsFixtures.newTopSeries, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
@@ -41,7 +41,7 @@ struct PodcastsNewExample: View {
                             spacing: compactEpisodeSpacing,
                             alignment: .center
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                                 .overlay(styleProfile.imagery.overlay)
                                 .shadow(
                                     color: styleProfile.effects.standardShadow.color,
@@ -90,12 +90,12 @@ struct PodcastsNewExample: View {
                             mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             background: episode.color.gradient
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                         }
                     }
                     MediaShelf(title: "Latin American Heritage Month", items: PodcastsFixtures.newHeritageShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { show in
                         SquareLockup(title: show.title, subtitle: show.category, metadata: show.updateInformation, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
@@ -109,17 +109,17 @@ struct PodcastsNewExample: View {
                             mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             background: episode.color.gradient
                         ) {
-                            ArtworkPlaceholder(symbol: episode.symbol, background: AnyShapeStyle(episode.color.gradient))
+                            ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
                         }
                     }
                     RankedShelf(title: "Top True Crime Shows", items: PodcastsFixtures.newTrueCrimeShows, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { rank, show in
                         SquareLockup(title: show.title, subtitle: show.publisher, badge: show.badge?.compactText, badgeAccessibilityLabel: show.badge?.accessibilityName, style: .ranked(rank)) {
-                            ArtworkPlaceholder(symbol: show.symbol, background: AnyShapeStyle(show.color.gradient))
+                            ArtworkImage(assetName: show.resolvedArtworkName, placeholderSymbol: show.symbol, placeholderBackground: AnyShapeStyle(show.color.gradient))
                         }
                     }
                     MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { trailer in
                         MediaCard(background: trailer.color.gradient) {
-                            ArtworkPlaceholder(symbol: trailer.symbol, background: AnyShapeStyle(trailer.color.gradient))
+                            ArtworkImage(assetName: trailer.resolvedArtworkName, placeholderSymbol: trailer.symbol, placeholderBackground: AnyShapeStyle(trailer.color.gradient))
                                 .aspectRatio(trailerAspectRatio, contentMode: .fit)
                         } metadata: {
                             VStack(alignment: .leading, spacing: 6) {
