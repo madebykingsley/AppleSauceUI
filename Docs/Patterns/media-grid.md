@@ -12,6 +12,8 @@ content:
   - book
   - video
   - game
+  - category
+  - channel
 platforms:
   ios: preferred
   ipados: preferred
@@ -57,7 +59,7 @@ The collection participates in its surrounding vertical scroll container and laz
 
 ## Variants
 
-Artwork, poster, landscape, and ranked variants describe the supplied item presentation rather than separate grid implementations. Column count and explicit geometry may be adapted by the containing Recipe or platform.
+Artwork, poster, landscape, ranked, and elevated-tile presentations describe the supplied item rather than separate grid implementations. Column count and explicit geometry may be adapted by the containing screen composition or platform. Compact category and channel grids use the same collection behavior and do not require a separate grid Pattern.
 
 ## Content requirements
 
@@ -85,3 +87,5 @@ iOS and iPadOS adapt column count to available width. macOS can use additional c
 ## Examples / references
 
 The Style Profiles example renders identical media data and one `MediaGrid` structure under Editorial, Entertainment, and Neutral profiles. The Music and Podcasts library examples supply app-specific content to the same grid pattern.
+
+The Music Radio screen demonstrates a three-column grid of `ElevatedTile` content. The MediaGrid preview uses destination content to demonstrate the same relationship outside a media domain.

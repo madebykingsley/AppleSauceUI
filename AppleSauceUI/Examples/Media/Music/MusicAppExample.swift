@@ -20,7 +20,7 @@ struct MusicAppExample: View {
             }
 
             Tab("Radio", systemImage: "dot.radiowaves.left.and.right", value: .radio) {
-                MusicRadioExample()
+                MusicRadioExample(onExit: onExit)
             }
 
             Tab("Library", systemImage: "music.note.square.stack.fill", value: .library) {

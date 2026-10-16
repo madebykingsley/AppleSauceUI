@@ -13,6 +13,7 @@ content:
   - episode
   - game
   - video
+  - broadcast
 platforms:
   ios: preferred
   ipados: preferred
@@ -52,7 +53,7 @@ Avoid it for dense libraries dominated by square artwork, broad collections that
 
 ## Anatomy
 
-The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. Specialized Recipes may use the lower-level metadata and actions slots when independent controls are required, and may provide explicit content insets when reference geometry differs from density defaults, while retaining the same card container and explicit layout model.
+The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. Specialized compositions may use the lower-level metadata and actions slots when independent controls are required, and may provide explicit content insets when reference geometry differs from density defaults, while retaining the same card container and explicit layout model. Callers may select a semantic `ElementElevation`; the default remains `.standard`.
 
 ## Variants
 
@@ -60,7 +61,7 @@ The semantic initializer accepts artwork, optional eyebrow, required title, opti
 
 ## Style responsibilities
 
-The Style Profile supplies content typography, primary and secondary foreground hierarchy, on-media foreground, surface, artwork and card shapes, image scrim, outline, shadow, and symbol rendering. These are general semantic roles that other Elements may reuse; there are no MediaCard-specific profile tokens.
+The Style Profile supplies content typography, primary and secondary foreground hierarchy, on-media foreground, surface, artwork and card shapes, image scrim, outline, the shadow for the requested semantic elevation, and symbol rendering. These are general semantic roles that other Elements may reuse; there are no MediaCard-specific profile tokens.
 
 ## Density responsibilities
 
@@ -82,3 +83,5 @@ iOS and iPadOS use the landscape card in shelves and vertical compositions. macO
 ## Examples / references
 
 The Style Profiles gallery renders identical MediaCard content under Editorial, Entertainment, and Neutral profiles and exposes Standard and Overlay as explicit layout choices. Podcast Recipes demonstrate the lower-level actions slot for playback and overflow controls.
+
+The Music Radio screen uses the lower-level standard layout for live programming, with caller-supplied branded artwork and metadata regions and no elevation.

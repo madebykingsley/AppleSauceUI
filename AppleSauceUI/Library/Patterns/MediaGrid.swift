@@ -34,8 +34,16 @@ struct MediaGrid<Items: RandomAccessCollection, ItemView: View>: View where Item
 #if DEBUG
 #Preview("MediaGrid — Variants") {
     ScrollView {
-        MediaGrid(title: "Recently Added", items: LibraryPreviewItem.samples) { item in
-            RoundedRectangle(cornerRadius: 8).fill(.quaternary).aspectRatio(1, contentMode: .fit).overlay { Text(item.title) }
+        MediaGrid(title: "Explore Places", items: LibraryPreviewItem.samples, columnCount: 3) { item in
+            ElevatedTile(elevation: .standard) {
+                Image(systemName: "map.fill")
+                    .font(.title2)
+                    .foregroundStyle(.tint)
+            } footer: {
+                Text(item.title)
+                    .font(.caption)
+                    .lineLimit(1)
+            }
         }
     }
     .frame(width: 402)

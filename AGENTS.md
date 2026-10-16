@@ -2,7 +2,7 @@
 
 AppleSauceUI is a research-driven SwiftUI pattern library informed by the design language and interaction conventions of Apple's first-party apps across Apple platforms.
 
-Treat each reconstructed screen as a **design-system research specimen**: build a convincing, idiomatic screen, reuse proven Elements and Patterns, and discover missing reusable design knowledge. The screen itself is not the reusable API.
+Treat each reconstructed screen as a **design-system research specimen**: build a convincing, idiomatic screen, reuse proven Elements and Patterns, and discover missing reusable design knowledge. Generalizing the UI concepts discovered in each screen into the Library is part of completing the screen, even when the request only says to recreate it. The screen itself is not the reusable API.
 
 ## 1. Native SwiftUI and platform behavior
 
@@ -32,7 +32,7 @@ Adapt to platform conventions rather than identically resizing one interface acr
 - Domain models, fixtures, assets, and fake/demo data.
 - Mappings from domain data to narrow, neutral Library presentation inputs.
 - Content selection, section order, and screen-specific composition.
-- Deliberate specimen geometry and local one-off promotional compositions.
+- Deliberate specimen geometry and supplied artwork/branding content; reusable promotional structure belongs in Library.
 
 Keep fixtures and models outside screen view files. Follow the example-screen composition rules below when mapping their data into Library presentation.
 
@@ -44,7 +44,7 @@ A view does not remain example-owned merely because its initializer accepts an a
 - Brand tint belongs at the app/example root; Library controls inherit it.
 - `Library` must never depend on `Examples`.
 
-Keep bespoke artwork, app-shell behavior, and truly screen-specific compositions local. Also keep uncertain extraction candidates local until evidence supports promotion. Document remaining example-owned visual exceptions and why existing Library responsibilities do not fit; do not leave reusable presentation in Examples merely for convenience.
+Attempt to generalize every custom visual element and collection arrangement introduced by a screen. Library owns the resulting Elements and Patterns; Examples compose them and supply content. Keep bespoke artwork content, app-shell behavior, and the overall screen composition local, but separate artwork from reusable surfaces, hierarchy, layout, and accessibility. A single demonstrated screen is enough to establish a focused generalized abstraction. Uncertainty or lack of a second consumer is not a reason to leave custom UI in Examples. If generalization would genuinely harm semantic clarity or native behavior, document the concrete exception and why reuse, extension, and a focused new abstraction do not fit.
 
 ### Example-screen composition
 
@@ -53,12 +53,12 @@ Example screens are living documentation of AppleSauce. Keep their major visual 
 - Declare major AppleSauce Patterns, such as `MediaShelf`, `ColumnMediaShelf`, `RankedShelf`, `MediaGrid`, and `MediaList`, directly in the screen's `body`. Do not hide them or primary screen sections behind view-returning helper methods, computed properties, or forwarding Views.
 - Prefer keeping Library Elements visible in those Pattern item closures too when mapping example/domain data into their inputs is simple. A direct `MediaShelf` → `SquareLockup` composition makes both Library responsibilities apparent.
 - Do not create example-specific `View` types solely to map fixture/model fields into an existing Library Element, or forwarding wrappers that only pass data, defaults, or content through. Inline those mappings at the composition site. Repetition, use across multiple screens, a shorter file, or a separate preview does not by itself justify wrapping a simple mapping.
-- Extract an example-specific child `View` only when the item composition itself is meaningfully substantial: substantial repeated presentation logic, meaningful interaction/state or accessibility composition, a substantial composition reused across multiple screens, or enough internal complexity that inlining obscures the screen. Assess the implementation, not its name or number of call sites. Passing an action or accessibility label through to an Element alone does not meet this threshold.
-- Keep justified example-specific child Views in `Examples`, scoped to their actual responsibility. Their extraction does not justify moving domain models into Library APIs, duplicating Library-owned presentation, or bypassing the Library extraction criteria below.
+- Substantial custom item presentation is a signal to identify and generalize a Library Element, not to introduce an example-specific component. Extract collection relationships separately as Patterns when they encode meaningful layout or behavior.
+- Example-owned child Views are limited to app-shell/state wiring, bespoke artwork content, or a documented exception under the ownership rules above. They must not conceal reusable presentation or require Library APIs to consume app-domain models.
 - Small computed view properties and `@ViewBuilder` methods remain appropriate for implementation details, local conditional fragments, and small chrome fragments that do not conceal the major hierarchy. Do not replace a trivial adapter View with an equally opaque view factory.
 - Prefer explicit declarative composition for static specimen screens. Do not introduce a generic section array or section-kind switch merely to reduce repetition; use data-driven section structure only when the screen genuinely requires it.
 
-Simple field mapping belongs at the call site; substantial item composition may deserve its own View. Keep major Patterns visible in either case. Clear source-to-preview navigation is useful, but does not justify unnecessary abstractions or guarantee a particular Xcode Preview selector result.
+Simple field mapping belongs at the call site; substantial item presentation belongs in a generalized Library Element. Keep major Patterns visible in either case. Clear source-to-preview navigation is useful, but does not justify unnecessary abstractions or guarantee a particular Xcode Preview selector result.
 
 ### Elements and Patterns
 
@@ -115,7 +115,7 @@ Do not extract reusable `FooScreen`, `MediaDetailRecipe`, or similar screen-leve
 
 Before implementing UI, consult `AppleSauceUI/Library/README.md`, relevant component documentation, and representative consumers. Identify the closest existing Element or Pattern and determine whether the requirement is already supported, a legitimate variant, a small semantic extension, or a different concept.
 
-Reuse an abstraction when its documented responsibilities fit. Otherwise, extend it only if the semantic identity remains intact; keep the implementation local and explain the mismatch when it does not fit and extraction is not yet justified.
+Reuse an abstraction when its documented responsibilities fit. Otherwise, extend it when its semantic identity remains intact, or create a focused generalized Element or Pattern. Moving an app-specific View into Library unchanged, or merely giving it a generic name, does not satisfy generalization.
 
 ### Extension threshold
 
@@ -138,41 +138,44 @@ A separate abstraction is usually warranted when purpose, anatomy, interaction, 
 
 Prefer focused semantic choices such as `MediaCard(style: .poster)`. Keep distinct concepts such as episode cards, event tiles, and promotional cards separate rather than building a universal configurable card.
 
-### Evidence before extraction
+### Generalization by default
 
-Extract only when there is evidence of reusable design grammar: demonstrated reuse across contexts or a clear semantic concept with credible applicability to at least two distinct screen contexts.
+For every custom UI concept, identify the smallest coherent design grammar that applies beyond the current app's names and fixtures. Generalize that concept into Library as part of ordinary screen work. Do not require a second implemented consumer or a separate extraction request.
 
-Evidence can include an existing AppleSauce counterpart, recurrence across Apple first-party apps, implementation duplication, or meaningful semantic intent an agent can select. Do not invent speculative future needs to justify extraction.
+- Compare anatomy, content hierarchy, interaction, and layout with existing Library components and representative Music, Podcasts, App Store, or other available examples. Prefer reuse or a small semantic extension before creating a sibling component.
+- Name APIs for their reusable responsibility rather than the originating app or screen. For example, station shortcuts may reveal an elevated tile Element and a category/channel browsing grid Pattern; an on-air card may already fit `MediaCard` with a focused extension. These are candidates to assess, not mandated new types.
+- Separate the Element from its collection Pattern and its supplied artwork. A tile owns its surface and content anatomy; a grid owns arrangement and adaptation; station logos and fixture strings are content.
+- Remove dependencies on example models, brand-specific string parsing, fixture identities, and app-specific conditionals. Accept narrow semantic presentation inputs, caller-supplied artwork, and actions where appropriate.
+- Generalize only the dimensions established by the current design and inspected counterparts. Do not invent options, unsupported platform claims, or hypothetical features. Use representative neutral preview content to demonstrate that the API is independent of Radio or any other originating domain.
+- Generalization does not mean one universal component. Preserve focused concepts when their anatomy or behavior differs; avoid unrelated Boolean flags and configuration bags. Native SwiftUI remains appropriate for ordinary composition and system controls; do not create a Library wrapper for every stack, button, or modifier.
 
-For example, `MediaShelf` is a reusable Pattern and `PosterLockup` a reusable Element; a promotional banner unique to one screen stays local until reuse is supported.
-
-Do not extract every visually distinctive object or create abstractions merely to shorten files. When uncertain, keep code local. Prefer fewer, stronger abstractions.
+A completed screen must not leave custom visual components in Examples merely because they are new, used once, or convenient to keep local. Record any concrete exceptions and their reasoning. Components must be discoverable through the Library index and documentation, not merely present in its source directory.
 
 ## 4. Screen-driven workflow
 
 ### Inventory
 
-Before coding, identify existing Elements and Patterns to reuse, likely missing capabilities, and likely screen-local compositions. Apply the discovery and extension rules above.
+Before coding, inventory each visual concept and collection relationship. Identify existing Elements and Patterns to reuse or extend, missing generalized abstractions, and example-owned content or wiring. Apply the discovery and generalization rules above.
 
 ### Build
 
-Construct the screen with native SwiftUI, existing AppleSauce abstractions, and local screen-specific code. Establish the screen's structure before extracting new abstractions.
+Construct the screen with native SwiftUI and AppleSauce abstractions. Temporary local implementations may help establish structure, but generalize their visual concepts into Library before considering the screen complete.
 
 ### Observe
 
 Once the structure works, inspect duplication and repeated semantic relationships:
 
-- Is the concept represented elsewhere, or useful in another credible screen context?
+- What general concept does this presentation express after removing app-specific content and branding?
 - Is it an Element, a Pattern, or merely local composition?
 - Could an existing abstraction support it cleanly?
 
 ### Extract
 
-When the task includes extraction and evidence supports it, extend an existing abstraction or create a focused Element/Pattern. Keep APIs semantic and small, and preserve the ownership boundaries above.
+As a required part of screen work, reuse or extend existing abstractions and extract missing generalized Elements/Patterns. Replace temporary custom example components with direct Library composition. Keep APIs semantic and small, and preserve the ownership boundaries above. Do not wait for a separate extraction request.
 
 ### Validate
 
-Verify that extraction reduces duplication, improves semantic clarity, avoids excessive configuration, remains Style Profile compatible, and preserves native SwiftUI behavior.
+Verify that generalization captures the visual concept independently of example models and branding, improves semantic clarity, avoids excessive configuration, remains Style Profile and Density compatible, and preserves native SwiftUI behavior. Demonstrate representative content from another domain in previews without claiming an unimplemented production consumer. Review the screen for custom presentation left inline as well as in separate View files.
 
 Verify affected consumers before deleting superseded example code. Use the visual-verification mode below; extraction does not reset the screenshot budget or automatically authorize iterative visual refinement.
 
@@ -262,8 +265,8 @@ Never resize or alter the canonical reference to make a comparison pass. State w
 
 ### Documentation and scope
 
-When adding, extracting, or changing reusable presentation, update the Library index entry, public API documentation, and any component README in the same change. Document when to use it, caller responsibilities, supported variants/platforms, and demonstrated uses. Keep examples aligned with the current API.
+When adding, extracting, or changing reusable presentation, update the Library index entry, public API documentation, and any component README in the same change. Document when to use it, caller responsibilities, supported variants/platforms, and demonstrated uses. Keep examples aligned with the current API. Add or update the applicable Element/Pattern documentation and regenerate the discovery registry when its source metadata changes; include semantic usage terms so agents can find the concept across domains.
 
 Keep work focused on the current task. Do not redesign unrelated screens, refactor unrelated Library code, introduce large frameworks without need, or add third-party dependencies without strong justification.
 
-Favor small, observable iterations. Preserve screen-specific decisions locally, extract only supported reusable knowledge, and report validation honestly.
+Favor small, observable iterations. Preserve screen composition and content locally, generalize discovered UI concepts into Library with focused APIs, and report validation honestly.
