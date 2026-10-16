@@ -21,7 +21,7 @@ struct PodcastsAppExample: View {
                 PodcastsLibraryExample(onExit: onExit)
             }
             Tab("Search", systemImage: "magnifyingglass", value: .search, role: .search) {
-                ContentUnavailableView("Search", systemImage: "magnifyingglass", description: Text("Search is outside this reference reconstruction."))
+                PodcastsSearchExample(onExit: onExit)
             }
         }
         .tint(.purple)

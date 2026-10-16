@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		777FFF543075B9D100E264C4 /* AGENTS.md in Resources */ = {isa = PBXBuildFile; fileRef = 777FFF533075B9CA00E264C4 /* AGENTS.md */; };
+		7790060A3082C356008EAE8D /* App Icon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 779006093082C356008EAE8D /* App Icon.icon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		777FFF173075A8A900E264C4 /* reference.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reference.png; sourceTree = "<group>"; };
 		777FFF533075B9CA00E264C4 /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = AGENTS.md; sourceTree = "<group>"; };
 		778B21483078406600C3863B /* AppleSauceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppleSauceUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		779006093082C356008EAE8D /* App Icon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = "App Icon.icon"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -81,6 +83,7 @@
 				778B21493078406600C3863B /* AppleSauceUITests */,
 				000000000000000000000020 /* Products */,
 				777FFEF830759FD300E264C4 /* AppleSauce */,
+				779006093082C356008EAE8D /* App Icon.icon */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				777FFF543075B9D100E264C4 /* AGENTS.md in Resources */,
+				7790060A3082C356008EAE8D /* App Icon.icon in Resources */,
 			);
 		};
 		778B21463078406600C3863B /* Resources */ = {
@@ -488,6 +492,8 @@
 		000000000000000111000000 /* Debug configuration for PBXNativeTarget "AppleSauceUI" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LCHHW57ZRZ;
@@ -526,6 +532,8 @@
 		000000000000000112000000 /* Release configuration for PBXNativeTarget "AppleSauceUI" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon";
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = LCHHW57ZRZ;

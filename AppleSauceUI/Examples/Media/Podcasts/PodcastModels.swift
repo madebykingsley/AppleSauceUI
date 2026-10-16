@@ -128,3 +128,10 @@ struct PodcastQuickLinkFixture: Identifiable {
     let id: String
     let title: LocalizedStringResource
 }
+
+struct PodcastSearchCategory: Identifiable {
+    let id: String
+    let title: LocalizedStringResource
+    let symbol: String
+    let color: Color
+}
