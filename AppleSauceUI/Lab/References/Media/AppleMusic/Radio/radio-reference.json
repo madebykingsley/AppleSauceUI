@@ -1,0 +1,11 @@
+{
+  "name": "Apple Music — Radio",
+  "platform": "iOS",
+  "device": "iPhone",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "Radio",
+  "dimensions": "244 × 2048",
+  "notes": "Scrollable full-page screenshot including system, mini-player, and tab bars. The mini-player is intentionally excluded from the reconstruction."
+}

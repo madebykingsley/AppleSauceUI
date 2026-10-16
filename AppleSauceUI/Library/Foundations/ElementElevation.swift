@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// The semantic elevation an Element requests from the active Style Profile.
-enum ElementElevation: Sendable {
+enum ElementElevation: Equatable, Sendable {
     case none
     case subtle
     case standard

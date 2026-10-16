@@ -21,6 +21,7 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
     @Environment(\.styleProfile) private var styleProfile
 
     let layout: MediaCardLayout
+    let elevation: ElementElevation
     let background: Background
     let contentInsets: EdgeInsets?
     @ViewBuilder let artwork: Artwork
@@ -29,6 +30,7 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
 
     init(
         layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
         background: Background,
         contentInsets: EdgeInsets? = nil,
         @ViewBuilder artwork: () -> Artwork,
@@ -36,6 +38,7 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
         @ViewBuilder actions: () -> Actions
     ) {
         self.layout = layout
+        self.elevation = elevation
         self.background = background
         self.contentInsets = contentInsets
         self.artwork = artwork()
@@ -44,16 +47,18 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
     }
 
     var body: some View {
+        let shadow = styleProfile.effects.shadow(for: elevation)
+
         cardContent
             .foregroundStyle(styleProfile.colors.onMedia)
             .background(background)
             .clipShape(cardShape)
             .overlay { cardShape.stroke(styleProfile.effects.outlineColor, lineWidth: styleProfile.effects.outlineWidth) }
             .shadow(
-                color: styleProfile.effects.standardShadow.color,
-                radius: styleProfile.effects.standardShadow.radius,
-                x: styleProfile.effects.standardShadow.x,
-                y: styleProfile.effects.standardShadow.y
+                color: shadow.color,
+                radius: shadow.radius,
+                x: shadow.x,
+                y: shadow.y
             )
             .accessibilityElement(children: .contain)
     }
@@ -101,12 +106,14 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
 extension MediaCard where Actions == EmptyView {
     init(
         layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
         background: Background,
         contentInsets: EdgeInsets? = nil,
         @ViewBuilder artwork: () -> Artwork,
         @ViewBuilder metadata: () -> Metadata
     ) {
         self.layout = layout
+        self.elevation = elevation
         self.background = background
         self.contentInsets = contentInsets
         self.artwork = artwork()
@@ -118,6 +125,7 @@ extension MediaCard where Actions == EmptyView {
 extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCardMetadata, Actions == EmptyView {
     init(
         layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
         eyebrow: String? = nil,
         title: String,
         subtitle: String? = nil,
@@ -127,6 +135,7 @@ extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCa
         @ViewBuilder artwork: () -> Artwork
     ) {
         self.layout = layout
+        self.elevation = elevation
         self.background = StyleProfileSurface()
         self.contentInsets = nil
         self.artwork = artwork()

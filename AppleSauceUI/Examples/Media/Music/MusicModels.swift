@@ -41,6 +41,27 @@ struct MusicLink: Identifiable {
     let title: LocalizedStringResource
 }
 
+struct RadioStationShortcut: Identifiable {
+    let id: String
+    let name: String
+    let artworkName: String
+}
+
+struct RadioOnAirItem: Identifiable {
+    let id: String
+    let stationName: String
+    let programName: String
+    let artworkName: String
+    let footerColors: [Color]
+}
+
+struct RadioTakeoverItem: Identifiable {
+    let id: String
+    let artist: String
+    let summary: String
+    let artworkName: String
+}
+
 enum ArtworkPalette {
     case sunset
     case midnight

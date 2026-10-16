@@ -48,6 +48,8 @@ Use `VideoLockup` for lightweight landscape video artwork with a title and optio
 
 Use `MediaCard` for landscape artwork and its semantic eyebrow, title, subtitle, metadata, and badge hierarchy. Select `.standard` for distinct artwork and text regions or `.overlay` for metadata layered over artwork; the Style Profile never selects this structural layout. Specialized example presentations may use the lower-level metadata and independent-actions slots when the semantic initializer is insufficient.
 
+Use `ElevatedTile` for compact square choices whose supplied primary content and optional footer belong on one raised surface. It owns square geometry and Style Profile/Density treatment while callers retain artwork, branding, accessibility labels, and native control semantics. Use `SquareLockup` instead when metadata belongs outside the artwork.
+
 Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, show identity, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
 
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
@@ -56,7 +58,7 @@ Use `EditorialHero` when an editorial eyebrow and heading sit outside and above 
 
 - `MediaShelf` owns titled horizontal collection layout, scrolling policy, item spacing, and content margins. Its default spacing and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence. `HorizontalCollectionItemSize` names compact, standard, and wide collection tiers, resolved for an explicit demonstrated sizing context. The current 161-, 249-, and 334-point values apply only to iPhone at Standard density and must not be treated as universal platform dimensions.
 - `RankedShelf` supplies stable, one-based ranks while delegating presentation to its item closure.
-- `MediaGrid` owns optional heading, columns, gaps, and horizontal margins. Its default gaps and margins resolve from `InterfaceDensity`; explicit recipe geometry still takes precedence.
+- `MediaGrid` owns optional heading, columns, gaps, and horizontal margins for media, category, channel, and similar browsable collections. Its default gaps and margins resolve from `InterfaceDensity`; explicit specimen geometry still takes precedence.
 - `ColumnMediaShelf` uses native `LazyHGrid` column-major placement for demonstrated multi-row episode and track collections. It and `RankedShelf` inherit content margins from `InterfaceDensity` unless the caller supplies an explicit override.
 - Native `Section`, `NavigationLink`, `Label`, and navigation toolbars own standard structure and interaction; the Library does not wrap them.
 

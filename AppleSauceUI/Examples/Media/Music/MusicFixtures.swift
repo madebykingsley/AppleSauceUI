@@ -151,6 +151,69 @@ enum MusicFixtures {
         wildflowerStatic,
         mapOfQuiet
     ]
+
+    static let radioShortcuts = [
+        RadioStationShortcut(id: "radio-one", name: "Radio One", artworkName: "RadioChannelOne"),
+        RadioStationShortcut(id: "hitline", name: "Hitline", artworkName: "RadioChannelHits"),
+        RadioStationShortcut(id: "country-mile", name: "Country Mile", artworkName: "RadioChannelCountry"),
+        RadioStationShortcut(id: "musica-nueva", name: "Música Nueva", artworkName: "RadioChannelMusicaNueva"),
+        RadioStationShortcut(id: "clubroom", name: "Clubroom", artworkName: "RadioChannelClub"),
+        RadioStationShortcut(id: "chillwave", name: "Chillwave", artworkName: "RadioChannelChill")
+    ]
+
+    static let radioOnAir = [
+        RadioOnAirItem(id: "one-live", stationName: "Radio One", programName: "Live worldwide", artworkName: "RadioChannelOne", footerColors: [.brown.opacity(0.58), .gray.opacity(0.72)]),
+        RadioOnAirItem(id: "hitline-live", stationName: "Hitline", programName: "Today’s biggest records", artworkName: "RadioChannelHits", footerColors: [.blue, .cyan]),
+        RadioOnAirItem(id: "country-live", stationName: "Country Mile", programName: "Stories and songs", artworkName: "RadioChannelCountry", footerColors: [.orange, .brown])
+    ]
+
+    static let radioTakeovers = [
+        RadioTakeoverItem(id: "mara-takeover", artist: "Mara Voss", summary: "Mara spins her favorite records and shares the stories behind them.", artworkName: "MusicGlasshouseWeather"),
+        RadioTakeoverItem(id: "juniper-takeover", artist: "Juniper Vale", summary: "A warm mix of new favorites, deep cuts, and songs for the road.", artworkName: "MusicEverythingIsBlooming"),
+        RadioTakeoverItem(id: "lena-takeover", artist: "Lena Vale", summary: "Lena takes a detour through the music that shaped her sound.", artworkName: "MusicHoneyOnSaturn"),
+        RadioTakeoverItem(id: "ellis-takeover", artist: "Ellis North", summary: "Quiet classics and discoveries selected by Ellis.", artworkName: "MusicMapOfQuiet"),
+        RadioTakeoverItem(id: "atlas-takeover", artist: "Atlas Bloom", summary: "Bright pop and unexpected favorites from Atlas.", artworkName: "MusicNeonApricot"),
+        RadioTakeoverItem(id: "theo-takeover", artist: "Theo March", summary: "Late-night songs, road stories, and timeless voices.", artworkName: "MusicLastSunMotel")
+    ]
+
+    static let radioInterviews = [
+        MusicItem(id: "mara-radio-interview", title: "Mara Voss: The Glasshouse Sessions", subtitle: "Mara Voss & Eli Hart", eyebrow: "", symbol: "mic.fill", artwork: .rose, artworkName: "MusicGlasshouseWeather"),
+        MusicItem(id: "juniper-radio-interview", title: "Juniper Vale on Finding a New Sound", subtitle: "Juniper Vale & Remy Cole", eyebrow: "", symbol: "quote.bubble.fill", artwork: .forest, artworkName: "MusicEverythingIsBlooming"),
+        MusicItem(id: "ellis-radio-interview", title: "Inside A Map of Quiet", subtitle: "Ellis North & Eli Hart", eyebrow: "", symbol: "person.2.fill", artwork: .ocean, artworkName: "MusicMapOfQuiet")
+    ]
+
+    static let topRadioStations = [
+        MusicItem(id: "hip-hop-station", title: "Hip-Hop Station", subtitle: "Hip-Hop Radio", eyebrow: "", symbol: "waveform", artwork: .ocean),
+        MusicItem(id: "pop-station", title: "Pop Station", subtitle: "Pop Radio", eyebrow: "", symbol: "sparkles", artwork: .pink),
+        MusicItem(id: "classic-rock-station", title: "Classic Rock Station", subtitle: "Classic Rock Radio", eyebrow: "", symbol: "guitars", artwork: .amber)
+    ]
+
+    static let radioGenreStations = [
+        MusicItem(id: "dance-station", title: "Dance Station", subtitle: "Dance Radio", eyebrow: "", symbol: "figure.dance", artwork: .green),
+        MusicItem(id: "adult-rock-station", title: "Adult Rock Station", subtitle: "Rock Radio", eyebrow: "", symbol: "guitars", artwork: .amber),
+        MusicItem(id: "lo-fi-station", title: "Lo-Fi Station", subtitle: "Chill Radio", eyebrow: "", symbol: "moon.stars.fill", artwork: .forest)
+    ]
+
+    static let radioExploreLinks = [
+        MusicLink(id: "acoustic", title: "Acoustic"),
+        MusicLink(id: "african", title: "African"),
+        MusicLink(id: "alternative-indie", title: "Alternative & Indie"),
+        MusicLink(id: "christian", title: "Christian"),
+        MusicLink(id: "classical", title: "Classical"),
+        MusicLink(id: "country", title: "Country"),
+        MusicLink(id: "dance", title: "Dance"),
+        MusicLink(id: "electronic", title: "Electronic"),
+        MusicLink(id: "holiday", title: "Holiday"),
+        MusicLink(id: "jazz", title: "Jazz"),
+        MusicLink(id: "kids-family", title: "Kids & Family"),
+        MusicLink(id: "latin", title: "Latin"),
+        MusicLink(id: "metal", title: "Metal"),
+        MusicLink(id: "pop", title: "Pop"),
+        MusicLink(id: "r-b", title: "R&B"),
+        MusicLink(id: "reggae", title: "Reggae"),
+        MusicLink(id: "rock", title: "Rock"),
+        MusicLink(id: "wellbeing", title: "Wellbeing")
+    ]
 }
 
 extension ArtworkPalette {

@@ -19,7 +19,9 @@
         "playlist",
         "book",
         "video",
-        "game"
+        "game",
+        "category",
+        "channel"
       ],
       "platforms": {
         "ios": "preferred",
@@ -89,6 +91,43 @@
     }
   ],
   "elements": [
+    {
+      "id": "elevated-tile",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "browse",
+        "discover",
+        "select"
+      ],
+      "content": [
+        "category",
+        "channel",
+        "destination",
+        "service"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "primary-content",
+        "optional-footer"
+      ],
+      "variants": [
+        "semantic-elevation"
+      ],
+      "avoidWhen": [
+        "metadata outside the surface is required",
+        "landscape artwork is the dominant presentation",
+        "a native list row communicates the relationship more clearly"
+      ],
+      "documentation": "Docs/Elements/elevated-tile.md"
+    },
     {
       "id": "episode-card",
       "kind": "element",
@@ -184,7 +223,8 @@
         "book",
         "episode",
         "game",
-        "video"
+        "video",
+        "broadcast"
       ],
       "platforms": {
         "ios": "preferred",

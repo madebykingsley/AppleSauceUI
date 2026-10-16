@@ -9,6 +9,7 @@ struct MediaCardTests {
         }
 
         #expect(card.layout == .standard)
+        #expect(card.elevation == .standard)
     }
 
     @Test func overlayLayoutRemainsAnExplicitStructuralChoice() {
@@ -17,5 +18,13 @@ struct MediaCardTests {
         }
 
         #expect(card.layout == .overlay)
+    }
+
+    @Test func explicitElevationIsRetained() {
+        let card = MediaCard(elevation: .none, title: "Live Event") {
+            Color.clear
+        }
+
+        #expect(card.elevation == .none)
     }
 }
