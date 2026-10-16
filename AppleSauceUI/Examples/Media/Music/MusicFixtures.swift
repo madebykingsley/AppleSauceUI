@@ -25,6 +25,25 @@ enum MusicFixtures {
         MusicLibraryCategory(id: "downloaded", title: "Downloaded", symbol: "arrow.down.circle")
     ]
 
+    static let searchCategories = [
+        MusicSearchCategory(id: "spatial-audio", title: "Spatial Audio", symbol: "airpodsmax", color: .indigo),
+        MusicSearchCategory(id: "charts", title: "Charts", symbol: "chart.bar.fill", color: .pink),
+        MusicSearchCategory(id: "chill", title: "Chill", symbol: "snowflake", color: .cyan),
+        MusicSearchCategory(id: "fitness", title: "Fitness", symbol: "figure.run", color: .orange),
+        MusicSearchCategory(id: "focus", title: "Focus", symbol: "circle.hexagongrid.fill", color: .blue),
+        MusicSearchCategory(id: "hits", title: "Hits", symbol: "star.fill", color: .purple),
+        MusicSearchCategory(id: "music-videos", title: "Music Videos", symbol: "play.rectangle.fill", color: .red),
+        MusicSearchCategory(id: "sleep", title: "Sleep", symbol: "moon.stars.fill", color: .indigo),
+        MusicSearchCategory(id: "classical", title: "Classical", symbol: "music.quarternote.3", color: .brown),
+        MusicSearchCategory(id: "kids-family", title: "Kids & Family", symbol: "figure.2.and.child.holdinghands", color: .green),
+        MusicSearchCategory(id: "country", title: "Country", symbol: "guitars.fill", color: .orange),
+        MusicSearchCategory(id: "rock", title: "Rock", symbol: "bolt.fill", color: .gray),
+        MusicSearchCategory(id: "alternative", title: "Alternative", symbol: "waveform", color: .mint),
+        MusicSearchCategory(id: "hip-hop-rap", title: "Hip-Hop/Rap", symbol: "music.mic", color: .purple),
+        MusicSearchCategory(id: "r-and-b", title: "R&B", symbol: "heart.fill", color: .pink),
+        MusicSearchCategory(id: "dance", title: "Dance", symbol: "figure.dance", color: .blue)
+    ]
+
     static let topPicks = [
         MusicItem(id: "essentials", title: "Your Essentials", subtitle: "Harborlight, Juniper Vale, North Arcade, Paper Moons, and more", eyebrow: "Made for You", symbol: "sparkles", artwork: .violet),
         MusicItem(id: "energy", title: "Energy", subtitle: "Keep it moving with guitar-driven favorites.", eyebrow: "Mood for You", symbol: "bolt", artwork: .green),

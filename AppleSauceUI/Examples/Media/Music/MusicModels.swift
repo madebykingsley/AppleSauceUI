@@ -41,6 +41,13 @@ struct MusicLink: Identifiable {
     let title: LocalizedStringResource
 }
 
+struct MusicSearchCategory: Identifiable {
+    let id: String
+    let title: LocalizedStringResource
+    let symbol: String
+    let color: Color
+}
+
 struct RadioStationShortcut: Identifiable {
     let id: String
     let name: String

@@ -28,7 +28,7 @@ struct MusicAppExample: View {
             }
 
             Tab("Search", systemImage: "magnifyingglass", value: .search, role: .prominent) {
-                MusicSearchExample()
+                MusicSearchExample(onExit: onExit)
             }
         }
         .tint(.pink)

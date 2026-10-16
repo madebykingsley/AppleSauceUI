@@ -92,6 +92,43 @@
   ],
   "elements": [
     {
+      "id": "browse-category-card",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "browse",
+        "discover",
+        "select"
+      ],
+      "content": [
+        "category",
+        "genre",
+        "topic"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "title",
+        "decorative-symbol"
+      ],
+      "variants": [
+        "landscape",
+        "portrait"
+      ],
+      "avoidWhen": [
+        "metadata outside the surface is required",
+        "artwork is the primary identity",
+        "a native list row communicates the relationship more clearly"
+      ],
+      "documentation": "Docs/Elements/browse-category-card.md"
+    },
+    {
       "id": "elevated-tile",
       "kind": "element",
       "category": "content",

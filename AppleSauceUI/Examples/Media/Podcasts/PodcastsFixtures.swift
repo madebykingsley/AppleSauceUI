@@ -93,6 +93,25 @@ enum PodcastsFixtures {
         PodcastQuickLinkFixture(id: "creators", title: "For Creators")
     ]
 
+    static let searchCategories = [
+        PodcastSearchCategory(id: "top-charts", title: "Top Charts", symbol: "chart.bar.fill", color: .purple),
+        PodcastSearchCategory(id: "new-shows", title: "New Shows", symbol: "sparkles", color: .orange),
+        PodcastSearchCategory(id: "video", title: "Video", symbol: "video.fill", color: .pink),
+        PodcastSearchCategory(id: "true-crime", title: "True Crime", symbol: "magnifyingglass", color: .brown),
+        PodcastSearchCategory(id: "society-culture", title: "Society & Culture", symbol: "person.2.fill", color: .indigo),
+        PodcastSearchCategory(id: "comedy", title: "Comedy", symbol: "face.smiling.fill", color: .yellow),
+        PodcastSearchCategory(id: "news", title: "News", symbol: "newspaper.fill", color: .red),
+        PodcastSearchCategory(id: "sports", title: "Sports", symbol: "sportscourt.fill", color: .green),
+        PodcastSearchCategory(id: "business", title: "Business", symbol: "briefcase.fill", color: .blue),
+        PodcastSearchCategory(id: "education", title: "Education", symbol: "graduationcap.fill", color: .teal),
+        PodcastSearchCategory(id: "history", title: "History", symbol: "clock.arrow.circlepath", color: .brown),
+        PodcastSearchCategory(id: "health-fitness", title: "Health & Fitness", symbol: "heart.text.square.fill", color: .mint),
+        PodcastSearchCategory(id: "arts", title: "Arts", symbol: "paintpalette.fill", color: .pink),
+        PodcastSearchCategory(id: "science", title: "Science", symbol: "atom", color: .cyan),
+        PodcastSearchCategory(id: "music", title: "Music", symbol: "music.note", color: .purple),
+        PodcastSearchCategory(id: "kids-family", title: "Kids & Family", symbol: "figure.2.and.child.holdinghands", color: .orange)
+    ]
+
     enum StressTests {
         static let longShow = PodcastShowFixture(id: "long-show", title: "A Show Title Long Enough to Exercise Metadata Wrapping", category: "Documentary", publisher: "A Publisher With a Long Name", updateInformation: "New episodes every weekday with extended metadata", symbol: "text.bubble.fill", color: .blue, badge: .explicit)
         static let longEpisodeCard = PodcastEpisodeCardFixture(id: "long-card", show: "A Show With an Intentionally Long Name", title: "An Episode Title Long Enough to Exercise Several Lines of Card Layout", episodeDate: "Today", description: "A deliberately extended description that verifies the rounded card remains coherent when text grows and Dynamic Type is enabled.", duration: "1h 48m", symbol: "text.bubble.fill", color: .indigo, badge: .video)
