@@ -9,6 +9,11 @@ struct PodcastShowFixture: Identifiable {
     let symbol: String
     let color: Color
     let badge: PodcastShowBadgeKind?
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "PodcastFieldNotes" : "PodcastSignalCities")
+    }
 }
 
 enum PodcastShowBadgeKind {
@@ -51,6 +56,11 @@ struct PodcastEpisodeFixture: Identifiable {
     let color: Color
     let badge: PodcastShowBadgeKind?
     let progress: Double?
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "EpisodeCoastalTrail" : "EditorialLivingArchive")
+    }
 }
 
 struct PodcastPromotionFixture: Identifiable {
@@ -59,6 +69,7 @@ struct PodcastPromotionFixture: Identifiable {
     let title: String
     let symbol: String
     let color: Color
+    var artworkName: String? = nil
 }
 
 struct PodcastEpisodeCardFixture: Identifiable {
@@ -71,6 +82,11 @@ struct PodcastEpisodeCardFixture: Identifiable {
     let symbol: String
     let color: Color
     let badge: PodcastShowBadgeKind?
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "EpisodeCoastalTrail" : "EditorialLivingArchive")
+    }
 }
 
 struct PodcastTrailerFixture: Identifiable {
@@ -80,6 +96,11 @@ struct PodcastTrailerFixture: Identifiable {
     let duration: String
     let symbol: String
     let color: Color
+    var artworkName: String? = nil
+
+    var resolvedArtworkName: String? {
+        artworkName ?? (id.count.isMultiple(of: 2) ? "EpisodeCoastalTrail" : "EditorialLivingArchive")
+    }
 }
 
 struct PodcastCategoryFixture: Identifiable {

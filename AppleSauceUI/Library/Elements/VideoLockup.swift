@@ -19,6 +19,12 @@ struct VideoLockup<Artwork: View>: View {
                 .frame(maxWidth: .infinity)
                 .overlay(styleProfile.imagery.overlay)
                 .clipShape(artworkShape)
+                .overlay {
+                    artworkShape.strokeBorder(
+                        styleProfile.effects.outlineColor,
+                        lineWidth: styleProfile.effects.outlineWidth
+                    )
+                }
                 .shadow(
                     color: styleProfile.effects.standardShadow.color,
                     radius: styleProfile.effects.standardShadow.radius,

@@ -16,12 +16,12 @@ struct MusicHomeExample: View {
                     }
                     MediaShelf(title: "Recently Played", items: MusicFixtures.recentlyPlayed, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard), isHeaderActionable: true) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     MediaShelf(title: "’90s", items: MusicFixtures.nineties, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     VStack(alignment: .leading, spacing: density.metrics.itemSpacing) {
@@ -39,7 +39,7 @@ struct MusicHomeExample: View {
                         .padding(.horizontal, density.metrics.contentMargin)
                         MediaShelf(title: nil, subtitle: nil, items: MusicFixtures.moreLikePrisoner, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard)) { item in
                             SquareLockup(title: item.title, subtitle: item.subtitle) {
-                                ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                                ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                             }
                         }
                     }
@@ -60,12 +60,12 @@ struct MusicHomeExample: View {
                     }
                     MediaShelf(title: "New Releases for You", items: MusicFixtures.newReleases, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard), isHeaderActionable: true) { item in
                         SquareLockup(title: item.title, subtitle: item.subtitle) {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 38)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 38)
                         }
                     }
                     MediaShelf(title: "Concerts", items: MusicFixtures.concerts, itemWidth: HorizontalCollectionItemSize.compact.width(in: .iPhoneStandard), scrollingPolicy: .continuous) { item in
                         SquareLockup(title: item.title, subtitle: item.venue, metadata: item.schedule, artworkAccessoryAccessibilityLabel: "\(item.month) \(item.day)") {
-                            ArtworkPlaceholder(symbol: item.symbol, background: AnyShapeStyle(item.artwork.gradient), symbolPadding: 36)
+                            ArtworkImage(assetName: item.resolvedArtworkName, placeholderSymbol: item.symbol, placeholderBackground: AnyShapeStyle(item.artwork.gradient), placeholderSymbolPadding: 36)
                         } artworkAccessory: {
                             CalendarDateBadge(month: item.month, day: item.day)
                         }
@@ -109,7 +109,7 @@ struct MusicHomeExample: View {
                                 .padding(.horizontal, density.metrics.contentMargin)
 
                             HorizontalLockup(artworkSize: 102, spacing: 12) {
-                                ArtworkPlaceholder(symbol: "mountain.2.fill", background: AnyShapeStyle(ArtworkPalette.ocean.gradient), cornerRadius: 5)
+                                ArtworkImage(assetName: "MusicNightTrain", placeholderSymbol: "mountain.2.fill", placeholderBackground: AnyShapeStyle(ArtworkPalette.ocean.gradient))
                                     .accessibilityHidden(true)
                             } content: {
                                 VStack(alignment: .leading, spacing: 4) {
