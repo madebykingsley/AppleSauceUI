@@ -1,15 +1,21 @@
 {
+  "features" : [
+    "specular-location"
+  ],
   "fill" : {
     "linear-gradient" : [
-      "display-p3:0.41176,0.73333,0.11373,1.00000",
-      "srgb:0.00000,0.54510,0.00000,1.00000"
+      "display-p3:1.00000,1.00000,1.00000,1.00000",
+      "display-p3:0.83331,0.84173,0.84173,1.00000"
     ]
   },
   "groups" : [
     {
+      "blur-material" : null,
       "layers" : [
         {
-          "fill" : "system-light",
+          "fill" : {
+            "solid" : "srgb:1.00000,0.40784,0.56863,1.00000"
+          },
           "image-name" : "O.png",
           "name" : "O",
           "position" : {
@@ -21,7 +27,9 @@
           }
         },
         {
-          "fill" : "system-light",
+          "fill" : {
+            "solid" : "srgb:0.32941,0.38431,0.74118,0.80000"
+          },
           "image-name" : "R.png",
           "name" : "R",
           "position" : {
@@ -33,7 +41,9 @@
           }
         },
         {
-          "fill" : "system-light",
+          "fill" : {
+            "solid" : "srgb:0.00000,0.59608,0.94902,0.84000"
+          },
           "image-name" : "L.png",
           "name" : "L",
           "opacity" : 0.8,
@@ -46,10 +56,12 @@
           }
         }
       ],
+      "lighting" : "individual",
       "shadow" : {
-        "kind" : "neutral",
+        "kind" : "layer-color",
         "opacity" : 0.5
       },
+      "specular" : "outside",
       "translucency" : {
         "enabled" : true,
         "value" : 0.3
@@ -58,7 +70,7 @@
     {
       "layers" : [
         {
-          "blend-mode" : "overlay",
+          "blend-mode" : "hard-light",
           "glass" : false,
           "image-name" : "Grid.png",
           "name" : "Grid",
