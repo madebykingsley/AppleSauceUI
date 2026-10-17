@@ -156,7 +156,8 @@ struct PodcastsNewExample: View {
                         }
                         .buttonStyle(.plain)
                     }
-                    Section {
+                    VStack(alignment: .leading, spacing: density.metrics.sectionSpacing) {
+                        SectionHeader(title: "Podcasts Quick Links")
                         VStack(spacing: 0) {
                             ForEach(PodcastsFixtures.quickLinks) { link in
                                 NavigationLink {
@@ -167,11 +168,8 @@ struct PodcastsNewExample: View {
                                 }
                             }
                         }
-                        .padding(.horizontal, density.metrics.contentMargin)
-                    } header: {
-                        SectionHeader(title: "Podcasts Quick Links")
-                            .padding(.horizontal, density.metrics.contentMargin)
                     }
+                    .padding(.horizontal, density.metrics.contentMargin)
                 }
                 .padding(.top, density.metrics.contentMargin / 2)
                 .padding(.bottom, density.metrics.contentMargin)
