@@ -69,13 +69,6 @@ struct PodcastsLibraryExample: View {
 #if DEBUG
 #Preview("Podcasts Library") {
     PodcastsLibraryExample()
-        .frame(width: 402)
-}
-
-#Preview("Podcasts Library — Accessibility") {
-    PodcastsLibraryExample()
-        .frame(width: 402)
-        .dynamicTypeSize(.accessibility3)
 }
 
 #Preview("Apple Podcasts Library Comparison") {

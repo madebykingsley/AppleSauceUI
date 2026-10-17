@@ -51,7 +51,7 @@ Avoid it when a short recommendation shelf better communicates priority, when ma
 
 ## Anatomy
 
-A grid contains an optional section header followed by a lazy vertical grid. Each identifiable item is rendered by a caller-supplied Element or Recipe. The pattern owns column count, column gaps, row gaps, and content margins.
+A grid contains an optional section header followed by a lazy vertical grid. Omitting `title` renders the collection without a header or reserved title space. Each identifiable item is rendered by a caller-supplied Element or Recipe. The pattern owns column count, column gaps, row gaps, and content margins.
 
 ## Behavior
 

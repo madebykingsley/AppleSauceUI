@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MusicSearchExample: View {
+    @Environment(\.interfaceDensity) private var density
     @State private var searchText = ""
     var onExit: () -> Void = {}
 
@@ -9,7 +10,10 @@ struct MusicSearchExample: View {
             ZStack {
                 if searchText.isEmpty {
                     ScrollView {
-                        MediaGrid(title: "Browse Categories", items: MusicFixtures.searchCategories) { category in
+                        MediaGrid(
+                            items: MusicFixtures.searchCategories,
+                            rowSpacing: density.metrics.itemSpacing
+                        ) { category in
                             Button(action: {}) {
                                 BrowseCategoryCard(
                                     title: category.title,
@@ -21,6 +25,7 @@ struct MusicSearchExample: View {
                         }
                         .padding(.vertical)
                     }
+                    .visualComparisonScrollTracking()
                 } else {
                     ContentUnavailableView.search(text: searchText)
                 }
@@ -48,7 +53,19 @@ struct MusicSearchExample: View {
 }
 
 #if DEBUG
-#Preview {
+#Preview("Music Search") {
     MusicSearchExample()
+}
+
+#Preview("Apple Music Search Comparison") {
+    ReferenceComparison(
+        spec: ReferenceSpec(
+            id: "media/apple-music/search",
+            device: .iPhone,
+            notes: "Full-page reference includes system chrome, mini player, and tab bar."
+        )
+    ) {
+        MusicAppExample(initialSelection: .search)
+    }
 }
 #endif

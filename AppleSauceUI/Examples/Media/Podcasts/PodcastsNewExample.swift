@@ -202,12 +202,6 @@ struct PodcastsNewExample: View {
 #if DEBUG
 #Preview("Podcasts New") {
     PodcastsNewExample()
-        .frame(width: 402)
-}
-
-#Preview("Podcasts New — alternate width") {
-    PodcastsNewExample()
-        .frame(width: 480)
 }
 
 #Preview("Apple Podcasts New Comparison") {

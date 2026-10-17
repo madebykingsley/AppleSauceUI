@@ -4,7 +4,7 @@ import SwiftUI
 struct MediaGrid<Items: RandomAccessCollection, ItemView: View>: View where Items.Element: Identifiable {
     @Environment(\.interfaceDensity) private var density
 
-    var title: LocalizedStringKey?
+    var title: LocalizedStringKey? = nil
     let items: Items
     var columnCount = 2
     var columnSpacing: CGFloat?

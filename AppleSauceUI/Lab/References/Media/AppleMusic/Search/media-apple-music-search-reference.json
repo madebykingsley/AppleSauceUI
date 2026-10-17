@@ -1,0 +1,10 @@
+{
+  "name": "Apple Music — Search",
+  "platform": "iOS",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "Search",
+  "dimensions": "402 × 1427 pixels",
+  "notes": "Supplied full-page screenshot including system chrome, mini player, and tab bar. Pixel dimensions are not SwiftUI point measurements."
+}

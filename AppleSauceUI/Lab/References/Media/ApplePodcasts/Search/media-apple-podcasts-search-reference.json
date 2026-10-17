@@ -1,0 +1,10 @@
+{
+  "name": "Apple Podcasts — Search",
+  "platform": "iOS",
+  "orientation": "portrait",
+  "appearance": "light",
+  "dynamicType": "large",
+  "screen": "Search",
+  "dimensions": "402 × 1370 pixels",
+  "notes": "Supplied full-page screenshot including system chrome, mini player, and tab bar. Pixel dimensions are not SwiftUI point measurements."
+}

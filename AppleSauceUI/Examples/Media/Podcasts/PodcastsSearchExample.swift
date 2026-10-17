@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct PodcastsSearchExample: View {
+    @Environment(\.interfaceDensity) private var density
     @State private var searchText = ""
     var onExit: () -> Void = {}
 
@@ -9,7 +10,10 @@ struct PodcastsSearchExample: View {
             ZStack {
                 if searchText.isEmpty {
                     ScrollView {
-                        MediaGrid(title: "Browse Categories", items: PodcastsFixtures.searchCategories) { category in
+                        MediaGrid(
+                            items: PodcastsFixtures.searchCategories,
+                            rowSpacing: density.metrics.itemSpacing
+                        ) { category in
                             Button(action: {}) {
                                 BrowseCategoryCard(
                                     title: category.title,
@@ -21,6 +25,7 @@ struct PodcastsSearchExample: View {
                         }
                         .padding(.vertical)
                     }
+                    .visualComparisonScrollTracking()
                 } else {
                     ContentUnavailableView.search(text: searchText)
                 }
@@ -50,6 +55,17 @@ struct PodcastsSearchExample: View {
 #if DEBUG
 #Preview("Podcasts Search") {
     PodcastsSearchExample()
-        .tint(.purple)
+}
+
+#Preview("Apple Podcasts Search Comparison") {
+    ReferenceComparison(
+        spec: ReferenceSpec(
+            id: "media/apple-podcasts/search",
+            device: .iPhone,
+            notes: "Full-page reference includes system chrome, mini player, and tab bar."
+        )
+    ) {
+        PodcastsAppExample(initialSelection: .search)
+    }
 }
 #endif
