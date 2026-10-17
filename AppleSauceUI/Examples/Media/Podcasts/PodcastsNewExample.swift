@@ -143,12 +143,13 @@ struct PodcastsNewExample: View {
                     }
                     MediaShelf(title: "More to Discover", items: PodcastsFixtures.discovery, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard), isHeaderActionable: false) { item in
                         Button(action: {}) {
-                            ZStack {
+                            VStack(spacing: density.metrics.metadataSpacing) {
                                 Image(systemName: item.symbol)
                                     .font(.title)
                                     .opacity(0.28)
-                                Text("(\(item.title))")
+                                Text(item.title)
                                     .font(.headline)
+                                    .fontWeight(.semibold)
                             }
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, minHeight: 112)
