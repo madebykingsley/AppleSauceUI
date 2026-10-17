@@ -165,11 +165,8 @@ struct PodcastsNewExample: View {
                                     ContentUnavailableView(link.title, systemImage: "mic")
                                         .navigationTitle(Text(link.title))
                                 } label: {
-                                    Text(link.title)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.vertical, 12)
+                                    NavigationListItem(title: link.title, style: .plain)
                                 }
-                                Divider()
                             }
                         }
                         .padding(.horizontal, density.metrics.contentMargin)

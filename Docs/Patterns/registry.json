@@ -289,6 +289,76 @@
         "content requires tabular comparison"
       ],
       "documentation": "Docs/Elements/media-card.md"
+    },
+    {
+      "id": "navigation-list-item",
+      "kind": "element",
+      "category": "navigation",
+      "intent": [
+        "navigate",
+        "browse",
+        "discover"
+      ],
+      "content": [
+        "destination",
+        "category",
+        "quick-link"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "unsupported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "unsupported"
+      },
+      "anatomy": [
+        "title",
+        "optional-disclosure-indicator",
+        "optional-separator"
+      ],
+      "variants": [
+        "capsule",
+        "plain"
+      ],
+      "avoidWhen": [
+        "the destination requires supporting metadata or artwork",
+        "the content is not navigational",
+        "a native List row already provides the required presentation"
+      ],
+      "documentation": "Docs/Elements/navigation-list-item.md"
+    },
+    {
+      "id": "video-lockup",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "inform",
+        "browse"
+      ],
+      "content": [
+        "video"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "unsupported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "unsupported"
+      },
+      "anatomy": [
+        "artwork",
+        "title",
+        "subtitle",
+        "metadata"
+      ],
+      "variants": [],
+      "avoidWhen": [
+        "content needs independent playback or overflow controls",
+        "content needs multiple rich regions or overlay presentation"
+      ],
+      "documentation": "Docs/Elements/video-lockup.md"
     }
   ]
 }

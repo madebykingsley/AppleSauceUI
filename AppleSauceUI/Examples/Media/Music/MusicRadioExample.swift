@@ -148,18 +148,7 @@ struct MusicRadioExample: View {
                                         ContentUnavailableView(link.title, systemImage: "dot.radiowaves.left.and.right")
                                             .navigationTitle(Text(link.title))
                                     } label: {
-                                        HStack {
-                                            Text(link.title)
-                                                .foregroundStyle(.tint)
-                                            Spacer()
-                                            Image(systemName: "chevron.right")
-                                                .font(.callout.weight(.semibold))
-                                                .foregroundStyle(.tint)
-                                                .accessibilityHidden(true)
-                                        }
-                                        .padding(.horizontal, density.metrics.contentPadding)
-                                        .frame(maxWidth: .infinity, minHeight: 52, alignment: .leading)
-                                        .background(.quaternary, in: RoundedRectangle(cornerRadius: 11, style: .continuous))
+                                        NavigationListItem(title: link.title, style: .capsule)
                                     }
                                     .buttonStyle(.plain)
                                 }

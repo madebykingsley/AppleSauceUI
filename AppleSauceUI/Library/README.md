@@ -52,6 +52,8 @@ Use `ElevatedTile` for compact square choices whose supplied primary content and
 
 Use `BrowseCategoryCard` for category, genre, and topic choices whose title and decorative symbol share a colored surface. Select `.landscape` for two-column discovery grids or `.portrait` for tall three-column grids. The card owns its 14-point continuous shape and adaptive title hierarchy; callers own labels, symbols, backgrounds, actions, and collection layout.
 
+Use `NavigationListItem` as the label of a native `NavigationLink` or `Button` for compact text destinations outside a native `List`. Select `.capsule` for a rounded system-fill surface with a disclosure indicator or `.plain` for a divided text row. The Element owns presentation while callers retain navigation and destination wiring.
+
 Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, show identity, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
 
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.

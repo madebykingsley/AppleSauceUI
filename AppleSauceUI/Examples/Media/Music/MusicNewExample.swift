@@ -80,16 +80,9 @@ struct MusicNewExample: View {
                                         ContentUnavailableView(link.title, systemImage: "music.note")
                                             .navigationTitle(Text(link.title))
                                     } label: {
-                                        HStack {
-                                            Text(link.title)
-                                            Spacer()
-                                            Image(systemName: "chevron.right")
-                                                .accessibilityHidden(true)
-                                        }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        NavigationListItem(title: link.title, style: .capsule)
                                     }
-                                    .buttonStyle(.bordered)
-                                    .controlSize(.large)
+                                    .buttonStyle(.plain)
                                 }
                             }
                         }
