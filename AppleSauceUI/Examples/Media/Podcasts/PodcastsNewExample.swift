@@ -82,7 +82,6 @@ struct PodcastsNewExample: View {
                     MediaShelf(title: "The Moment", subtitle: "Find out what's happening. Updated weekdays.", items: PodcastsFixtures.momentCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         EpisodeCard(
                             date: episode.episodeDate,
-                            showTitle: episode.show,
                             episodeTitle: episode.title,
                             summary: episode.description,
                             duration: episode.duration,
@@ -101,7 +100,6 @@ struct PodcastsNewExample: View {
                     MediaShelf(title: "Worth the Watch", items: PodcastsFixtures.worthWatchingCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         EpisodeCard(
                             date: episode.episodeDate,
-                            showTitle: episode.show,
                             episodeTitle: episode.title,
                             summary: episode.description,
                             duration: episode.duration,

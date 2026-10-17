@@ -54,7 +54,7 @@ Use `BrowseCategoryCard` for category, genre, and topic choices whose title and 
 
 Use `NavigationListItem` as the label of a native `NavigationLink` or `Button` for compact text destinations outside a native `List`. Select `.capsule` for a rounded system-fill surface with a disclosure indicator or `.plain` for a divided text row. The Element owns presentation while callers retain navigation and destination wiring.
 
-Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, show identity, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
+Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. At standard Dynamic Type sizes, its title and summary share a reserved four-line region to keep sibling cards equal-height; accessibility sizes grow intrinsically. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
 
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
 

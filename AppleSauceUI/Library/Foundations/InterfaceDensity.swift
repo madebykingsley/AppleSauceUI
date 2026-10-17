@@ -19,11 +19,11 @@ enum InterfaceDensity: String, CaseIterable, Identifiable, Sendable {
     var metrics: InterfaceDensityMetrics {
         switch self {
         case .compact:
-            InterfaceDensityMetrics(sectionSpacing: 8, itemSpacing: 8, collectionRowSpacing: 14, contentMargin: 16, contentPadding: 10, prominentContentPadding: 12, metadataSpacing: 4)
+            InterfaceDensityMetrics(sectionSpacing: 8, itemSpacing: 8, collectionRowSpacing: 14, contentMargin: 16, contentPadding: 10, prominentContentPadding: 12, metadataSpacing: 4, metadataActionSpacing: 12)
         case .standard:
-            InterfaceDensityMetrics(sectionSpacing: 12, itemSpacing: 12, collectionRowSpacing: 20, contentMargin: 20, contentPadding: 12, prominentContentPadding: 16, metadataSpacing: 6)
+            InterfaceDensityMetrics(sectionSpacing: 12, itemSpacing: 12, collectionRowSpacing: 20, contentMargin: 20, contentPadding: 12, prominentContentPadding: 16, metadataSpacing: 6, metadataActionSpacing: 16)
         case .spacious:
-            InterfaceDensityMetrics(sectionSpacing: 18, itemSpacing: 18, collectionRowSpacing: 28, contentMargin: 24, contentPadding: 16, prominentContentPadding: 20, metadataSpacing: 10)
+            InterfaceDensityMetrics(sectionSpacing: 18, itemSpacing: 18, collectionRowSpacing: 28, contentMargin: 24, contentPadding: 16, prominentContentPadding: 20, metadataSpacing: 10, metadataActionSpacing: 20)
         }
     }
 }
@@ -36,6 +36,7 @@ struct InterfaceDensityMetrics: Equatable {
     let contentPadding: CGFloat
     let prominentContentPadding: CGFloat
     let metadataSpacing: CGFloat
+    let metadataActionSpacing: CGFloat
 }
 
 private struct InterfaceDensityEnvironmentKey: EnvironmentKey {

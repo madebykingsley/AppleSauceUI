@@ -13,7 +13,6 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "Up Next", items: PodcastsFixtures.upNextCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         EpisodeCard(
                             date: episode.episodeDate,
-                            showTitle: episode.show,
                             episodeTitle: episode.title,
                             summary: episode.description,
                             duration: episode.duration,
@@ -119,7 +118,6 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "News", subtitle: "From Your Shows", items: PodcastsFixtures.newsCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         EpisodeCard(
                             date: episode.episodeDate,
-                            showTitle: episode.show,
                             episodeTitle: episode.title,
                             summary: episode.description,
                             duration: episode.duration,
@@ -143,7 +141,6 @@ struct PodcastsHomeExample: View {
                     MediaShelf(title: "Narrated Articles", subtitle: "From Your Subscriptions", items: PodcastsFixtures.narratedArticleCards, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { episode in
                         EpisodeCard(
                             date: episode.episodeDate,
-                            showTitle: episode.show,
                             episodeTitle: episode.title,
                             summary: episode.description,
                             duration: episode.duration,

@@ -20,7 +20,6 @@ platforms:
 anatomy:
   - artwork
   - date-or-status
-  - show-title
   - episode-title
   - summary
   - duration
@@ -42,7 +41,7 @@ Present a playable audio or video episode through landscape artwork, a stable me
 
 ## Use when
 
-Use an Episode Card when a podcast, television, or similar episodic item needs artwork, date or status, show identity, episode title, optional summary, duration, and direct actions in a shelf or vertical composition.
+Use an Episode Card when a podcast, television, or similar episodic item needs artwork, date or status, episode title, optional summary, duration, and direct actions in a shelf or vertical composition.
 
 ## Avoid when
 
@@ -54,11 +53,11 @@ The caller maps domain data into the semantic string inputs, supplies artwork an
 
 ## Style and density responsibilities
 
-The active Style Profile supplies semantic typography, on-media foreground hierarchy, shape, outline, shadow, and symbol treatment. Interface Density supplies content padding and metadata spacing. Neither selects or rearranges episode fields.
+The active Style Profile supplies semantic typography, including emphasized date or status metadata, on-media foreground hierarchy, shape, outline, shadow, and symbol treatment. Interface Density supplies content padding, metadata spacing, and the metadata-to-actions gap. Neither selects or rearranges episode fields.
 
 ## Accessibility considerations
 
-Artwork is decorative. Episode metadata is combined in reading order while playback and overflow remain separate accessible controls. Normal Dynamic Type sizes retain compact line limits; accessibility sizes allow text and the card to grow intrinsically.
+Artwork is decorative. Episode metadata is combined in reading order while playback and overflow remain separate accessible controls. At normal Dynamic Type sizes, the title and summary share a reserved four-line region so sibling cards remain equal-height: the title receives up to four lines and the summary uses the remainder. Accessibility sizes remove that fixed budget and allow text and the card to grow intrinsically.
 
 ## Platform adaptation
 

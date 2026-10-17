@@ -191,6 +191,9 @@ struct StyleProfileTypography {
     let itemTitle: Font
     let itemSubtitle: Font
     let metadata: Font
+
+    /// Typography for metadata that needs stronger emphasis, such as a date or status.
+    var emphasizedMetadata: Font { metadata.weight(.semibold) }
 }
 
 struct StyleProfileColors {

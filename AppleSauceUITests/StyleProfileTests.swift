@@ -9,6 +9,7 @@ struct StyleProfileTests {
         #expect(InterfaceDensity.standard.metrics.collectionRowSpacing == 20)
         #expect(InterfaceDensity.standard.metrics.contentPadding == 12)
         #expect(InterfaceDensity.standard.metrics.prominentContentPadding == 16)
+        #expect(InterfaceDensity.standard.metrics.metadataActionSpacing == 16)
         #expect(InterfaceDensity.compact.metrics.itemSpacing < InterfaceDensity.standard.metrics.itemSpacing)
         #expect(InterfaceDensity.standard.metrics.itemSpacing < InterfaceDensity.spacious.metrics.itemSpacing)
         #expect(InterfaceDensity.compact.metrics.contentMargin < InterfaceDensity.standard.metrics.contentMargin)
@@ -19,6 +20,8 @@ struct StyleProfileTests {
         #expect(InterfaceDensity.standard.metrics.contentPadding < InterfaceDensity.spacious.metrics.contentPadding)
         #expect(InterfaceDensity.compact.metrics.prominentContentPadding < InterfaceDensity.standard.metrics.prominentContentPadding)
         #expect(InterfaceDensity.standard.metrics.prominentContentPadding < InterfaceDensity.spacious.metrics.prominentContentPadding)
+        #expect(InterfaceDensity.compact.metrics.metadataActionSpacing < InterfaceDensity.standard.metrics.metadataActionSpacing)
+        #expect(InterfaceDensity.standard.metrics.metadataActionSpacing < InterfaceDensity.spacious.metrics.metadataActionSpacing)
     }
 
     @Test func profilesExpressDistinctShapeAndColorSchemeStrategies() {

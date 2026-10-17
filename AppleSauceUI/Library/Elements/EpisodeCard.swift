@@ -7,7 +7,6 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
     @Environment(\.styleProfile) private var styleProfile
 
     let date: String
-    let showTitle: String
     let episodeTitle: String
     var summary: String?
     let duration: String
@@ -38,20 +37,9 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
         } metadata: {
             VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
                 Text(date)
-                    .font(styleProfile.typography.metadata)
+                    .font(styleProfile.typography.emphasizedMetadata)
                     .foregroundStyle(styleProfile.colors.onMedia.opacity(0.72))
-                Text(showTitle)
-                    .font(styleProfile.typography.eyebrow)
-                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 1)
-                Text(episodeTitle)
-                    .font(styleProfile.typography.contentTitle)
-                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
-                if let summary, !summary.isEmpty {
-                    Text(summary)
-                        .font(styleProfile.typography.body)
-                        .foregroundStyle(styleProfile.colors.onMedia.opacity(0.78))
-                        .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
-                }
+                episodeText
             }
             .accessibilityElement(children: .combine)
         } actions: {
@@ -67,7 +55,44 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
                     .labelStyle(.iconOnly)
                     .accessibilityLabel("More options for \(episodeTitle)")
             }
-            .padding(.top, density.metrics.metadataSpacing / 2)
+            .padding(.top, density.metrics.metadataActionSpacing)
+        }
+    }
+
+    @ViewBuilder private var episodeText: some View {
+        if dynamicTypeSize.isAccessibilitySize {
+            VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
+                titleText
+                summaryText
+            }
+        } else {
+            Text(verbatim: " \n \n \n ")
+                .font(styleProfile.typography.contentTitle)
+                .hidden()
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .overlay(alignment: .topLeading) {
+                    VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
+                        titleText
+                            .lineLimit(4)
+                            .layoutPriority(1)
+                        summaryText
+                            .lineLimit(3)
+                    }
+                }
+                .clipped()
+        }
+    }
+
+    private var titleText: some View {
+        Text(episodeTitle)
+            .font(styleProfile.typography.contentTitle)
+    }
+
+    @ViewBuilder private var summaryText: some View {
+        if let summary, !summary.isEmpty {
+            Text(summary)
+                .font(styleProfile.typography.body)
+                .foregroundStyle(styleProfile.colors.onMedia.opacity(0.78))
         }
     }
 
@@ -76,25 +101,52 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
 
 #if DEBUG
 #Preview("EpisodeCard — Variants") {
-    EpisodeCard(
-        date: "New · Sep 19",
-        showTitle: "Daily Stories",
-        episodeTitle: "A conversation worth hearing",
-        summary: "A thoughtful discussion about creativity and the people behind it.",
-        duration: "33m",
-        mediaBadge: "Video",
-        background: Color.teal.gradient
-    ) {
-        ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(Color.teal.gradient))
+    ScrollView(.horizontal) {
+        HStack(alignment: .top, spacing: 16) {
+            EpisodeCard(
+                date: "New · Sep 19",
+                episodeTitle: "A conversation worth hearing",
+                summary: "A thoughtful discussion about creativity and the people behind it.",
+                duration: "33m",
+                mediaBadge: "Video",
+                background: Color.teal.gradient
+            ) {
+                ArtworkPlaceholder(symbol: "mic.fill", background: AnyShapeStyle(Color.teal.gradient))
+            }
+            .frame(width: 249)
+
+            EpisodeCard(
+                date: "Yesterday",
+                episodeTitle: "A longer episode title that needs several lines before its summary",
+                summary: "Only the remaining lines are available here.",
+                duration: "48m",
+                background: Color.indigo.gradient
+            ) {
+                ArtworkPlaceholder(symbol: "waveform", background: AnyShapeStyle(Color.indigo.gradient))
+            }
+            .frame(width: 249)
+
+            EpisodeCard(
+                date: "Oct 12",
+                episodeTitle: "Four lines of title content can consume the entire shared text region and omit the summary from the visible card",
+                summary: "This summary remains available to accessibility technologies.",
+                duration: "1h 12m",
+                background: Color.orange.gradient
+            ) {
+                ArtworkPlaceholder(symbol: "headphones", background: AnyShapeStyle(Color.orange.gradient))
+            }
+            .frame(width: 249)
+        }
+        .padding()
     }
-    .frame(width: 249)
-    .padding()
+    .frame(height: 430)
+    .frame(width: 800)
+    .environment(\.interfaceDensity, .standard)
 }
 
 #Preview("EpisodeCard — Accessibility") {
     EpisodeCard(
         date: "Today",
-        showTitle: "A Show With an Intentionally Long Name",
         episodeTitle: "An Episode Title Long Enough to Exercise the Card Layout",
         summary: "A longer description verifies that the card grows coherently with Dynamic Type.",
         duration: "1h 48m",
