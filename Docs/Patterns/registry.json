@@ -206,6 +206,45 @@
       "documentation": "Docs/Elements/episode-card.md"
     },
     {
+      "id": "episode-row",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "browse",
+        "inform",
+        "act"
+      ],
+      "content": [
+        "audio",
+        "episode",
+        "video"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "unsupported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "unsupported"
+      },
+      "anatomy": [
+        "artwork",
+        "date-or-status",
+        "episode-title",
+        "supporting-metadata",
+        "media-badge",
+        "optional-playback-action",
+        "overflow-action"
+      ],
+      "variants": [],
+      "avoidWhen": [
+        "the episode needs a rich card surface or summary",
+        "portrait artwork is the dominant presentation",
+        "no independent episode action is required"
+      ],
+      "documentation": "Docs/Elements/episode-row.md"
+    },
+    {
       "id": "horizontal-lockup",
       "kind": "element",
       "category": "content",

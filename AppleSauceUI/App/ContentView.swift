@@ -18,9 +18,7 @@ struct ContentView: View {
             .listStyle(.plain)
             .navigationTitle("Examples")
             .fullScreenCover(item: $selectedExample) { example in
-                ExampleAppDestination(example: example) {
-                    selectedExample = nil
-                }
+                ExampleAppDestination(example: example)
             }
         }
     }
@@ -96,17 +94,18 @@ private struct ExampleAppCard: View {
 }
 
 private struct ExampleAppDestination: View {
+    @Environment(\.dismiss) private var dismiss
+
     let example: ExampleApp
-    let exitAction: () -> Void
 
     var body: some View {
         switch example {
         case .music:
-            MusicAppExample(onExit: exitAction)
+            MusicAppExample(onExit: dismiss.callAsFunction)
         case .podcasts:
-            PodcastsAppExample(onExit: exitAction)
+            PodcastsAppExample(onExit: dismiss.callAsFunction)
         case .styleProfiles:
-            StyleProfilesExample(onExit: exitAction)
+            StyleProfilesExample(onExit: dismiss.callAsFunction)
         }
     }
 }

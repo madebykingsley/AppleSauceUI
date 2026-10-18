@@ -68,8 +68,8 @@ struct StyleProfilesExample: View {
             .navigationTitle(comparison.name)
             .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Close", systemImage: "xmark", action: onExit)
+                ToolbarItem {
+                    Button("Close", systemImage: "xmark", role: .close, action: onExit)
                 }
             }
         }

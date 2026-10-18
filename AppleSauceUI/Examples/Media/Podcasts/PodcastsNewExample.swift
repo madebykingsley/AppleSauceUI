@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PodcastsNewExample: View {
     @Environment(\.interfaceDensity) private var density
-    @Environment(\.styleProfile) private var styleProfile
 
     var onExit: () -> Void = {}
 
@@ -36,46 +35,18 @@ struct PodcastsNewExample: View {
                         }
                     }
                     ColumnMediaShelf(title: "Trending Episodes", items: PodcastsFixtures.trendingEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
-                        HorizontalLockup(
+                        EpisodeRow(
+                            title: episode.title,
+                            supportingMetadata: episode.episodeDate,
+                            duration: episode.duration,
+                            mediaBadge: episode.badge?.compactText,
+                            mediaBadgeAccessibilityLabel: episode.badge?.accessibilityName,
                             artworkSize: compactEpisodeArtworkSize,
-                            spacing: compactEpisodeSpacing,
-                            alignment: .center
+                            artworkSpacing: compactEpisodeSpacing,
+                            artworkAlignment: .center
                         ) {
                             ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
-                                .overlay(styleProfile.imagery.overlay)
-                                .shadow(
-                                    color: styleProfile.effects.standardShadow.color,
-                                    radius: styleProfile.effects.standardShadow.radius,
-                                    x: styleProfile.effects.standardShadow.x,
-                                    y: styleProfile.effects.standardShadow.y
-                                )
-                                .accessibilityHidden(true)
-                        } content: {
-                            VStack(alignment: .leading, spacing: 8) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(episode.title)
-                                        .font(.body.weight(.semibold))
-                                        .lineLimit(2)
-                                    HStack(spacing: 4) {
-                                        Text(episode.episodeDate)
-                                        Text("·")
-                                        Text(episode.duration)
-                                        if let badge = episode.badge?.compactText {
-                                            MetadataBadge(label: badge)
-                                        }
-                                    }
-                                    .font(.footnote)
-                                    .foregroundStyle(.secondary)
-                                }
-                                .accessibilityElement(children: .combine)
-                            }
-                        } accessory: {
-                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
-                                .labelStyle(.iconOnly)
-                                .buttonStyle(.plain)
-                                .foregroundStyle(.secondary)
                         }
-                        .padding(.vertical, 8)
                     } separator: {
                         Divider().padding(.leading, compactEpisodeArtworkSize + compactEpisodeSpacing)
                     }
@@ -143,14 +114,8 @@ struct PodcastsNewExample: View {
                     }
                     MediaShelf(title: "More to Discover", items: PodcastsFixtures.discovery, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard), isHeaderActionable: false) { item in
                         Button(action: {}) {
-                            VStack(spacing: density.metrics.metadataSpacing) {
-                                Image(systemName: item.symbol)
-                                    .font(.title)
-                                    .opacity(0.28)
-                                Text(item.title)
-                                    .font(.headline)
-                                    .fontWeight(.semibold)
-                            }
+                            Label(item.title, systemImage: item.symbol)
+                                .labelStyle(PodcastsDiscoveryLabelStyle(spacing: density.metrics.metadataSpacing))
                             .foregroundStyle(.white)
                             .frame(maxWidth: .infinity, minHeight: 112)
                             .background(item.color.gradient, in: RoundedRectangle(cornerRadius: 10, style: .continuous))

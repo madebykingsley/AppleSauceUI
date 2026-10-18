@@ -42,6 +42,7 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
                 episodeText
             }
             .accessibilityElement(children: .combine)
+            .accessibilityLabel(Text(verbatim: accessibilityMetadataLabel))
         } actions: {
             HStack {
                 PlaybackButton(
@@ -97,6 +98,17 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
     }
 
     private let artworkAspectRatio: CGFloat = 1.65
+
+    var accessibilityMetadataLabel: String {
+        [date, episodeTitle, summary, mediaBadgeAccessibilityLabel ?? mediaBadge]
+            .compactMap { value in
+                guard let value, !value.isEmpty else {
+                    return nil
+                }
+                return value
+            }
+            .joined(separator: ", ")
+    }
 }
 
 #if DEBUG
