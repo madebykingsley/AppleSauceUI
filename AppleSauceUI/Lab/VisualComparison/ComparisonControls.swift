@@ -26,7 +26,7 @@ struct ComparisonControls: View {
                     .contentShape(Rectangle())
                     .gesture(panelDragGesture)
                     .onTapGesture(count: 2, perform: resetPosition)
-                    .accessibilityHint("Drag to move the panel. Double-tap to reset its position.")
+                    .accessibilityHint("Drag to move the panel.")
 
                 Spacer(minLength: 8)
 
@@ -37,6 +37,10 @@ struct ComparisonControls: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel(isExpanded ? "Collapse controls" : "Expand controls")
+
+                Button("Reset panel position", systemImage: "arrow.counterclockwise", action: resetPosition)
+                    .labelStyle(.iconOnly)
+                    .buttonStyle(.plain)
             }
 
             Picker("Comparison mode", selection: $mode) {
@@ -48,22 +52,46 @@ struct ComparisonControls: View {
 
             if isExpanded {
                 if mode == .overlay {
-                    HStack {
-                        Text("Reference opacity")
-                        Slider(value: $referenceOpacity, in: 0...1)
-                        Text(referenceOpacity, format: .percent.precision(.fractionLength(0)))
-                            .monospacedDigit()
-                            .frame(width: 44, alignment: .trailing)
+                    ViewThatFits(in: .horizontal) {
+                        HStack {
+                            Text("Reference opacity")
+                            Slider(value: $referenceOpacity, in: 0...1)
+                            Text(referenceOpacity, format: .percent.precision(.fractionLength(0)))
+                                .monospacedDigit()
+                                .frame(minWidth: 44, alignment: .trailing)
+                        }
+
+                        VStack(alignment: .leading) {
+                            Text("Reference opacity")
+                            HStack {
+                                Slider(value: $referenceOpacity, in: 0...1)
+                                Text(referenceOpacity, format: .percent.precision(.fractionLength(0)))
+                                    .monospacedDigit()
+                                    .frame(minWidth: 44, alignment: .trailing)
+                            }
+                        }
                     }
                 }
 
                 if mode == .difference {
-                    HStack {
-                        Text("Difference intensity")
-                        Slider(value: $differenceIntensity, in: 0...1)
-                        Text(differenceIntensity, format: .percent.precision(.fractionLength(0)))
-                            .monospacedDigit()
-                            .frame(width: 44, alignment: .trailing)
+                    ViewThatFits(in: .horizontal) {
+                        HStack {
+                            Text("Difference intensity")
+                            Slider(value: $differenceIntensity, in: 0...1)
+                            Text(differenceIntensity, format: .percent.precision(.fractionLength(0)))
+                                .monospacedDigit()
+                                .frame(minWidth: 44, alignment: .trailing)
+                        }
+
+                        VStack(alignment: .leading) {
+                            Text("Difference intensity")
+                            HStack {
+                                Slider(value: $differenceIntensity, in: 0...1)
+                                Text(differenceIntensity, format: .percent.precision(.fractionLength(0)))
+                                    .monospacedDigit()
+                                    .frame(minWidth: 44, alignment: .trailing)
+                            }
+                        }
                     }
 
                     Button("Refresh Difference", systemImage: "arrow.clockwise") {

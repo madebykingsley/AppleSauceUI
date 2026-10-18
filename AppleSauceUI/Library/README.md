@@ -56,6 +56,8 @@ Use `NavigationListItem` as the label of a native `NavigationLink` or `Button` f
 
 Use `EpisodeCard` for a playable audio or video episode whose landscape artwork, date or status, episode title, optional summary, duration, media badge, and independent play and overflow controls form one stable anatomy. At standard Dynamic Type sizes, its title and summary share a reserved four-line region to keep sibling cards equal-height; accessibility sizes grow intrinsically. It builds on `MediaCard`; use `PosterLockup` instead for portrait, full-bleed hero content and use `MediaCard` directly for non-episode cards.
 
+Use `EpisodeRow` for compact episodic content with leading artwork, date or status, a title, optional supporting metadata and badge, and an independent overflow action. Supplying a duration and play action adds an independent playback control; without playback, duration and badge remain inline metadata. The caller supplies explicit specimen artwork geometry while the Element owns Style Profile treatment, Density rhythm, and accessibility composition. Use `EpisodeCard` when a landscape card surface and summary are required, and keep `HorizontalLockup` for geometry without episode semantics.
+
 Use `EditorialHero` when an editorial eyebrow and heading sit outside and above landscape artwork. Bespoke branded editorial artwork, promotions, and simple discovery buttons remain example-owned compositions rather than separate Library card types.
 
 ## Collection patterns

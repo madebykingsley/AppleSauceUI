@@ -2,7 +2,6 @@ import SwiftUI
 
 struct PodcastsHomeExample: View {
     @Environment(\.interfaceDensity) private var density
-    @Environment(\.styleProfile) private var styleProfile
 
     var onExit: () -> Void = {}
 
@@ -61,40 +60,16 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "You May Have Missed", subtitle: "From Shows You Follow", items: PodcastsFixtures.homeMissedEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
-                        HorizontalLockup(
+                        EpisodeRow(
+                            dateOrStatus: episode.episodeDate,
+                            title: episode.title,
+                            duration: episode.duration,
                             artworkSize: featuredEpisodeArtworkSize,
-                            spacing: featuredEpisodeSpacing,
-                            alignment: .top
+                            artworkSpacing: featuredEpisodeSpacing,
+                            playAction: {}
                         ) {
                             ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
-                                .overlay(styleProfile.imagery.overlay)
-                                .shadow(
-                                    color: styleProfile.effects.standardShadow.color,
-                                    radius: styleProfile.effects.standardShadow.radius,
-                                    x: styleProfile.effects.standardShadow.x,
-                                    y: styleProfile.effects.standardShadow.y
-                                )
-                                .accessibilityHidden(true)
-                        } content: {
-                            VStack(alignment: .leading, spacing: 8) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(episode.episodeDate)
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                    Text(episode.title)
-                                        .font(.body.weight(.semibold))
-                                        .lineLimit(2)
-                                }
-                                .accessibilityElement(children: .combine)
-                                PlaybackButton(label: episode.duration, accessibilityLabel: "Play \(episode.title), \(episode.duration)", action: {})
-                            }
-                        } accessory: {
-                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
-                                .labelStyle(.iconOnly)
-                                .buttonStyle(.plain)
-                                .foregroundStyle(.secondary)
                         }
-                        .padding(.vertical, 8)
                     } separator: {
                         Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }
@@ -153,40 +128,16 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "More to Discover", subtitle: "Based on your listening", items: PodcastsFixtures.homeDiscoverEpisodes, rows: 3, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
-                        HorizontalLockup(
+                        EpisodeRow(
+                            dateOrStatus: episode.episodeDate,
+                            title: episode.title,
+                            duration: episode.duration,
                             artworkSize: featuredEpisodeArtworkSize,
-                            spacing: featuredEpisodeSpacing,
-                            alignment: .top
+                            artworkSpacing: featuredEpisodeSpacing,
+                            playAction: {}
                         ) {
                             ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
-                                .overlay(styleProfile.imagery.overlay)
-                                .shadow(
-                                    color: styleProfile.effects.standardShadow.color,
-                                    radius: styleProfile.effects.standardShadow.radius,
-                                    x: styleProfile.effects.standardShadow.x,
-                                    y: styleProfile.effects.standardShadow.y
-                                )
-                                .accessibilityHidden(true)
-                        } content: {
-                            VStack(alignment: .leading, spacing: 8) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(episode.episodeDate)
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                    Text(episode.title)
-                                        .font(.body.weight(.semibold))
-                                        .lineLimit(2)
-                                }
-                                .accessibilityElement(children: .combine)
-                                PlaybackButton(label: episode.duration, accessibilityLabel: "Play \(episode.title), \(episode.duration)", action: {})
-                            }
-                        } accessory: {
-                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
-                                .labelStyle(.iconOnly)
-                                .buttonStyle(.plain)
-                                .foregroundStyle(.secondary)
                         }
-                        .padding(.vertical, 8)
                     } separator: {
                         Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }
@@ -234,49 +185,19 @@ struct PodcastsHomeExample: View {
                     }
 
                     ColumnMediaShelf(title: "Recently Played", items: PodcastsFixtures.recentlyPlayedEpisodes, rows: 1, columnWidth: HorizontalCollectionItemSize.wide.width(in: .iPhoneStandard)) { episode in
-                        HorizontalLockup(
+                        EpisodeRow(
+                            dateOrStatus: episode.episodeDate,
+                            title: episode.title,
+                            supportingMetadata: episode.show,
+                            duration: episode.duration,
+                            progress: episode.progress,
                             artworkSize: featuredEpisodeArtworkSize,
-                            spacing: featuredEpisodeSpacing,
-                            alignment: .top
+                            artworkSpacing: featuredEpisodeSpacing,
+                            titleLineLimit: 1,
+                            playAction: {}
                         ) {
                             ArtworkImage(assetName: episode.resolvedArtworkName, placeholderSymbol: episode.symbol, placeholderBackground: AnyShapeStyle(episode.color.gradient))
-                                .overlay(styleProfile.imagery.overlay)
-                                .shadow(
-                                    color: styleProfile.effects.standardShadow.color,
-                                    radius: styleProfile.effects.standardShadow.radius,
-                                    x: styleProfile.effects.standardShadow.x,
-                                    y: styleProfile.effects.standardShadow.y
-                                )
-                                .accessibilityHidden(true)
-                        } content: {
-                            VStack(alignment: .leading, spacing: 8) {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(episode.episodeDate)
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                    Text(episode.title)
-                                        .font(.body.weight(.semibold))
-                                        .lineLimit(1)
-                                    Text(episode.show)
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                        .lineLimit(1)
-                                }
-                                .accessibilityElement(children: .combine)
-                                PlaybackButton(
-                                    label: episode.duration,
-                                    accessibilityLabel: "Play \(episode.title), \(episode.duration)",
-                                    progress: episode.progress,
-                                    action: {}
-                                )
-                            }
-                        } accessory: {
-                            Button("More options for \(episode.title)", systemImage: "ellipsis", action: {})
-                                .labelStyle(.iconOnly)
-                                .buttonStyle(.plain)
-                                .foregroundStyle(.secondary)
                         }
-                        .padding(.vertical, 8)
                     } separator: {
                         Divider().padding(.leading, featuredEpisodeArtworkSize + featuredEpisodeSpacing)
                     }

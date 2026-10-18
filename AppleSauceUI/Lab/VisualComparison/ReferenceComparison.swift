@@ -11,10 +11,19 @@ private struct VisualComparisonScrollStateKey: EnvironmentKey {
     static let defaultValue: VisualComparisonScrollState? = nil
 }
 
+private struct VisualComparisonLiveContentActiveKey: EnvironmentKey {
+    static let defaultValue = true
+}
+
 extension EnvironmentValues {
     var visualComparisonScrollState: VisualComparisonScrollState? {
         get { self[VisualComparisonScrollStateKey.self] }
         set { self[VisualComparisonScrollStateKey.self] = newValue }
+    }
+
+    fileprivate var visualComparisonLiveContentActive: Bool {
+        get { self[VisualComparisonLiveContentActiveKey.self] }
+        set { self[VisualComparisonLiveContentActiveKey.self] = newValue }
     }
 }
 
@@ -25,6 +34,7 @@ extension View {
 }
 
 private struct VisualComparisonScrollTrackingModifier: ViewModifier {
+    @Environment(\.visualComparisonLiveContentActive) private var isLiveContentActive
     @Environment(\.visualComparisonScrollState) private var scrollState
     @State private var position = ScrollPosition()
     @State private var isTracking = false
@@ -32,8 +42,10 @@ private struct VisualComparisonScrollTrackingModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .scrollPosition($position)
-            .task {
-                guard let scrollState else {
+            .task(id: isLiveContentActive) {
+                isTracking = false
+
+                guard isLiveContentActive, let scrollState else {
                     return
                 }
 
@@ -46,7 +58,7 @@ private struct VisualComparisonScrollTrackingModifier: ViewModifier {
             .onScrollGeometryChange(for: CGFloat.self) { geometry in
                 max(0, geometry.contentOffset.y + geometry.contentInsets.top)
             } action: { _, newOffset in
-                if isTracking {
+                if isLiveContentActive, isTracking {
                     scrollState?.yOffset = newOffset
                 }
             }
@@ -212,10 +224,13 @@ private struct ComparisonCanvas<Content: View>: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            if mode != .reference {
-                content
-                    .saturation(mode == .difference ? 0.7 : 1)
-            }
+            content
+                .saturation(mode == .difference ? 0.7 : 1)
+                .opacity(mode == .reference ? 0 : 1)
+                .allowsHitTesting(mode != .reference)
+                .accessibilityHidden(mode == .reference)
+                .disabled(mode == .reference)
+                .environment(\.visualComparisonLiveContentActive, mode != .reference)
 
             if mode == .overlay {
                 ViewportComparisonImage(

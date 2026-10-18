@@ -33,39 +33,22 @@ struct StyleProfileElementsSection: View {
                 )
             }
 
-            HorizontalLockup(artworkSize: 90, spacing: 11, alignment: .top) {
+            EpisodeRow(
+                dateOrStatus: "Field Notes",
+                title: "Listening for a Changing City",
+                supportingMetadata: "Today · 32 min",
+                duration: "32 min",
+                mediaBadge: "NEW",
+                mediaBadgeAccessibilityLabel: "new",
+                artworkSize: 90,
+                artworkSpacing: 11,
+                playAction: {}
+            ) {
                 ArtworkPlaceholder(
                     symbol: "building.2.fill",
                     background: artworkBackground,
                     symbolPadding: 12
                 )
-                .accessibilityHidden(true)
-            } content: {
-                VStack(alignment: .leading, spacing: 8) {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Field Notes")
-                            .font(.caption2)
-                            .foregroundStyle(profile.colors.secondaryText)
-                        Text("Listening for a Changing City")
-                            .font(.body.weight(.semibold))
-                            .foregroundStyle(profile.colors.primaryText)
-                        HStack(spacing: 4) {
-                            Text("Today")
-                            Text("·")
-                            Text("32 min")
-                            MetadataBadge(label: "NEW")
-                        }
-                        .font(.footnote)
-                        .foregroundStyle(profile.colors.secondaryText)
-                    }
-                    .accessibilityElement(children: .combine)
-                    PlaybackButton(label: "32 min", accessibilityLabel: "Play Listening for a Changing City, 32 minutes", action: {})
-                }
-            } accessory: {
-                Button("More options for Listening for a Changing City", systemImage: "ellipsis", action: {})
-                    .labelStyle(.iconOnly)
-                    .buttonStyle(.plain)
-                    .foregroundStyle(profile.colors.secondaryText)
             }
         }
         .padding(density.metrics.contentMargin)
