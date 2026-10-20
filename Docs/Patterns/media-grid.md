@@ -22,7 +22,10 @@ platforms:
   watchos: unsupported
   visionos: supported
 elements:
-  - media-lockup
+  - square-lockup
+  - video-lockup
+  - poster-lockup
+  - media-card
   - section-header
 variants:
   - artwork
@@ -51,7 +54,7 @@ Avoid it when a short recommendation shelf better communicates priority, when ma
 
 ## Anatomy
 
-A grid contains an optional section header followed by a lazy vertical grid. Omitting `title` renders the collection without a header or reserved title space. Each identifiable item is rendered by a caller-supplied Element or Recipe. The pattern owns column count, column gaps, row gaps, and content margins.
+A grid contains an optional section header followed by a lazy vertical grid. Omitting `title` renders the collection without a header or reserved title space. Each identifiable item is rendered by a caller-supplied Element. The pattern owns column count, column gaps, row gaps, and content margins.
 
 ## Behavior
 
@@ -67,7 +70,7 @@ Items must have stable, unique identity. Each supplied item presentation should 
 
 ## Accessibility considerations
 
-Use semantic text styles and allow lockup metadata to expand at accessibility sizes. A Recipe may reduce column count when larger content sizes make the default count unsuitable. Do not encode meaning only through profile color or artwork.
+Use semantic text styles and allow lockup metadata to expand at accessibility sizes. The containing screen may reduce column count when larger content sizes make the default count unsuitable. Do not encode meaning only through profile color or artwork.
 
 ## Platform adaptation
 

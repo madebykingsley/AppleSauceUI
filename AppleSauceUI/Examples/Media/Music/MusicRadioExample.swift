@@ -40,7 +40,8 @@ struct MusicRadioExample: View {
                                 startPoint: .leading,
                                 endPoint: .trailing
                             ),
-                            contentInsets: EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+                            contentInsets: EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16),
+                            artworkGeometry: .height(232)
                         ) {
                             VStack(spacing: 4) {
                                 Spacer()

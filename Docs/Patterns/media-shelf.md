@@ -20,7 +20,12 @@ platforms:
   watchos: unsupported
   visionos: supported
 elements:
-  - media-lockup
+  - square-lockup
+  - video-lockup
+  - poster-lockup
+  - editorial-hero
+  - media-card
+  - episode-card
   - section-header
 variants:
   - artwork
@@ -49,11 +54,11 @@ Avoid it when people must compare many attributes across items, when editing is 
 
 ## Anatomy
 
-A shelf uses native `Section` structure with an optional custom visual header and one horizontal collection. Each identifiable item is rendered by a caller-supplied Element or Recipe, such as a square lockup. The pattern owns margins, inter-item spacing, alignment, and scroll targeting.
+A shelf uses native `Section` structure with an optional custom visual header and one horizontal collection. Each identifiable item is rendered by a caller-supplied Element, such as a square lockup. The pattern owns margins, inter-item spacing, alignment, scroll targeting, and the viewport that reports the tallest finite item.
 
 ## Behavior
 
-Items scroll horizontally with hidden indicators. View-aligned scrolling is the default; continuous scrolling is available for content that should not snap. The shelf disables the scroll view’s default clipping so Element shadows and other visual effects can render beyond its vertical bounds; screen and ancestor layout boundaries remain the outer clipping boundary. An actionable header remains a separate control from item actions.
+Items scroll horizontally with hidden indicators. View-aligned scrolling is the default; continuous scrolling is available for content that should not snap. Native scroll clipping remains enabled intentionally. The finite `HStack` measures every item so long captions and controls contribute to shelf height and the following section begins after the tallest item. An actionable header remains a separate control from item actions.
 
 ## Variants
 
@@ -84,4 +89,4 @@ iOS and iPadOS prefer touch-driven horizontal shelves. macOS supports the patter
 
 ## Examples / references
 
-The Style Profiles example renders the same media data and `MediaShelf` structure under Editorial, Entertainment, and Neutral profiles. Existing Music and Podcasts examples demonstrate app-specific Recipes supplying content to the same pattern.
+The Style Profiles example renders the same media data and `MediaShelf` structure under Editorial, Entertainment, and Neutral profiles. Apple Music Home composes `PosterLockup` and `SquareLockup`; Apple Music New composes `EditorialHero` and `VideoLockup`; Apple Podcasts Home composes `EpisodeCard` and `SquareLockup`. These are direct screen compositions, not screen-level factories.

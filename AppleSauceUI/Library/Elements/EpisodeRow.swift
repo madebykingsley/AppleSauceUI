@@ -59,7 +59,7 @@ struct EpisodeRow<Artwork: View>: View {
             alignment: artworkAlignment
         ) {
             artwork
-                .overlay(styleProfile.imagery.overlay)
+                .overlay(styleProfile.imagery.treatment(.unmodified))
                 .shadow(
                     color: styleProfile.effects.standardShadow.color,
                     radius: styleProfile.effects.standardShadow.radius,

@@ -14,11 +14,14 @@ struct VideoLockup<Artwork: View>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: density.metrics.metadataSpacing) {
-            artwork
-                .aspectRatio(artworkAspectRatio, contentMode: .fit)
-                .frame(maxWidth: .infinity)
-                .overlay(styleProfile.imagery.overlay)
-                .clipShape(artworkShape)
+            ArtworkContainer(
+                geometry: .aspectRatio(artworkAspectRatio),
+                clipShape: artworkShape
+            ) {
+                artwork
+            } decoration: {
+                Rectangle().fill(styleProfile.imagery.treatment(.unmodified))
+            }
                 .overlay {
                     artworkShape.strokeBorder(
                         styleProfile.effects.outlineColor,
@@ -71,15 +74,15 @@ struct VideoLockup<Artwork: View>: View {
 #if DEBUG
 #Preview("VideoLockup — Variants") {
     VStack(spacing: 24) {
-        VideoLockup(title: "A Walk Through the City", subtitle: "Field Notes", metadata: "12 min") {
-            ArtworkPlaceholder(symbol: "play.rectangle.fill", background: AnyShapeStyle(.indigo.gradient))
+        VideoLockup(title: "Coastal Trail", subtitle: "Field Notes", metadata: "12 min") {
+            ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "play.rectangle.fill", placeholderBackground: AnyShapeStyle(.indigo.gradient))
         }
 
         VideoLockup(
             title: "A Longer Video Title That Demonstrates Supported Wrapping",
             subtitle: "A creator name that also grows at accessibility sizes"
         ) {
-            ArtworkPlaceholder(symbol: "video.fill", background: AnyShapeStyle(.teal.gradient))
+            ArtworkImage(assetName: "RegressionPortraitArtwork", placeholderSymbol: "video.fill", placeholderBackground: AnyShapeStyle(.teal.gradient))
         }
     }
     .padding()

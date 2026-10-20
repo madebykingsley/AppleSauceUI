@@ -53,11 +53,11 @@ Avoid it for dense libraries dominated by square artwork, broad collections that
 
 ## Anatomy
 
-The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. Specialized compositions may use the lower-level metadata and actions slots when independent controls are required, and may provide explicit content insets when reference geometry differs from density defaults, while retaining the same card container and explicit layout model. Callers may select a semantic `ElementElevation`; the default remains `.standard`.
+The semantic initializer accepts artwork, optional eyebrow, required title, optional subtitle, optional metadata, and optional badge. MediaCard owns a default 1.6 artwork aspect ratio. Specialized compositions may use the lower-level metadata and actions slots when independent controls are required, may provide explicit content insets, and may select a demonstrated aspect ratio or fixed artwork height through `ArtworkContainerGeometry`, while retaining the same card container and explicit layout model. Supplied artwork owns content and scaling behavior, not displayed card geometry. Callers may select a semantic `ElementElevation`; the default remains `.standard`.
 
 ## Variants
 
-`standard` places artwork and metadata in distinct vertical regions. `overlay` layers the same metadata hierarchy over artwork and applies an image scrim. The caller selects the layout explicitly; a Style Profile never changes it.
+`standard` places artwork, metadata, and optional independent actions in distinct vertical regions and is the appropriate variant for long supporting copy or action-heavy content. `overlay` layers concise metadata over artwork and applies an image scrim; it is not a text-heavy feature-card substitute. A requirement for full-bleed imagery together with long supporting copy or independent controls is an anatomy mismatch that needs a focused structural variant or different component, not extra spacing or blanket clipping. The caller selects the layout explicitly; a Style Profile never changes it.
 
 ## Style responsibilities
 
@@ -70,6 +70,22 @@ Density supplies default content padding and metadata rhythm. It does not select
 ## Accessibility considerations
 
 Text uses semantic styles and expands at accessibility Dynamic Type sizes. Artwork symbols are decorative, metadata remains readable in source order, and badges accept a distinct accessibility label when their compact text is insufficient. Interactive actions remain independent children when a Recipe supplies them.
+
+## Geometry and imagery guarantees
+
+The card owns its displayed artwork geometry, clipping, surface, and complete reported height. Standard-layout artwork is unmodified because text occupies a separate region. Overlay layout applies the semantic text-legibility treatment supplied by the active Style Profile; callers do not branch on profile identity. Supplied images own content and `fill`/`fit` scaling only.
+
+## Composition example
+
+```swift
+MediaShelf(title: "Up Next", items: episodes, itemWidth: 249) { episode in
+    EpisodeCard(date: episode.status, episodeTitle: episode.title, summary: episode.summary, duration: episode.duration, background: episode.background) {
+        ArtworkImage(assetName: episode.artworkName, placeholderSymbol: "mic.fill", placeholderBackground: episode.fallback)
+    }
+}
+```
+
+Apple Podcasts Home demonstrates this semantic specialization; Music Radio demonstrates the lower-level standard card with caller-supplied metadata regions.
 
 ## Platform adaptation
 

@@ -19,7 +19,7 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
     @ViewBuilder let artwork: Artwork
 
     var body: some View {
-        MediaCard(background: background) {
+        MediaCard(background: background, artworkGeometry: .aspectRatio(artworkAspectRatio)) {
             artwork
                 .overlay(alignment: .topTrailing) {
                     if let mediaBadge {
@@ -32,7 +32,6 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
                             .accessibilityLabel(mediaBadgeAccessibilityLabel ?? mediaBadge)
                     }
                 }
-                .aspectRatio(artworkAspectRatio, contentMode: .fit)
                 .accessibilityHidden(true)
         } metadata: {
             VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
@@ -67,20 +66,12 @@ struct EpisodeCard<Background: ShapeStyle, Artwork: View>: View {
                 summaryText
             }
         } else {
-            Text(verbatim: " \n \n \n ")
-                .font(styleProfile.typography.contentTitle)
-                .hidden()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .overlay(alignment: .topLeading) {
-                    VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
-                        titleText
-                            .lineLimit(4)
-                            .layoutPriority(1)
-                        summaryText
-                            .lineLimit(3)
-                    }
-                }
-                .clipped()
+            VStack(alignment: .leading, spacing: density.metrics.metadataSpacing / 2) {
+                titleText
+                    .lineLimit(4)
+                summaryText
+                    .lineLimit(3)
+            }
         }
     }
 

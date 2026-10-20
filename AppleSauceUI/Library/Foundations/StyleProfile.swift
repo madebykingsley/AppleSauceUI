@@ -114,25 +114,16 @@ enum StyleProfile: String, CaseIterable, Identifiable, Sendable {
         switch self {
         case .editorial:
             StyleProfileImagery(
-                overlay: AnyShapeStyle(Color.clear),
                 scrim: AnyShapeStyle(.black.opacity(0.38).gradient),
                 symbolRenderingMode: .monochrome
             )
         case .entertainment:
             StyleProfileImagery(
-                overlay: AnyShapeStyle(
-                    LinearGradient(
-                        colors: [.clear, .purple.opacity(0.28)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                ),
                 scrim: AnyShapeStyle(.black.opacity(0.58).gradient),
                 symbolRenderingMode: .hierarchical
             )
         case .neutral:
             StyleProfileImagery(
-                overlay: AnyShapeStyle(Color.clear),
                 scrim: AnyShapeStyle(.black.opacity(0.46).gradient),
                 symbolRenderingMode: .monochrome
             )
@@ -210,9 +201,17 @@ struct StyleProfileShapes {
 }
 
 struct StyleProfileImagery {
-    let overlay: AnyShapeStyle
     let scrim: AnyShapeStyle
     let symbolRenderingMode: SymbolRenderingMode
+
+    func treatment(_ treatment: ArtworkTreatment) -> AnyShapeStyle {
+        switch treatment {
+        case .unmodified:
+            AnyShapeStyle(Color.clear)
+        case .textLegibility:
+            scrim
+        }
+    }
 }
 
 enum StyleProfileChromeProminence {

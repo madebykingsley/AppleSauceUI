@@ -1,10 +1,20 @@
 {
-  "name": "Apple Podcasts — New",
-  "platform": "iOS",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-podcasts/new",
+  "screen": "Apple Podcasts — New",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 4614,
+    "scale": null
+  },
+  "viewport": null,
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "New",
-  "dimensions": "402 × 4614 pixels",
-  "notes": "Supplied stitched full-page screenshot. A stitching seam and repeated status bar occur partway down; both are capture artifacts, not app content. Pixel dimensions are not SwiftUI point measurements."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [],
+  "supportsFullContentComparison": true,
+  "notes": "Supplied stitched full-content reference with a capture seam and repeated status bar. Device model, OS version, viewport dimensions, and image scale are unknown and are intentionally not asserted."
 }

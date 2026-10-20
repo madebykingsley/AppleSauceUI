@@ -24,9 +24,30 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
     let elevation: ElementElevation
     let background: Background
     let contentInsets: EdgeInsets?
+    let artworkGeometry: ArtworkContainerGeometry
     @ViewBuilder let artwork: Artwork
     @ViewBuilder let metadata: Metadata
     @ViewBuilder let actions: Actions
+
+    init(
+        layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
+        background: Background,
+        contentInsets: EdgeInsets? = nil,
+        artworkGeometry: ArtworkContainerGeometry,
+        @ViewBuilder artwork: () -> Artwork,
+        @ViewBuilder metadata: () -> Metadata,
+        @ViewBuilder actions: () -> Actions
+    ) {
+        self.layout = layout
+        self.elevation = elevation
+        self.background = background
+        self.contentInsets = contentInsets
+        self.artworkGeometry = artworkGeometry
+        self.artwork = artwork()
+        self.metadata = metadata()
+        self.actions = actions()
+    }
 
     init(
         layout: MediaCardLayout = .standard,
@@ -37,13 +58,16 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
         @ViewBuilder metadata: () -> Metadata,
         @ViewBuilder actions: () -> Actions
     ) {
-        self.layout = layout
-        self.elevation = elevation
-        self.background = background
-        self.contentInsets = contentInsets
-        self.artwork = artwork()
-        self.metadata = metadata()
-        self.actions = actions()
+        self.init(
+            layout: layout,
+            elevation: elevation,
+            background: background,
+            contentInsets: contentInsets,
+            artworkGeometry: .aspectRatio(1.6),
+            artwork: artwork,
+            metadata: metadata,
+            actions: actions
+        )
     }
 
     var body: some View {
@@ -67,18 +91,34 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
         switch layout {
         case .standard:
             VStack(alignment: .leading, spacing: 0) {
-                artwork
+                artworkContainer
                 cardDetails
                     .padding(resolvedContentInsets)
             }
         case .overlay:
             ZStack(alignment: .bottomLeading) {
-                artwork
-                    .overlay(styleProfile.imagery.scrim)
+                ArtworkContainer(
+                    geometry: artworkGeometry,
+                    clipShape: Rectangle()
+                ) {
+                    artwork
+                } decoration: {
+                    Rectangle().fill(styleProfile.imagery.treatment(.textLegibility))
+                }
                 cardDetails
                     .padding(resolvedContentInsets)
             }
         }
+    }
+
+    private var artworkContainer: some View {
+        ArtworkContainer(
+            geometry: artworkGeometry,
+            clipShape: Rectangle()
+        ) {
+            artwork
+        }
+        .fixedSize(horizontal: false, vertical: true)
     }
 
     private var cardDetails: some View {
@@ -86,6 +126,7 @@ struct MediaCard<Background: ShapeStyle, Artwork: View, Metadata: View, Actions:
             metadata
             actions
         }
+        .fixedSize(horizontal: false, vertical: true)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
@@ -109,6 +150,7 @@ extension MediaCard where Actions == EmptyView {
         elevation: ElementElevation = .standard,
         background: Background,
         contentInsets: EdgeInsets? = nil,
+        artworkGeometry: ArtworkContainerGeometry,
         @ViewBuilder artwork: () -> Artwork,
         @ViewBuilder metadata: () -> Metadata
     ) {
@@ -116,9 +158,29 @@ extension MediaCard where Actions == EmptyView {
         self.elevation = elevation
         self.background = background
         self.contentInsets = contentInsets
+        self.artworkGeometry = artworkGeometry
         self.artwork = artwork()
         self.metadata = metadata()
         self.actions = EmptyView()
+    }
+
+    init(
+        layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
+        background: Background,
+        contentInsets: EdgeInsets? = nil,
+        @ViewBuilder artwork: () -> Artwork,
+        @ViewBuilder metadata: () -> Metadata
+    ) {
+        self.init(
+            layout: layout,
+            elevation: elevation,
+            background: background,
+            contentInsets: contentInsets,
+            artworkGeometry: .aspectRatio(1.6),
+            artwork: artwork,
+            metadata: metadata
+        )
     }
 }
 
@@ -126,6 +188,7 @@ extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCa
     init(
         layout: MediaCardLayout = .standard,
         elevation: ElementElevation = .standard,
+        artworkGeometry: ArtworkContainerGeometry,
         eyebrow: String? = nil,
         title: String,
         subtitle: String? = nil,
@@ -138,6 +201,7 @@ extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCa
         self.elevation = elevation
         self.background = StyleProfileSurface()
         self.contentInsets = nil
+        self.artworkGeometry = artworkGeometry
         self.artwork = artwork()
         self.metadata = MediaCardMetadata(
             layout: layout,
@@ -149,6 +213,31 @@ extension MediaCard where Background == StyleProfileSurface, Metadata == MediaCa
             badgeAccessibilityLabel: badgeAccessibilityLabel
         )
         self.actions = EmptyView()
+    }
+
+    init(
+        layout: MediaCardLayout = .standard,
+        elevation: ElementElevation = .standard,
+        eyebrow: String? = nil,
+        title: String,
+        subtitle: String? = nil,
+        metadata: String? = nil,
+        badge: String? = nil,
+        badgeAccessibilityLabel: String? = nil,
+        @ViewBuilder artwork: () -> Artwork
+    ) {
+        self.init(
+            layout: layout,
+            elevation: elevation,
+            artworkGeometry: .aspectRatio(1.6),
+            eyebrow: eyebrow,
+            title: title,
+            subtitle: subtitle,
+            metadata: metadata,
+            badge: badge,
+            badgeAccessibilityLabel: badgeAccessibilityLabel,
+            artwork: artwork
+        )
     }
 }
 
@@ -162,23 +251,21 @@ struct StyleProfileSurface: ShapeStyle {
 #Preview("MediaCard — Variants") {
     VStack(spacing: 24) {
         MediaCard(
-            title: "A Walk Through the City",
-            subtitle: "Daily Stories",
+            title: "Blue Hour Arcade",
+            subtitle: "North Arcade",
             metadata: "Today · 24 min",
             badge: "FEATURED"
         ) {
-            ArtworkPlaceholder(symbol: "building.2.fill", background: AnyShapeStyle(.indigo.gradient))
-                .aspectRatio(1.6, contentMode: .fit)
+            ArtworkImage(assetName: "MusicBlueHourArcade", placeholderSymbol: "music.note", placeholderBackground: AnyShapeStyle(.indigo.gradient))
         }
 
         MediaCard(
             layout: .overlay,
             eyebrow: "Editors’ Choice",
-            title: "A Walk Through the City",
+            title: "Coastal Trail",
             subtitle: "A reported story about how public spaces shape everyday life."
         ) {
-            ArtworkPlaceholder(symbol: "building.2.fill", background: AnyShapeStyle(.teal.gradient))
-                .aspectRatio(1.6, contentMode: .fit)
+            ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "photo", placeholderBackground: AnyShapeStyle(.teal.gradient))
         }
     }
     .padding()
@@ -190,8 +277,7 @@ struct StyleProfileSurface: ShapeStyle {
         title: "A long media title that demonstrates how metadata grows at accessibility sizes",
         subtitle: "Supporting content remains readable without changing the card anatomy."
     ) {
-        ArtworkPlaceholder(symbol: "text.book.closed.fill", background: AnyShapeStyle(.blue.gradient))
-            .aspectRatio(1.6, contentMode: .fit)
+        ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "photo", placeholderBackground: AnyShapeStyle(.blue.gradient))
     }
     .padding()
     .frame(width: 402)

@@ -41,11 +41,13 @@ Use `MediaCard` instead when content needs a surface, multiple content regions, 
 
 ## Caller responsibilities
 
-The caller supplies neutral title, subtitle, metadata, and artwork content, chooses any reference-specific artwork aspect ratio, and places the Element inside an appropriate Pattern. Domain models remain outside the Library.
+The caller supplies neutral title, subtitle, metadata, and artwork content, chooses any reference-specific artwork aspect ratio, and places the Element inside an appropriate Pattern. `VideoLockup` owns that displayed aspect ratio and clipping; the supplied artwork owns only its content and scaling behavior. Source bitmap dimensions do not change lockup geometry. Domain models remain outside the Library.
 
 ## Style and density responsibilities
 
 The active Style Profile supplies item typography, foreground hierarchy, artwork treatment, shape, and shadow. Interface Density supplies the spacing between artwork and metadata. The video artwork aspect ratio remains content geometry rather than a density decision.
+
+Artwork is unmodified because all readable metadata sits outside the image. If a design requires a scrim for overlaid text, it is not this anatomy; choose `MediaCard.overlay` or another verified overlay component.
 
 ## Accessibility considerations
 
@@ -64,3 +66,11 @@ The demonstrated implementation supports iOS and iPadOS. Other platforms remain 
 ## Examples / references
 
 Apple Music New demonstrates `VideoLockup` for interview and music-video shelves.
+
+```swift
+MediaShelf(title: "Music Videos", items: videos, itemWidth: 249) { video in
+    VideoLockup(title: video.title, subtitle: video.artist) {
+        ArtworkImage(assetName: video.artworkName, placeholderSymbol: "video", placeholderBackground: video.fallback)
+    }
+}
+```

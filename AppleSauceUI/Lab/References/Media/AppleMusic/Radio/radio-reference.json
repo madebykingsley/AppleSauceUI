@@ -1,11 +1,20 @@
 {
-  "name": "Apple Music — Radio",
-  "platform": "iOS",
-  "device": "iPhone",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-music/radio",
+  "screen": "Apple Music — Radio",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 3345,
+    "scale": null
+  },
+  "viewport": null,
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "Radio",
-  "dimensions": "244 × 2048",
-  "notes": "Scrollable full-page screenshot including system, mini-player, and tab bars. The mini-player is intentionally excluded from the reconstruction."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [],
+  "supportsFullContentComparison": true,
+  "notes": "Scrollable full-content reference; mini player is intentionally excluded from reconstruction. Device model, OS version, viewport dimensions, and image scale are unknown and are intentionally not asserted."
 }

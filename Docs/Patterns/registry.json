@@ -32,7 +32,10 @@
         "visionos": "supported"
       },
       "elements": [
-        "media-lockup",
+        "square-lockup",
+        "video-lockup",
+        "poster-lockup",
+        "media-card",
         "section-header"
       ],
       "variants": [
@@ -73,7 +76,12 @@
         "visionos": "supported"
       },
       "elements": [
-        "media-lockup",
+        "square-lockup",
+        "video-lockup",
+        "poster-lockup",
+        "editorial-hero",
+        "media-card",
+        "episode-card",
         "section-header"
       ],
       "variants": [
@@ -91,6 +99,44 @@
     }
   ],
   "elements": [
+    {
+      "id": "artwork-container",
+      "kind": "element",
+      "category": "media",
+      "intent": [
+        "display",
+        "constrain"
+      ],
+      "content": [
+        "artwork",
+        "image",
+        "accessory"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "unsupported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "unsupported"
+      },
+      "anatomy": [
+        "artwork",
+        "decoration",
+        "accessory"
+      ],
+      "variants": [
+        "aspect-ratio",
+        "fixed-size",
+        "fixed-height",
+        "minimum-height"
+      ],
+      "avoidWhen": [
+        "content is not visual media",
+        "intrinsic source dimensions should define layout"
+      ],
+      "documentation": "Docs/Elements/artwork-container.md"
+    },
     {
       "id": "browse-category-card",
       "kind": "element",
@@ -127,6 +173,42 @@
         "a native list row communicates the relationship more clearly"
       ],
       "documentation": "Docs/Elements/browse-category-card.md"
+    },
+    {
+      "id": "editorial-hero",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "feature",
+        "inform"
+      ],
+      "content": [
+        "editorial",
+        "artwork",
+        "promotion"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "unsupported",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "eyebrow-above-artwork",
+        "title-above-artwork",
+        "landscape-artwork"
+      ],
+      "variants": [
+        "semantic-elevation"
+      ],
+      "avoidWhen": [
+        "title belongs over the artwork",
+        "independent actions or in-artwork metadata are required",
+        "portrait artwork is required"
+      ],
+      "documentation": "Docs/Elements/editorial-hero.md"
     },
     {
       "id": "elevated-tile",
@@ -365,6 +447,86 @@
         "a native List row already provides the required presentation"
       ],
       "documentation": "Docs/Elements/navigation-list-item.md"
+    },
+    {
+      "id": "poster-lockup",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "feature",
+        "recommend"
+      ],
+      "content": [
+        "artwork",
+        "playlist",
+        "collection"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "portrait-artwork",
+        "title-over-artwork",
+        "optional-eyebrow",
+        "supporting-text"
+      ],
+      "variants": [
+        "semantic-elevation"
+      ],
+      "avoidWhen": [
+        "title belongs outside the artwork",
+        "long-form supporting copy or independent actions are required",
+        "landscape artwork is required"
+      ],
+      "documentation": "Docs/Elements/poster-lockup.md"
+    },
+    {
+      "id": "square-lockup",
+      "kind": "element",
+      "category": "content",
+      "intent": [
+        "browse",
+        "identify",
+        "revisit"
+      ],
+      "content": [
+        "album",
+        "playlist",
+        "show",
+        "collection"
+      ],
+      "platforms": {
+        "ios": "preferred",
+        "ipados": "preferred",
+        "macos": "supported",
+        "tvos": "adapted",
+        "watchos": "unsupported",
+        "visionos": "supported"
+      },
+      "anatomy": [
+        "square-artwork",
+        "optional-artwork-accessory",
+        "title-below-artwork",
+        "optional-subtitle",
+        "optional-metadata",
+        "optional-badge"
+      ],
+      "variants": [
+        "standard",
+        "ranked",
+        "library"
+      ],
+      "avoidWhen": [
+        "title or supporting content belongs over the artwork",
+        "landscape artwork is the primary identity",
+        "independent playback or overflow actions are required"
+      ],
+      "documentation": "Docs/Elements/square-lockup.md"
     },
     {
       "id": "video-lockup",

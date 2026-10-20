@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct EditorialHero<Artwork: View>: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Environment(\.styleProfile) private var styleProfile
 
     let eyebrow: LocalizedStringKey
@@ -18,12 +19,14 @@ struct EditorialHero<Artwork: View>: View {
                 Text(title)
                     .font(styleProfile.typography.prominentContentTitle)
                     .foregroundStyle(styleProfile.colors.primaryText)
-                    .lineLimit(2)
+                    .lineLimit(dynamicTypeSize.isAccessibilitySize ? nil : 2)
             }
-            artwork
-                .aspectRatio(1.5, contentMode: .fit)
-                .frame(maxWidth: .infinity)
-                .clipShape(artworkShape)
+            ArtworkContainer(
+                geometry: .aspectRatio(1.5),
+                clipShape: artworkShape
+            ) {
+                artwork
+            }
                 .overlay {
                     artworkShape.strokeBorder(
                         styleProfile.effects.outlineColor,
@@ -46,7 +49,11 @@ struct EditorialHero<Artwork: View>: View {
 
 #if DEBUG
 #Preview("EditorialHero — Variants") {
-    EditorialHero(eyebrow: "Editors’ Choice", title: "A closer look at new voices") { RoundedRectangle(cornerRadius: 12).fill(.orange.gradient).overlay { Image(systemName: "sparkles").font(.largeTitle) } }.padding().frame(width: 402)
+    EditorialHero(eyebrow: "Editors’ Choice", title: "A closer look at coastal communities") {
+        ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "photo", placeholderBackground: AnyShapeStyle(.orange.gradient))
+    }
+    .padding()
+    .frame(width: 402)
 }
 
 #Preview("EditorialHero — Accessibility") {
@@ -54,9 +61,7 @@ struct EditorialHero<Artwork: View>: View {
         eyebrow: "Editors’ Choice",
         title: "A closer look at the new voices shaping music and culture"
     ) {
-        RoundedRectangle(cornerRadius: 12)
-            .fill(.orange.gradient)
-            .overlay { Image(systemName: "sparkles").font(.largeTitle) }
+        ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "photo", placeholderBackground: AnyShapeStyle(.orange.gradient))
     }
     .padding()
     .frame(width: 402)

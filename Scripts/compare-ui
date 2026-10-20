@@ -7,24 +7,47 @@ fail() {
     exit 1
 }
 
-if [[ $# -ne 1 ]]; then
-    fail "Usage: Scripts/compare-ui <target> (for example: media/apple-music/home)"
-fi
+usage="Usage: Scripts/compare-ui <target> [--section <name> | --full-content <actual.png>] [--actual <actual.png>]"
+(( $# >= 1 )) || fail "$usage"
 
 target="${1:l}"
+shift
+section_name=""
+full_content_path=""
+supplied_actual_path=""
+while (( $# > 0 )); do
+    case "$1" in
+        --section)
+            (( $# >= 2 )) || fail "$usage"
+            section_name="$2"
+            shift 2
+            ;;
+        --full-content)
+            (( $# >= 2 )) || fail "$usage"
+            full_content_path="$2"
+            shift 2
+            ;;
+        --actual)
+            (( $# >= 2 )) || fail "$usage"
+            supplied_actual_path="$2"
+            shift 2
+            ;;
+        *) fail "$usage" ;;
+    esac
+done
+[[ -z "$section_name" || -z "$full_content_path" ]] || fail "Choose either --section or --full-content, not both."
+[[ -z "$full_content_path" || -z "$supplied_actual_path" ]] || fail "--full-content already supplies the actual image."
 if [[ "$target" == /* || "$target" == */ || "$target" == *//* || ! "$target" =~ '^[a-z0-9]+(-[a-z0-9]+)*(\/[a-z0-9]+(-[a-z0-9]+)*)*$' ]]; then
     fail "Target must contain lowercase kebab-case path components, such as media/apple-music/home."
 fi
 
 script_dir="${0:A:h}"
 project_root="${script_dir:h}"
-
+metadata_tool="${script_dir}/ReferenceMetadataTool.swift"
 semantic_path=""
 for segment in ${(s:/:)target}; do
     semantic_segment=""
-    for word in ${(s:-:)segment}; do
-        semantic_segment+="${(C)word}"
-    done
+    for word in ${(s:-:)segment}; do semantic_segment+="${(C)word}"; done
     semantic_path+="${semantic_path:+/}${semantic_segment}"
 done
 
@@ -41,91 +64,87 @@ for resource_name in "${target_name}-reference" "${screen_name}-reference" "refe
         break
     fi
 done
-
-[[ -n "$reference_relative" ]] || fail "Reference not found. Expected ${target_name}-reference.png, ${screen_name}-reference.png, or reference.png in ${reference_directory}."
+[[ -n "$reference_relative" ]] || fail "Reference not found in ${reference_directory}."
+[[ -f "${project_root}/${metadata_relative}" ]] || fail "Validated metadata is required at ${metadata_relative}."
 reference_path="${project_root}/${reference_relative}"
 metadata_path="${project_root}/${metadata_relative}"
 
-if ! simulator_output="$(xcrun simctl list devices booted 2>&1)"; then
-    fail "Could not query Simulator devices. Verify Xcode and CoreSimulator are available."
-fi
-simulator_matches="$(print -r -- "$simulator_output" | awk '/iPhone/ && /\(Booted\)/ { print }')"
-[[ -n "$simulator_matches" ]] || fail "No booted iPhone Simulator found. Boot the expected simulator and run the app first."
-simulator_lines=("${(@f)simulator_matches}")
-if (( ${#simulator_lines} > 1 )); then
-    print -u2 -- "Error: Multiple booted iPhone Simulators found:"
-    for line in "${simulator_lines[@]}"; do
-        print -u2 -- "  ${(j: :)${(z)line}}"
-    done
-    fail "Shut down the simulators you do not intend to capture."
+staging_path="$(mktemp -d "${TMPDIR:-/tmp}/applesauce-compare.XXXXXX")"
+trap 'rm -rf -- "$staging_path"' EXIT
+metadata_description="$(xcrun swift -module-cache-path "${staging_path}/metadata-module-cache" "$metadata_tool" validate "$metadata_path" "$reference_path")" || exit $?
+metadata_value() { print -r -- "$metadata_description" | sed -n "s/^$1=//p"; }
+[[ "$(metadata_value target)" == "$target" ]] || fail "Metadata target '$(metadata_value target)' does not match requested target '${target}'."
+reference_type="$(metadata_value referenceType)"
+
+comparison_kind="viewport"
+capture_position="$(metadata_value capturePosition)"
+comparison_reference="${staging_path}/reference.png"
+derived_coordinates="none"
+if [[ -n "$section_name" ]]; then
+    section_description="$(xcrun swift -module-cache-path "${staging_path}/section-module-cache" "$metadata_tool" section "$metadata_path" "$reference_path" "$section_name" "$comparison_reference")" || exit $?
+    section_value() { print -r -- "$section_description" | sed -n "s/^$1=//p"; }
+    capture_position="$(section_value sectionPosition)"
+    derived_coordinates="$(section_value sectionRect)"
+    comparison_kind="section:${section_name}"
+elif [[ -n "$full_content_path" ]]; then
+    [[ "$reference_type" == "longScrolling" ]] || fail "--full-content requires a longScrolling reference."
+    [[ "$(metadata_value supportsFullContentComparison)" == "true" ]] || fail "Metadata does not explicitly support full-content comparison."
+    [[ -f "$full_content_path" ]] || fail "Full-content actual image not found: $full_content_path"
+    cp -p "$reference_path" "$comparison_reference"
+    supplied_actual_path="$full_content_path"
+    comparison_kind="fullContent"
+elif [[ "$reference_type" == "longScrolling" ]]; then
+    fail "Long-scrolling reference requires --section <name> or --full-content <actual.png>."
+else
+    cp -p "$reference_path" "$comparison_reference"
 fi
 
-simulator_line="${simulator_lines[1]}"
-simulator_udid="$(print -r -- "$simulator_line" | sed -E 's/^.*\(([0-9A-Fa-f-]{36})\).*$/\1/')"
-[[ "$simulator_udid" =~ '^[0-9A-Fa-f-]{36}$' ]] || fail "Could not determine the booted simulator identifier."
-simulator_name="$(print -r -- "$simulator_line" | sed -E 's/^[[:space:]]*//; s/[[:space:]]+\([0-9A-Fa-f-]{36}\)[[:space:]]+\(Booted\).*$//')"
-
-metadata_name=""
-metadata_device=""
-metadata_conditions=()
-if [[ -f "$metadata_path" ]]; then
-    metadata_name="$(/usr/bin/plutil -extract name raw -o - "$metadata_path" 2>/dev/null || true)"
-    metadata_device="$(/usr/bin/plutil -extract device raw -o - "$metadata_path" 2>/dev/null || true)"
-    if [[ -n "$metadata_device" && "$metadata_device" != "$simulator_name" ]]; then
-        fail "Reference expects '${metadata_device}', but the booted simulator is '${simulator_name}'."
-    fi
-    for key in platform os orientation appearance dynamicType; do
-        value="$(/usr/bin/plutil -extract "$key" raw -o - "$metadata_path" 2>/dev/null || true)"
-        if [[ -n "$value" ]]; then
-            metadata_conditions+=("$value")
-        fi
-    done
+actual_path="${staging_path}/actual.png"
+capture_source="supplied file"
+actual_source="$supplied_actual_path"
+simulator_name="not used"
+if [[ -n "$supplied_actual_path" ]]; then
+    [[ -f "$supplied_actual_path" ]] || fail "Actual image not found: $supplied_actual_path"
+    cp -p "$supplied_actual_path" "$actual_path"
+else
+    simulator_output="$(xcrun simctl list devices booted 2>&1)" || fail "Could not query Simulator devices."
+    simulator_matches="$(print -r -- "$simulator_output" | awk '/iPhone/ && /\(Booted\)/ { print }')"
+    [[ -n "$simulator_matches" ]] || fail "No booted iPhone Simulator found."
+    simulator_lines=("${(@f)simulator_matches}")
+    (( ${#simulator_lines} == 1 )) || fail "Exactly one iPhone Simulator must be booted."
+    simulator_line="${simulator_lines[1]}"
+    simulator_udid="$(print -r -- "$simulator_line" | sed -E 's/^.*\(([0-9A-Fa-f-]{36})\).*$/\1/')"
+    simulator_name="$(print -r -- "$simulator_line" | sed -E 's/^[[:space:]]*//; s/[[:space:]]+\([0-9A-Fa-f-]{36}\)[[:space:]]+\(Booted\).*$//')"
+    xcrun simctl io "$simulator_udid" screenshot --type=png "$actual_path" >/dev/null || fail "Simulator screenshot capture failed."
+    capture_source="simulator framebuffer"
+    actual_source="simctl:${simulator_udid}"
 fi
+
+dimensions="$(xcrun swift -module-cache-path "${staging_path}/image-module-cache" "${script_dir}/VisualComparisonImageTool.swift" "$comparison_reference" "$actual_path" "${staging_path}/overlay-50.png" "${staging_path}/diff.png")" || exit $?
 
 output_relative="Artifacts/VisualComparisons/${target}"
 output_path="${project_root}/${output_relative}"
-staging_path="$(mktemp -d "${TMPDIR:-/tmp}/applesauce-compare.XXXXXX")"
-trap 'rm -rf -- "$staging_path"' EXIT
-
-actual_path="${staging_path}/actual.png"
-if ! xcrun simctl io "$simulator_udid" screenshot --type=png "$actual_path" >/dev/null; then
-    fail "Simulator screenshot capture failed."
-fi
-[[ -s "$actual_path" ]] || fail "Simulator screenshot capture did not produce an image."
-
-cp -p "$reference_path" "${staging_path}/reference.png"
-dimensions="$(xcrun swift -module-cache-path "${staging_path}/module-cache" \
-    "${script_dir}/VisualComparisonImageTool.swift" \
-    "${staging_path}/reference.png" \
-    "$actual_path" \
-    "${staging_path}/overlay-50.png" \
-    "${staging_path}/diff.png")" || exit $?
-
 mkdir -p "$output_path"
-for artifact in reference.png actual.png overlay-50.png diff.png; do
-    mv -f "${staging_path}/${artifact}" "${output_path}/${artifact}"
-done
+artifact_suffix=""
+[[ -z "$section_name" ]] || artifact_suffix="-section-${section_name}"
+[[ "$comparison_kind" != "fullContent" ]] || artifact_suffix="-full-content"
+mv -f "$comparison_reference" "${output_path}/reference${artifact_suffix}.png"
+mv -f "$actual_path" "${output_path}/actual${artifact_suffix}.png"
+mv -f "${staging_path}/overlay-50.png" "${output_path}/overlay-50${artifact_suffix}.png"
+mv -f "${staging_path}/diff.png" "${output_path}/diff${artifact_suffix}.png"
+
+build_revision="$(git -C "$project_root" rev-parse --verify HEAD 2>/dev/null || print unknown)"
+build_state="clean"
+[[ -z "$(git -C "$project_root" status --porcelain 2>/dev/null)" ]] || build_state="working-tree-modified"
+timestamp="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+manifest_path="${output_path}/comparison${artifact_suffix}.json"
+printf '{\n  "target": "%s",\n  "screen": "%s",\n  "reference": "%s",\n  "comparisonKind": "%s",\n  "derivedReferenceCropPixels": "%s",\n  "dimensionsPixels": "%s",\n  "referenceImageScale": "%s",\n  "declaredViewportPixels": "%s",\n  "appearance": "%s",\n  "dynamicType": "%s",\n  "capturePosition": "%s",\n  "captureSource": "%s",\n  "actualSource": "%s",\n  "simulator": "%s",\n  "buildRevision": "%s",\n  "buildState": "%s",\n  "createdAt": "%s"\n}\n' \
+    "$target" "$(metadata_value screen)" "$reference_relative" "$comparison_kind" "$derived_coordinates" "$dimensions" \
+    "$(metadata_value imageScale)" "$(metadata_value viewportDimensions)" "$(metadata_value appearance)" "$(metadata_value dynamicType)" \
+    "$capture_position" "$capture_source" "$actual_source" "$simulator_name" \
+    "$build_revision" "$build_state" "$timestamp" > "$manifest_path"
 
 print -- "AppleSauceUI Visual Comparison"
-print
-printf "%-12s %s\n" "Target:" "$target"
-printf "%-12s %s\n" "Reference:" "$reference_relative"
-printf "%-12s %s\n" "Simulator:" "$simulator_name"
-printf "%-12s %s\n" "Dimensions:" "${dimensions/x/ × }"
-if [[ -f "$metadata_path" ]]; then
-    printf "%-12s %s\n" "Metadata:" "$metadata_relative"
-    if [[ -n "$metadata_name" ]]; then
-        printf "%-12s %s\n" "Fixture:" "$metadata_name"
-    fi
-    if (( ${#metadata_conditions} > 0 )); then
-        printf "%-12s %s\n" "Conditions:" "${(j: · :)metadata_conditions}"
-    fi
-fi
-print
-print -- "✓ reference.png"
-print -- "✓ actual.png"
-print -- "✓ overlay-50.png"
-print -- "✓ diff.png"
-print
-print -- "Output:"
-print -- "${output_relative}/"
+printf "%-14s %s\n" "Target:" "$target" "Screen:" "$(metadata_value screen)" "Comparison:" "$comparison_kind" "Dimensions:" "${dimensions/x/ × }" "Build:" "${build_revision} (${build_state})"
+[[ "$derived_coordinates" == "none" ]] || printf "%-14s %s\n" "Derived crop:" "${derived_coordinates} (x,y,width,height pixels from canonical top-left)"
+print -- "Output: ${output_relative}/"

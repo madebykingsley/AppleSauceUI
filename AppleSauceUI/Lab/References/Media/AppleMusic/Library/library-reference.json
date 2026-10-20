@@ -1,12 +1,20 @@
 {
-  "name": "Apple Music — Library",
-  "platform": "iOS",
-  "os": "27.0",
-  "device": "iPhone 17 Pro",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-music/library",
+  "screen": "Apple Music — Library",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 1900,
+    "scale": null
+  },
+  "viewport": null,
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "Library",
-  "dimensions": "402 × 1900",
-  "notes": "Scrollable full-page screenshot including system and tab bars. Mini player is present in the reference but excluded from reconstruction."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [],
+  "supportsFullContentComparison": true,
+  "notes": "Scrollable full-content reference; mini player is present but excluded from reconstruction. Device model, OS version, viewport dimensions, and image scale are unknown and are intentionally not asserted."
 }

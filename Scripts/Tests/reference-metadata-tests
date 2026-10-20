@@ -1,0 +1,48 @@
+#!/bin/zsh
+
+set -euo pipefail
+
+script_dir="${0:A:h}"
+project_root="${script_dir:h:h}"
+tool="${project_root}/Scripts/ReferenceMetadataTool.swift"
+image_tool="${project_root}/Scripts/VisualComparisonImageTool.swift"
+reference="${project_root}/AppleSauceUI/Lab/References/Media/AppleMusic/Home/reference.png"
+metadata="${project_root}/AppleSauceUI/Lab/References/Media/AppleMusic/Home/reference.json"
+temporary_directory="$(mktemp -d "${TMPDIR:-/tmp}/reference-metadata-tests.XXXXXX")"
+trap 'rm -rf -- "$temporary_directory"' EXIT
+
+expect_failure() {
+    local expected="$1"
+    shift
+    local output
+    if output="$($@ 2>&1)"; then
+        print -u2 -- "Expected command to fail: $*"
+        exit 1
+    fi
+    [[ "$output" == *"$expected"* ]] || {
+        print -u2 -- "Expected failure containing '$expected', got:"
+        print -u2 -- "$output"
+        exit 1
+    }
+}
+
+xcrun swift "$tool" validate "$metadata" "$reference" >/dev/null
+xcrun swift "$tool" section "$metadata" "$reference" top "${temporary_directory}/top.png" >/dev/null
+[[ "$(sips -g pixelWidth -g pixelHeight "${temporary_directory}/top.png" 2>/dev/null)" == *"pixelWidth: 402"* ]]
+[[ "$(sips -g pixelWidth -g pixelHeight "${temporary_directory}/top.png" 2>/dev/null)" == *"pixelHeight: 874"* ]]
+
+printf '%s\n' '{"schemaVersion":1,"target":"test/single","screen":"Single","referenceType":"singleViewport","image":{"widthPixels":402,"heightPixels":874,"scale":null},"viewport":{"widthPixels":402,"heightPixels":874},"appearance":"light","dynamicType":"large","capture":{"position":"top"},"sections":[],"supportsFullContentComparison":false}' > "${temporary_directory}/single.json"
+xcrun swift "$tool" validate "${temporary_directory}/single.json" "${temporary_directory}/top.png" >/dev/null
+/usr/bin/sed 's/"heightPixels":874}/"heightPixels":873}/' "${temporary_directory}/single.json" > "${temporary_directory}/single-incompatible.json"
+expect_failure "singleViewport image and viewport dimensions must match" xcrun swift "$tool" validate "${temporary_directory}/single-incompatible.json" "${temporary_directory}/top.png"
+
+/usr/bin/sed 's/"heightPixels": 4091/"heightPixels": 4090/' "$metadata" > "${temporary_directory}/wrong-dimensions.json"
+expect_failure "declared image is 402x4090, but PNG is 402x4091" xcrun swift "$tool" validate "${temporary_directory}/wrong-dimensions.json" "$reference"
+
+/usr/bin/sed 's/"height": 874/"height": 5000/' "$metadata" > "${temporary_directory}/out-of-bounds.json"
+expect_failure "outside the canonical image bounds" xcrun swift "$tool" validate "${temporary_directory}/out-of-bounds.json" "$reference"
+
+expect_failure "unknown section 'missing'" xcrun swift "$tool" section "$metadata" "$reference" missing "${temporary_directory}/missing.png"
+expect_failure "Dimension mismatch" xcrun swift "$image_tool" "$reference" "${temporary_directory}/top.png" "${temporary_directory}/overlay.png" "${temporary_directory}/diff.png"
+
+print -- "Reference metadata tests passed."
