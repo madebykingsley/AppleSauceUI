@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Bitmap artwork loaded from the asset catalog with a generated fallback.
 struct ArtworkImage: View {
@@ -8,9 +9,16 @@ struct ArtworkImage: View {
     var contentMode: ContentMode = .fill
     var placeholderSymbolPadding: CGFloat = 38
 
+    var resolvedImage: UIImage? {
+        guard let assetName else {
+            return nil
+        }
+        return UIImage(named: assetName)
+    }
+
     var body: some View {
-        if let assetName {
-            Image(assetName)
+        if let resolvedImage {
+            Image(uiImage: resolvedImage)
                 .resizable()
                 .aspectRatio(contentMode: contentMode)
                 .accessibilityHidden(true)

@@ -113,9 +113,16 @@ Do not extract reusable `FooScreen`, `MediaDetailRecipe`, or similar screen-leve
 
 ## 3. Library discovery, reuse, and extraction
 
-Before implementing UI, consult `AppleSauceUI/Library/README.md`, relevant component documentation, and representative consumers. Identify the closest existing Element or Pattern and determine whether the requirement is already supported, a legitimate variant, a small semantic extension, or a different concept.
+Before implementing UI, inspect the reference, then consult `AppleSauceUI/Library/README.md`, relevant component documentation, and representative consumers. Identify the closest existing Element or Pattern and determine whether the requirement is already supported, a legitimate variant, a small semantic extension, or a different concept.
 
-Reuse an abstraction when its documented responsibilities fit. Otherwise, extend it when its semantic identity remains intact, or create a focused generalized Element or Pattern. Moving an app-specific View into Library unchanged, or merely giving it a generic name, does not satisfy generalization.
+Reuse an abstraction only when its documented responsibilities fit after comparing all four of these dimensions:
+
+- **Anatomy:** semantic content, hierarchy, and accessibility composition.
+- **Geometry ownership:** which layer owns size, aspect ratio, clipping, spacing, and collection placement.
+- **Interaction:** control independence, actions, navigation, focus, and selection behavior.
+- **Adaptive behavior:** resizing, Dynamic Type, platform conventions, and compact/expanded arrangements.
+
+Otherwise, extend it when its semantic identity remains intact, or create a focused generalized Element or Pattern. Visual resemblance or a shared image is not enough to justify component reuse. **Component reuse** shares semantic presentation and behavior; **asset reuse** shares only supplied artwork, symbols, colors, or other content resources. An asset may be reused while its consumers remain distinct components. Moving an app-specific View into Library unchanged, or merely giving it a generic name, does not satisfy generalization.
 
 ### Extension threshold
 
@@ -142,7 +149,7 @@ Prefer focused semantic choices such as `MediaCard(style: .poster)`. Keep distin
 
 For every custom UI concept, identify the smallest coherent design grammar that applies beyond the current app's names and fixtures. Generalize that concept into Library as part of ordinary screen work. Do not require a second implemented consumer or a separate extraction request.
 
-- Compare anatomy, content hierarchy, interaction, and layout with existing Library components and representative Music, Podcasts, App Store, or other available examples. Prefer reuse or a small semantic extension before creating a sibling component.
+- Compare anatomy, geometry ownership, interaction, and adaptive behavior with existing Library components and representative Music, Podcasts, App Store, or other available examples. Prefer reuse or a small semantic extension before creating a sibling component.
 - Name APIs for their reusable responsibility rather than the originating app or screen. For example, station shortcuts may reveal an elevated tile Element and a category/channel browsing grid Pattern; an on-air card may already fit `MediaCard` with a focused extension. These are candidates to assess, not mandated new types.
 - Separate the Element from its collection Pattern and its supplied artwork. A tile owns its surface and content anatomy; a grid owns arrangement and adaptation; station logos and fixture strings are content.
 - Remove dependencies on example models, brand-specific string parsing, fixture identities, and app-specific conditionals. Accept narrow semantic presentation inputs, caller-supplied artwork, and actions where appropriate.
@@ -153,31 +160,27 @@ A completed screen must not leave custom visual components in Examples merely be
 
 ## 4. Screen-driven workflow
 
-### Inventory
+### Inspect
 
-Before coding, inventory each visual concept and collection relationship. Identify existing Elements and Patterns to reuse or extend, missing generalized abstractions, and example-owned content or wiring. Apply the discovery and generalization rules above.
+Inspect the supplied reference and inventory each visual concept, content relationship, interaction, and adaptive expectation. Inspect existing Elements, Patterns, documentation, and representative consumers. Classify likely reuse, extensions, missing generalized abstractions, assets, and example-owned wiring using the four-dimension reuse comparison above.
 
-### Build
+### Prove with actual content
 
-Construct the screen with native SwiftUI and AppleSauce abstractions. Temporary local implementations may help establish structure, but generalize their visual concepts into Library before considering the screen complete.
-
-### Observe
-
-Once the structure works, inspect duplication and repeated semantic relationships:
+Construct the consumer with native SwiftUI and AppleSauce abstractions using the actual fixture strings, artwork, controls, and states intended for the specimen. Prove the hierarchy, layout, scrolling, artwork bounds, readable-content fit, control reachability, and relevant adaptive behavior before finalizing an abstraction. Placeholder rectangles or shortened copy do not prove layout correctness. Temporary local implementations may establish structure while answering:
 
 - What general concept does this presentation express after removing app-specific content and branding?
 - Is it an Element, a Pattern, or merely local composition?
 - Could an existing abstraction support it cleanly?
 
-### Extract
+### Generalize
 
 As a required part of screen work, reuse or extend existing abstractions and extract missing generalized Elements/Patterns. Replace temporary custom example components with direct Library composition. Keep APIs semantic and small, and preserve the ownership boundaries above. Do not wait for a separate extraction request.
 
-### Validate
+Validate that generalization captures the visual concept independently of example models and branding, improves semantic clarity, avoids excessive configuration, remains Style Profile and Density compatible, and preserves native SwiftUI behavior. Demonstrate representative content from another domain in previews without claiming an unimplemented production consumer. Review the screen for custom presentation left inline as well as in separate View files.
 
-Verify that generalization captures the visual concept independently of example models and branding, improves semantic clarity, avoids excessive configuration, remains Style Profile and Density compatible, and preserves native SwiftUI behavior. Demonstrate representative content from another domain in previews without claiming an unimplemented production consumer. Review the screen for custom presentation left inline as well as in separate View files.
+### Verify the final consumer
 
-Verify affected consumers before deleting superseded example code. Use the visual-verification mode below; extraction does not reset the screenshot budget or automatically authorize iterative visual refinement.
+Render and inspect the final consumer after extraction or reuse changes, with actual content and at relevant sizes or states. Verification of a temporary proof does not verify the generalized component or its final consumer. Verify affected consumers before deleting superseded example code, and follow the completion gates and refinement budget below.
 
 ## 5. Visual reconstruction and verification
 
@@ -208,24 +211,22 @@ Resolve discrepancies in this order:
 
 Do not compromise architecture, accessibility, or native interaction for closer screenshot alignment. Resolve structural discrepancies before optimizing individual pixels.
 
-### Ordinary new-screen work: strict screenshot budget
+### Visual completion gates and cosmetic-refinement budget
 
-Screenshots are a verification tool, not the primary implementation loop. Unless the task explicitly calls for dedicated visual refinement, follow this budget for the screen task as a whole:
+Rendering the final consumer is mandatory whenever the environment can run it. Inspect it with actual content at the reference configuration and any materially different supported size, Dynamic Type setting, or interaction state implicated by the change. Screenshots and comparison artifacts are evidence, not a substitute for inspecting behavior.
 
-1. Inspect the supplied reference once and identify major geometry and hierarchy.
-2. Implement from code and existing AppleSauce conventions.
-3. Build and inspect the simulator after the major structure is complete.
-4. Perform at most **one primary screenshot comparison pass**.
-5. Make code corrections based on that comparison.
-6. Perform **one final verification capture only if materially necessary**.
+The following defects block visual completion:
 
-This allows at most two implementation captures: the primary comparison and a conditional final verification. Do not restart the budget after extraction or individual fixes.
+- Unintended overlap.
+- Clipped readable content.
+- Incorrect artwork bounds, aspect behavior, or clipping.
+- Controls that are inaccessible, unreachable, obscured, or too small to operate.
 
-Do not repeatedly capture after small edits, run iterative pixel-diff loops, process/crop/analyze many screenshots, or chase minor first-party rendering differences. Minimize image-processing work within each permitted pass.
+Correct blocking defects regardless of how many renders are required. After any correction that can affect layout, artwork, readable content, controls, or adaptation, render and reinspect the relevant final consumer and affected state. A prior capture cannot validate changed layout.
 
-Prioritize hierarchy, margins, section cadence, element sizing, content relationships, native interaction, and reusable design grammar over exact pixel matching.
+Once all completion gates pass, ordinary screen work gets a bounded cosmetic-refinement budget: perform one focused comparison pass, make one grouped set of non-blocking cosmetic corrections, and reinspect the result. Further iteration requires an explicitly dedicated visual-refinement task. Do not spend this budget chasing minor private-framework rendering, unavailable artwork, system typography rasterization, or status-bar differences.
 
-Accept minor differences caused by private Apple components/effects, unavailable artwork, native materials, system typography rendering, and status-bar state. Stop when the screen is structurally correct and visually convincing.
+If rendering or comparison tooling is unavailable, complete all code-level checks that remain possible and report the result as **visually unverified**. Do not imply visual completion from a successful build, preview compilation, or inspection of source alone; state what could not be rendered and which configurations remain unchecked.
 
 ### Dedicated visual-refinement tasks: evidence-driven iteration
 
@@ -245,9 +246,9 @@ Use the matching priority above and avoid unproductive pixel chasing. An ordinar
 - Comparison command: `Scripts/compare-ui <target>`.
 - Example: `Scripts/compare-ui media/apple-music/home`.
 
-Use this tooling for dedicated visual refinement; when used during ordinary screen work, it must stay within the screenshot budget.
+Use this tooling for dedicated visual refinement and for the focused cosmetic pass in ordinary screen work. Correctness-driven reinspection is governed by the completion gates, not by a screenshot-count ceiling.
 
-When artifacts are available, inspect `reference.png`, `actual.png`, `overlay-50.png`, and `diff.png` as part of the permitted comparison pass. Use current artifacts reflecting the intended screen and build.
+When artifacts are available, inspect `reference.png`, `actual.png`, `overlay-50.png`, and `diff.png`. Use current artifacts reflecting the intended final consumer and build.
 
 Never resize or alter the canonical reference to make a comparison pass. State what visual verification was actually performed and any remaining unverified differences.
 

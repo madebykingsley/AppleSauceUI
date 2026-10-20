@@ -87,9 +87,8 @@ struct PodcastsNewExample: View {
                         }
                     }
                     MediaShelf(title: "New Trailers", items: PodcastsFixtures.trailers, itemWidth: HorizontalCollectionItemSize.standard.width(in: .iPhoneStandard)) { trailer in
-                        MediaCard(background: trailer.color.gradient) {
+                        MediaCard(background: trailer.color.gradient, artworkGeometry: .aspectRatio(trailerAspectRatio)) {
                             ArtworkImage(assetName: trailer.resolvedArtworkName, placeholderSymbol: trailer.symbol, placeholderBackground: AnyShapeStyle(trailer.color.gradient))
-                                .aspectRatio(trailerAspectRatio, contentMode: .fit)
                         } metadata: {
                             VStack(alignment: .leading, spacing: 6) {
                                 Text(trailer.title)

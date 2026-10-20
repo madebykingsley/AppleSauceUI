@@ -24,11 +24,17 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: density.metrics.metadataSpacing) {
-            artwork
-                .aspectRatio(1, contentMode: .fit)
-                .frame(maxWidth: .infinity)
-                .overlay(styleProfile.imagery.overlay)
-                .clipShape(artworkShape)
+            ArtworkContainer(
+                geometry: .aspectRatio(1),
+                clipShape: artworkShape,
+                accessoryAlignment: .topLeading
+            ) {
+                artwork
+            } decoration: {
+                Rectangle().fill(styleProfile.imagery.treatment(.unmodified))
+            } accessory: {
+                artworkAccessory.padding(8)
+            }
                 .overlay {
                     artworkShape.strokeBorder(
                         styleProfile.effects.outlineColor,
@@ -41,7 +47,6 @@ struct SquareLockup<Artwork: View, ArtworkAccessory: View>: View {
                     x: styleProfile.effects.standardShadow.x,
                     y: styleProfile.effects.standardShadow.y
                 )
-                .overlay(alignment: .topLeading) { artworkAccessory.padding(8) }
             lockupMetadata
                 .accessibilityHidden(true)
         }
@@ -110,18 +115,26 @@ extension SquareLockup where ArtworkAccessory == EmptyView {
         style: SquareLockupStyle = .standard,
         @ViewBuilder artwork: () -> Artwork
     ) {
-        self.init(title: title, subtitle: subtitle, metadata: metadata, badge: badge, badgeAccessibilityLabel: badgeAccessibilityLabel, artworkAccessoryAccessibilityLabel: nil, style: style, artwork: artwork, artworkAccessory: { EmptyView() })
+        self.title = title
+        self.subtitle = subtitle
+        self.metadata = metadata
+        self.badge = badge
+        self.badgeAccessibilityLabel = badgeAccessibilityLabel
+        self.artworkAccessoryAccessibilityLabel = nil
+        self.style = style
+        self.artwork = artwork()
+        self.artworkAccessory = EmptyView()
     }
 }
 
 #if DEBUG
 #Preview("SquareLockup — Variants") {
     HStack(alignment: .top) {
-        SquareLockup(title: "Album", subtitle: "Artist") {
-            ArtworkPlaceholder(symbol: "music.note", background: AnyShapeStyle(.blue.gradient))
+        SquareLockup(title: "Blue Hour Arcade", subtitle: "North Arcade") {
+            ArtworkImage(assetName: "MusicBlueHourArcade", placeholderSymbol: "music.note", placeholderBackground: AnyShapeStyle(.blue.gradient))
         }
-        SquareLockup(title: "Show", subtitle: "Publisher", badge: "E", badgeAccessibilityLabel: "Explicit", style: .ranked(2)) {
-            ArtworkPlaceholder(symbol: "waveform", background: AnyShapeStyle(.purple.gradient))
+        SquareLockup(title: "Coastal Trail", subtitle: "Field Notes", badge: "E", badgeAccessibilityLabel: "Explicit", style: .ranked(2)) {
+            ArtworkImage(assetName: "EpisodeCoastalTrail", placeholderSymbol: "waveform", placeholderBackground: AnyShapeStyle(.purple.gradient))
         }
     }
     .frame(width: 334)
@@ -130,7 +143,7 @@ extension SquareLockup where ArtworkAccessory == EmptyView {
 
 #Preview("SquareLockup — Accessibility") {
     SquareLockup(title: "A Long Album Title That Wraps", subtitle: "A Long Artist Name", metadata: "Additional information") {
-        ArtworkPlaceholder(symbol: "music.note", background: AnyShapeStyle(.blue.gradient))
+        ArtworkImage(assetName: "MusicBlueHourArcade", placeholderSymbol: "music.note", placeholderBackground: AnyShapeStyle(.blue.gradient))
     }
     .frame(width: 220)
     .padding()

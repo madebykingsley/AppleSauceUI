@@ -1,12 +1,34 @@
 {
-  "name": "Apple Music — Home",
-  "platform": "iOS",
-  "os": "27.0",
-  "device": "iPhone 17 Pro",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-music/home",
+  "screen": "Apple Music — Home",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 4091,
+    "scale": null
+  },
+  "viewport": {
+    "widthPixels": 402,
+    "heightPixels": 874
+  },
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "Home",
-  "dimensions": "402 × 4091",
-  "notes": "Scrollable full-page screenshot including system and tab bars."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [
+    {
+      "name": "top",
+      "rectPixels": {
+        "x": 0,
+        "y": 0,
+        "width": 402,
+        "height": 874
+      },
+      "position": "top"
+    }
+  ],
+  "supportsFullContentComparison": true,
+  "notes": "Canonical long scrolling reference. Device model, OS version, and image scale are unknown and are intentionally not asserted."
 }

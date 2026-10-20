@@ -26,16 +26,17 @@ struct HorizontalShelfLayout<Items: RandomAccessCollection, ItemView: View>: Vie
 
     @ViewBuilder private var shelf: some View {
         let scrollView = ScrollView(.horizontal) {
-            LazyHStack(alignment: alignment, spacing: spacing) {
+            HStack(alignment: alignment, spacing: spacing) {
                 ForEach(items) { item in
                     itemView(item).frame(width: itemWidth)
                 }
             }
+            .fixedSize(horizontal: false, vertical: true)
             .scrollTargetLayout()
         }
         .contentMargins(.horizontal, contentMargins, for: .scrollContent)
         .scrollIndicators(.hidden)
-        .scrollClipDisabled()
+        .fixedSize(horizontal: false, vertical: true)
         if scrollingPolicy == .viewAligned {
             scrollView.scrollTargetBehavior(.viewAligned(limitBehavior: .always))
         } else {

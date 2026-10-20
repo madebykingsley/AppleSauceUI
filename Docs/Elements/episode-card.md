@@ -57,7 +57,7 @@ The active Style Profile supplies semantic typography, including emphasized date
 
 ## Accessibility considerations
 
-Artwork is decorative. Episode metadata is combined in reading order, including the media badge's accessibility label (or its visible text as a fallback), while playback and overflow remain separate accessible controls. Cards without a badge omit that value rather than announcing an empty field. At normal Dynamic Type sizes, the title and summary share a reserved four-line region so sibling cards remain equal-height: the title receives up to four lines and the summary uses the remainder. Accessibility sizes remove that fixed budget and allow text and the card to grow intrinsically.
+Artwork is decorative. Episode metadata is combined in reading order, including the media badge's accessibility label (or its visible text as a fallback), while playback and overflow remain separate accessible controls. Cards without a badge omit that value rather than announcing an empty field. At normal Dynamic Type sizes, title and summary line limits bound the amount of copy without removing either field from layout. Accessibility sizes remove those limits so metadata, controls, the horizontal collection, and any following section grow and position intrinsically.
 
 ## Platform adaptation
 

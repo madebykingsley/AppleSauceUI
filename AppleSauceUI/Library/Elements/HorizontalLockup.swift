@@ -53,9 +53,12 @@ struct HorizontalLockup<Artwork: View, Content: View, Accessory: View>: View {
     var body: some View {
         HStack(alignment: accessoryAlignment) {
             HStack(alignment: alignment, spacing: spacing) {
-                artwork
-                    .frame(width: artworkSize.width, height: artworkSize.height)
-                    .clipShape(artworkShape)
+                ArtworkContainer(
+                    geometry: .size(artworkSize),
+                    clipShape: artworkShape
+                ) {
+                    artwork
+                }
                     .overlay {
                         artworkShape.strokeBorder(
                             styleProfile.effects.outlineColor,

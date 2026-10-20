@@ -1,12 +1,20 @@
 {
-  "name": "Apple Music — New",
-  "platform": "iOS",
-  "os": "27.0",
-  "device": "iPhone 17 Pro",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-music/new",
+  "screen": "Apple Music — New",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 2610,
+    "scale": null
+  },
+  "viewport": null,
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "New",
-  "dimensions": "402 × 2610",
-  "notes": "Scrollable full-page screenshot including system and tab bars."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [],
+  "supportsFullContentComparison": true,
+  "notes": "Scrollable full-content reference including system and tab bars. Device model, OS version, viewport dimensions, and image scale are unknown and are intentionally not asserted."
 }

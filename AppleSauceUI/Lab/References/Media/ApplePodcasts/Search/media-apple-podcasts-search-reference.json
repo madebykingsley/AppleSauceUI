@@ -1,10 +1,20 @@
 {
-  "name": "Apple Podcasts — Search",
-  "platform": "iOS",
-  "orientation": "portrait",
+  "schemaVersion": 1,
+  "target": "media/apple-podcasts/search",
+  "screen": "Apple Podcasts — Search",
+  "referenceType": "longScrolling",
+  "image": {
+    "widthPixels": 402,
+    "heightPixels": 1370,
+    "scale": null
+  },
+  "viewport": null,
   "appearance": "light",
   "dynamicType": "large",
-  "screen": "Search",
-  "dimensions": "402 × 1370 pixels",
-  "notes": "Supplied full-page screenshot including system chrome, mini player, and tab bar. Pixel dimensions are not SwiftUI point measurements."
+  "capture": {
+    "position": "full content, beginning at top"
+  },
+  "sections": [],
+  "supportsFullContentComparison": true,
+  "notes": "Supplied full-content reference including system chrome, mini player, and tab bar. Device model, OS version, viewport dimensions, and image scale are unknown and are intentionally not asserted."
 }
